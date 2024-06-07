@@ -83,8 +83,7 @@
 										
 									</tr>
 								</thead>
-								<tbody>							
-									
+								<tbody class="text-center">	
 									<tr>
 										<td >CCMS_7</td>
 										<td class="col-size-1" >11:50:09 21-05-2024</td>
