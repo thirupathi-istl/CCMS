@@ -12,6 +12,11 @@
 	height: 600px;
 	overflow: auto;
 }
+.table-responsive-1
+{
+	max-height: 400px;
+	overflow: auto;
+}
 table th {
 	position: sticky;
 	top: 0;
