@@ -39,7 +39,7 @@
                       </div>
                     </div>
                   </div>
-               
+                  
                   <div class="col-4">
                     <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#installedModal">
                       <div class="card-body m-0 p-0">
@@ -323,18 +323,18 @@
           </div>
         </div>
       </div>
-</div>
-</div>
-<?php
-include("dashboard/dashboard_modals.php")
-?>
+    </div>
+  </div>
+  <?php
+  include("dashboard/dashboard_modals.php");
+  ?>
 
- </main>
-    
-    <script src="assets/js/sidebar-menu.js"></script>
-    <?php
-    include("assets/html/body-end.php"); 
-    include("assets/html/html-end.php"); 
-    ?>
+</main>
+
+<script src="assets/js/sidebar-menu.js"></script>
+<?php
+include("assets/html/body-end.php"); 
+include("assets/html/html-end.php"); 
+?>
 
 

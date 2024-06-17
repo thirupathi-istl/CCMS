@@ -83,8 +83,8 @@
                                         </td>
                                         <td><i class="bi bi-trash-fill text-danger" onclick="deleteRow(this)"></i></td>
                                     </tr>
-                                  
-									<tr>
+                                    
+                                    <tr>
                                         <td>Device 1</td>
                                         <td>ID001</td>
                                         <td>Installed</td>
@@ -117,7 +117,7 @@
                                         <td><i class="bi bi-trash-fill text-danger" onclick="deleteRow(this)"></i></td>
                                     </tr>
 
-									<tr>
+                                    <tr>
                                         <td>Device 1</td>
                                         <td>ID001</td>
                                         <td>Installed</td>
@@ -150,7 +150,7 @@
                                         <td><i class="bi bi-trash-fill text-danger" onclick="deleteRow(this)"></i></td>
                                     </tr>
 
-									<tr>
+                                    <tr>
                                         <td>Device 1</td>
                                         <td>ID001</td>
                                         <td>Installed</td>
@@ -183,7 +183,7 @@
                                         <td><i class="bi bi-trash-fill text-danger" onclick="deleteRow(this)"></i></td>
                                     </tr>
 
-									<tr>
+                                    <tr>
                                         <td>Device 1</td>
                                         <td>ID001</td>
                                         <td>Installed</td>
@@ -222,16 +222,16 @@
                 </div>
             </div>
         </div></div>
-        </div>
-    </main>
+    </div>
+</main>
 
-    <?php
-    include("devicelist/modals/adddevice_modal.php");
-    include("devicelist/modals/installedlights_modal.php");
-    include("devicelist/modals/addlight_modal.php");
-    ?>
-    
-     
+<?php
+include("devicelist/modals/adddevice_modal.php");
+include("devicelist/modals/installedlights_modal.php");
+include("devicelist/modals/addlight_modal.php");
+?>
+
+
 <script src="assets/js/sidebar-menu.js"></script>
 
 
