@@ -8,12 +8,14 @@
   include("assets/icons-svg/icons.php");
   include("assets/html/theme-selection.php");
   ?>
+</head>
+<body>
   <main class="d-flex flex-nowrap mt-5"> 
     <?php
     include("assets/html/navbar.php"); 
     include("assets/html/sidebar.php"); 
     ?>
-    <div class="d-flex flex-column flex-shrink-0 p-3 main-content ">
+    <div class="d-flex flex-column flex-shrink-0 p-3 main-content">
       <div class="container-fluid">
 
         <div class="row d-flex align-items-center">
@@ -30,28 +32,26 @@
               <div class="col-12 rounded mt-2 p-0 ">
                 <div class="row">
                   <div class="col-4">
-                    <div class="card text-center shadow">
+                    <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#TotalModal">
                       <div class="card-body m-0 p-0">
                         <p class="card-text fw-semibold m-0 py-1"><i class="bi bi-bar-chart-fill h4"></i> Total</p>
-                        <!-- <hr class="mt-0"> -->
                         <h3 class="card-title py-2">220</h3>
                       </div>
                     </div>
                   </div>
+               
                   <div class="col-4">
-                    <div class="card text-center shadow">
+                    <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#installedModal">
                       <div class="card-body m-0 p-0">
                         <p class="card-text fw-semibold m-0 py-1"><i class="bi bi-check-circle-fill h4"></i> Installed</p>
-                        <!-- <hr class="mt-0"> -->
                         <h3 class="card-title py-2">160</h3>
                       </div>
                     </div>
                   </div>
                   <div class="col-4">
-                    <div class="card text-center shadow">
+                    <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#notinstalledModal">
                       <div class="card-body m-0 p-0">
                         <p class="card-text fw-semibold m-0 py-1"><i class="bi bi-x-circle-fill h4"></i> Not-installed</p>
-                        <!-- <hr class="mt-0"> -->
                         <h3 class="card-title py-2">60</h3>
                       </div>
                     </div>
@@ -62,7 +62,7 @@
               <div class="col-12 rounded mt-3 p-0">
                 <div class="row">
                   <div class="col-xl-3 col-6">
-                    <div class="card text-center shadow">
+                    <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#activeModal">
                       <div class="card-body m-0 p-0">
                         <p class="card-text fw-semibold m-0 py-1 text-success"><i class="bi bi-lightbulb-fill h4"></i> Active</p>
                         <!-- <hr class="mt-0"> -->
@@ -71,7 +71,7 @@
                     </div>
                   </div>
                   <div class="col-xl-3 col-6">
-                    <div class="card text-center shadow">
+                    <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#activePoorNetworkModal">
                       <div class="card-body m-0 p-0">
                         <p class="card-text fw-semibold m-0 py-1 text-danger-emphasis text-opacity-25"><i class="bi bi-exclamation-triangle-fill h4"></i> Poor N/W</p>
                         <!-- <hr class="mt-0"> -->
@@ -79,8 +79,8 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-xl-3 col-6 mt-3 mt-xl-0">
-                    <div class="card text-center shadow">
+                  <div class="col-xl-3 col-6 mt-3 mt-xl-0" >
+                    <div class="card text-center shadow"data-bs-toggle="modal" data-bs-target="#powerfailureModal">
                       <div class="card-body m-0 p-0">
                         <p class="card-text fw-semibold m-0 py-1 text-body-tertiary"><i class="bi bi-power h4"></i> Input Power Fail</p>
                         <!-- <hr class="mt-0"> -->
@@ -89,7 +89,7 @@
                     </div>
                   </div>
                   <div class="col-xl-3 col-6 mt-3 mt-xl-0">
-                    <div class="card text-center shadow">
+                    <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#faultModal">
                       <div class="card-body m-0 p-0">
                         <p class="card-text fw-semibold m-0 py-1 text-danger"><i class="bi bi-bug-fill h4"></i> Faulty</p>
                         <!-- <hr class="mt-0"> -->
@@ -103,7 +103,7 @@
               <div class="col-12 rounded mt-3 p-0">
                 <div class="row">
                   <div class="col-4">
-                    <div class="card text-center shadow">
+                    <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#AutoOnModal">
                       <div class="card-body m-0 p-0">
                         <p class="card-text fw-semibold m-0 py-1"> <i class="bi bi-clock-fill h4"></i> Auto/System On</p>
                         <!-- <hr class="mt-0"> -->
@@ -112,7 +112,7 @@
                     </div>
                   </div>
                   <div class="col-4">
-                    <div class="card text-center shadow">
+                    <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#manualOnModal">
                       <div class="card-body m-0 p-0">
                         <p class="card-text fw-semibold m-0 py-1">  <i class="bi bi-hand-index-fill h4"></i> Manual On</p>
                         <!-- <hr class="mt-0"> -->
@@ -121,7 +121,7 @@
                     </div>
                   </div>
                   <div class="col-4">
-                    <div class="card text-center shadow">
+                    <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#offModal">
                       <div class="card-body m-0 p-0">
                         <p class="card-text fw-semibold m-0 py-1"> <i class="bi bi-toggle-off h4"></i> OFF</p>
                         <!-- <hr class="mt-0"> -->
@@ -266,7 +266,7 @@
                       </a>
                       <a href="#" class="list-group-item list-group-item-action " aria-current="true">
                         <div class="d-flex w-100 justify-content-between">
-                          <small class="mb-1 sub-sup-font-size">BMC_CCMS_1(P(1)</small>
+                          <small class="mb-1 sub-sup-font-size">BMC_CCMS_1(P(1))</small>
                           <small class="text-body-secondary">05:47:59 29-04-2024</small>
                         </div>
                         <small class="mb-1 font-small">ID:BMC_CCMS_1(P(1) BAIRAGARH) Switched ON(MANUAL) Lights GPS: http://maps.google.com/?q=23.2791383,77.3370483.</small>
@@ -297,7 +297,7 @@
                       </a>
                       <a href="#" class="list-group-item list-group-item-action " aria-current="true">
                         <div class="d-flex w-100 justify-content-between">
-                          <small class="mb-1 sub-sup-font-size">BMC_CCMS_1(P(1)</small>
+                          <small class="mb-1 sub-sup-font-size">BMC_CCMS_1(P(1))</small>
                           <small class="text-body-secondary">05:47:59 29-04-2024</small>
                         </div>
                         <small class="mb-1 font-small">ID:BMC_CCMS_1(P(1) BAIRAGARH) Switched ON(MANUAL) Lights GPS: http://maps.google.com/?q=23.2791383,77.3370483.</small>
@@ -323,10 +323,18 @@
           </div>
         </div>
       </div>
-    </main>
+</div>
+</div>
+<?php
+include("dashboard/dashboard_modals.php")
+?>
+
+ </main>
+    
     <script src="assets/js/sidebar-menu.js"></script>
     <?php
     include("assets/html/body-end.php"); 
     include("assets/html/html-end.php"); 
     ?>
+
 
