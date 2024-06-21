@@ -1,26 +1,26 @@
-<script>
-    function openBatchConfirmModal(action, tableId) {
-        const selectedDevices = document.querySelectorAll(`#${tableId} input[name$="Device"]:checked`);
-        const actionText = action === 'install' ? 'install' : 'uninstall';
-        document.getElementById('confirmActionText').innerText = `Are you sure you want to ${actionText} the following devices?`;
 
-        const deviceList = document.getElementById('selectedDevicesList');
-        deviceList.innerHTML = '';
-        selectedDevices.forEach(device => {
-            const li = document.createElement('li');
+function openBatchConfirmModal(action, tableId) {
+    const selectedDevices = document.querySelectorAll(`#${tableId} input[name$="Device"]:checked`);
+    const actionText = action === 'install' ? 'install' : 'uninstall';
+    document.getElementById('confirmActionText').innerText = `Are you sure you want to ${actionText} the following devices?`;
+
+    const deviceList = document.getElementById('selectedDevicesList');
+    deviceList.innerHTML = '';
+    selectedDevices.forEach(device => {
+        const li = document.createElement('li');
             li.textContent = device.parentElement.nextElementSibling.textContent; // Get the device ID from the next table cell
             deviceList.appendChild(li);
         });
 
-        document.getElementById('confirmActionButton').onclick = function() {
-            confirmAction(action, selectedDevices, tableId);
-        };
+    document.getElementById('confirmActionButton').onclick = function() {
+        confirmAction(action, selectedDevices, tableId);
+    };
 
-        const confirmModal = new bootstrap.Modal(document.getElementById('confirmActionModal'));
-        confirmModal.show();
-    }
+    const confirmModal = new bootstrap.Modal(document.getElementById('confirmActionModal'));
+    confirmModal.show();
+}
 
-    function confirmAction(action, selectedDevices, tableId) {
+function confirmAction(action, selectedDevices, tableId) {
         const actionDate = document.getElementById('actionDate').value; // Get selected date from modal
 
         selectedDevices.forEach(device => {
@@ -46,4 +46,3 @@
         const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmActionModal'));
         confirmModal.hide();
     }
-</script>

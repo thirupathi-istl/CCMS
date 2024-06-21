@@ -7,7 +7,7 @@ SessionManager::startSession();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {   
 	SessionManager::login("ap");
 	echo "<script>
-	localStorage.setItem('client_type', '1');
+	localStorage.setItem('client_type', 'ap');
 	window.location.href = '" . BASE_PATH . "0/index.php';
 	</script>";
 	exit();

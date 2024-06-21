@@ -1,4 +1,4 @@
-<script>
+
 
 // Function to add a new device
     function addDevice() {
@@ -104,4 +104,3 @@ function addLight() {
 function deleteLightRow(element) {
     element.closest('tr').remove();
 }
-</script>

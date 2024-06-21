@@ -227,6 +227,7 @@ include(BASE_PATH."devicelist/modals/addlight_modal.php");
 include(BASE_PATH."js_modal_scripts/devicelist_modal_script.php");
 ?>
 <script src="<?php echo BASE_PATH;?>assets/js/sidebar-menu.js"></script>
+<script src="<?php echo BASE_PATH;?>js_modal_scripts/devicelist_modal_script.js"></script>
 <?php
 include(BASE_PATH."assets/html/body-end.php");
 include(BASE_PATH."assets/html/html-end.php");
