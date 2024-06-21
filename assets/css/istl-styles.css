@@ -9,7 +9,7 @@
 }
 
 .table-responsive {
-	height: 600px;
+	max-height: 600px;
 	overflow: auto;
 }
 .table-responsive-1
@@ -34,8 +34,8 @@ table th {
 }		
 th,
 td {
-	padding: 15px 15px !important;			
-	min-width: 120px;
+	padding: 12px !important;			
+	min-width: 120px !important;
 }
 .col-size-1{
 	min-width: 180px !important;
@@ -65,4 +65,17 @@ td {
 .sticky-header .header-row-2 {
 	top: 2em; 
 	z-index: 2;
+}
+.popup-session-out {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	display: none;
+	z-index: 999999;
 }

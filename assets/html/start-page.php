@@ -1,0 +1,10 @@
+<?php
+include(BASE_PATH."assets/html/html-link.php");
+include(BASE_PATH."assets/html/body-start.php");
+include(BASE_PATH."assets/html/session-out-warning.php");
+include(BASE_PATH."assets/icons-svg/icons.php");
+include(BASE_PATH."assets/html/theme-selection.php");
+include(BASE_PATH."assets/html/main-start.php");
+include(BASE_PATH."assets/html/navbar.php");
+include(BASE_PATH."assets/html/sidebar.php");
+?>

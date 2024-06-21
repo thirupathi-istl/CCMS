@@ -1,7 +1,7 @@
 <nav class="navbar bg-body-tertiary fixed-top shadow">
   <div class="container-fluid">
     <a href="#" class="navbar-brand d-flex align-items-center me-md-auto link-body-emphasis text-decoration-none" style="margin-top:-10px">
-      <img id="istl-logo" src="assets/logos/istl_light.png" class="img-fluid" alt="iSTL Logo" alt="iScientific"> 
+      <img id="istl-logo" src="../assets/logos/istl_light.png" class="img-fluid" alt="iSTL Logo" alt="iScientific"> 
       <div class="name-and-tagline ms-2" >
         <div class="name fs-5 fw-bold" style="letter-spacing: -1px;">iScientific</div>
         <div class="text-primary" style="margin-top: -10px; font-size: 14px; letter-spacing: -1px;">TechSolutions Labs Pvt Ltd</div>
@@ -36,7 +36,7 @@
           <li><a class="dropdown-item bs-primary" href="#">Settings</a></li>
           <li><a class="dropdown-item" href="#">Profile</a></li>
           <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
+          <li><a class="dropdown-item" href="logout.php">Sign Out</a></li>
         </ul>
 
       </div>

@@ -8,12 +8,15 @@
     const storedTheme = getStoredTheme();
     if (storedTheme) 
     {  
-      const logo = document.getElementById('istl-logo'); 
+      const logo = document.getElementById('istl-logo-login'); 
+      const logo_2 = document.getElementById('istl-logo-login-1'); 
       if (logo) { 
         if (storedTheme === 'dark') {
           logo.src = '../assets/logos/istl_dark.png';
+          logo_2.src = '../assets/logos/istl_dark.png';
         } else if (storedTheme === 'light') {
           logo.src = '../assets/logos/istl_light.png'; 
+          logo_2.src = '../assets/logos/istl_light.png'; 
         }
       }
 
@@ -25,25 +28,31 @@
   const setTheme = theme => {
     if (theme === 'auto') {
       document.documentElement.setAttribute('data-bs-theme', (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));      
-      const logo = document.getElementById('istl-logo');
+      const logo = document.getElementById('istl-logo-login');
+      const logo_2 = document.getElementById('istl-logo-login-1');
       if (logo) 
       { 
         const storedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         if (storedTheme === 'dark') {
           logo.src = '../assets/logos/istl_dark.png'; // Set the src attribute for dark theme
+          logo_2.src = '../assets/logos/istl_dark.png'; // Set the src attribute for dark theme
         } else if (storedTheme === 'light') {
           logo.src = '../assets/logos/istl_light.png'; // Set the src attribute for light theme
+          logo_2.src = '../assets/logos/istl_light.png'; // Set the src attribute for light theme
         }
       }
       
     } else {
 
-      const logo = document.getElementById('istl-logo');
+      const logo = document.getElementById('istl-logo-login');
+      const logo_2 = document.getElementById('istl-logo-login-1');
       if (logo) { 
         if (theme === 'dark') {
           logo.src = '../assets/logos/istl_dark.png'; // Set the src attribute for dark theme
+          logo_2.src = '../assets/logos/istl_dark.png'; // Set the src attribute for dark theme
         } else if (theme === 'light') {
           logo.src = '../assets/logos/istl_light.png'; // Set the src attribute for light theme
+          logo_2.src = '../assets/logos/istl_light.png'; // Set the src attribute for light theme
         }
       }
       document.documentElement.setAttribute('data-bs-theme', theme);
