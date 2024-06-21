@@ -6,6 +6,7 @@ SessionManager::checkSession();
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 <head>
+
   <title>On-Off Control</title>  
   <?php
   include(BASE_PATH."assets/html/start-page.php");
@@ -47,7 +48,7 @@ SessionManager::checkSession();
                 <h5 class="text-center my-3">ON-OFF Oprational Modes</h5>
                 <div class="d-flex justify-content-center ">
                   <div class="btn-group overflow-x-auto" role="group ">
-                    <button type="button" class="btn btn-outline-primary">Schedule Time</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="openScheduleModal()">Schedule Time</button>
                     <button type="button" class="btn btn-outline-primary">Astronomical Time</button>
                     <button type="button" class="btn btn-outline-primary">Ambient/LDR</button>
                     <button type="button" class="btn btn-outline-primary">Ambient & Astronomical</button>
@@ -200,7 +201,16 @@ SessionManager::checkSession();
       </div>
     </div>
   </div>
+</div>
+</div>
 </main>
+
+<script src="<?php echo BASE_PATH;?>js_modal_scripts/schedule_time_modal_script.js"></script>
+<?php
+
+
+include(BASE_PATH."dashboard/modals/schedule_time_modal.php"); 
+?>
 <script src="<?php echo BASE_PATH;?>assets/js/sidebar-menu.js"></script>
 <?php
 include(BASE_PATH."assets/html/body-end.php"); 

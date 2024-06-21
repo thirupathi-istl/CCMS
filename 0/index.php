@@ -1,3 +1,6 @@
+
+<!-- this is my index file -->
+
 <?php
 require_once 'config-path.php';
 require_once '../session/session-manager.php';
@@ -316,6 +319,7 @@ SessionManager::checkSession();
     </div>
   </div>
 </div>
+
 <?php
 include(BASE_PATH."dashboard/dashboard_modals.php");
 ?>
@@ -323,6 +327,8 @@ include(BASE_PATH."dashboard/dashboard_modals.php");
 </main>
 <script src="<?php echo BASE_PATH;?>assets/js/sidebar-menu.js"></script>
 <script src="<?php echo BASE_PATH;?>js_modal_scripts/dashboard_modals_script.js"></script>
+<script src="<?php echo BASE_PATH;?>js_modal_scripts/viewbutton.js"></script>
+
 <?php
 include(BASE_PATH."assets/html/body-end.php"); 
 include(BASE_PATH."assets/html/html-end.php"); 
