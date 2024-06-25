@@ -319,6 +319,7 @@ SessionManager::checkSession();
     </div>
   </div>
 </div>
+
 <?php
 include(BASE_PATH."dashboard/dashboard_modals.php");
 ?>
