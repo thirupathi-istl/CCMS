@@ -67,7 +67,4 @@
         </div>
     </div>
 </div>
- <?php
-// include("../js_modal_scripts/viewbutton.js");
-include("viewbutton_modal.php");
-?> 
+ 

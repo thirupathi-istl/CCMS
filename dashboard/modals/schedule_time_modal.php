@@ -1,6 +1,4 @@
-<!--  Schedule Time modal -->
 <head>
-
 <link href="<?php echo BASE_PATH?>assets/css/schedule_time_modal.css" rel="stylesheet">
 </head>
 <div class="modal fade" id="schedulemodal">
@@ -18,7 +16,6 @@
                       
                                 <div class="container">
                                     <div class="row">
-                                        <!-- ON Time -->
                                         <div class="col-md-6 mb-3">
                                             <div class="card">
                                                 <div>
@@ -123,8 +120,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <!-- OFF Time -->
                                         <div class="col-md-6 mb-3">
                                             <div class="card">
                                                 <div>
@@ -223,7 +218,6 @@
                                                         <option value="57">57</option>
                                                         <option value="58">58</option>
                                                         <option value="59">59</option>
-
                                                         </select>
                                                     </div>
                                                 </div>
@@ -231,11 +225,10 @@
                                         </div>
                                     </div>
                                 </div>
-
                         </div>
                         <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" >Save Change</button>
+                                <button type="submit" class="btn btn-primary" >Save Change</button>
                         </div>
               </div>
       </div>

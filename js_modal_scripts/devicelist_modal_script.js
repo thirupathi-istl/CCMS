@@ -1,14 +1,11 @@
 
 
-// Function to add a new device
     function addDevice() {
         var deviceName = document.getElementById('deviceName').value;
         var deviceID = document.getElementById('deviceID').value;
         var groupArea = document.getElementById('groupArea').value;
         var capacity = document.getElementById('capacity').value;
-        var activationCode = document.getElementById('activationCode').value;
 
-    // Add the new device to the table
         var table = document.querySelector('.styled-table tbody');
         var newRow = table.insertRow();
 
@@ -16,7 +13,6 @@
 
     }
 
-// Function to get current date in DD-MM-YYYY format
     function getCurrentDate() {
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
@@ -25,7 +21,6 @@
         return dd + '-' + mm + '-' + yyyy;
     }
 
-// Function to get current time in HH:mm:ss format
     function getCurrentTime() {
         var now = new Date();
         var hh = String(now.getHours()).padStart(2, '0');
@@ -33,7 +28,7 @@
         var ss = String(now.getSeconds()).padStart(2, '0');
         return hh + ':' + mm + ':' + ss;
     }
-// close button in Add Model
+
     function closeModal(modalId) {
         var modal = document.getElementById(modalId);
         modal.classList.remove('show');
@@ -43,12 +38,11 @@
         modalBackdrop.parentNode.removeChild(modalBackdrop);
         document.body.classList.remove('modal-open');
     }
-// Function to delete a row
+
     function deleteRow(element) {
         element.closest('tr').remove();
     }
 
-//Installed Lights Column Buttons Open Function
     function openLightsModal(element) {
         var row = element.closest('tr');
         var deviceName = row.cells[0].innerText;
@@ -56,8 +50,7 @@
 
 
         var lightsTableBody = document.getElementById('lightsTableBody');
-    lightsTableBody.innerHTML = ''; // Clear existing rows
-
+    lightsTableBody.innerHTML = ''; 
 
     var lightsData = [
         { brandName: 'Philips', wattage: 10, lights: 5, totalWatts: 50 },
@@ -74,13 +67,12 @@
     lightsModal.show();
 }
 
-// Function to show the add lights form
+
 function showAddLightsForm() {
     var addLightModal = new bootstrap.Modal(document.getElementById('addLightModal'));
     addLightModal.show();
 }
 
-// Function to add a new light
 function addLight() {
     var brandName = document.getElementById('brandName').value;
     var wattage = document.getElementById('wattage').value;
@@ -92,15 +84,12 @@ function addLight() {
     newRow.innerHTML = '<td>' + brandName + '</td><td>' + wattage + '</td><td>' + lights + '</td><td>' + totalWatts + '</td><td><i class="bi bi-trash-fill text-danger" onclick="deleteLightRow(this)"></i></td>';
 
 
-    // Hide the add lights form
     var addLightModal = bootstrap.Modal.getInstance(document.getElementById('addLightModal'));
     addLightModal.hide();
 
-    // Reset the form
     document.getElementById('addLightsForm').reset();
 }
 
-// Function to delete a light row
 function deleteLightRow(element) {
     element.closest('tr').remove();
 }

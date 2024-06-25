@@ -1,6 +1,3 @@
-
-<!-- this is my index file -->
-
 <?php
 require_once 'config-path.php';
 require_once '../session/session-manager.php';
@@ -10,7 +7,7 @@ SessionManager::checkSession();
 <html lang="en" data-bs-theme="auto">
 <head>
   <title>Dashboard</title>  
-  
+</head>
   <?php
   include(BASE_PATH."assets/html/start-page.php");
   ?>
@@ -30,7 +27,7 @@ SessionManager::checkSession();
             <div class="col-12 rounded mt-2 p-0 ">
               <div class="row">
                 <div class="col-4">
-                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#TotalModal">
+                  <div class="card text-center shadow card" data-bs-toggle="modal" data-bs-target="#TotalModal">
                     <div class="card-body m-0 p-0">
                       <p class="card-text fw-semibold m-0 py-1"><i class="bi bi-bar-chart-fill h4"></i> Total</p>
                       <h3 class="card-title py-2">220</h3>
@@ -39,7 +36,7 @@ SessionManager::checkSession();
                 </div>
 
                 <div class="col-4">
-                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#installedModal">
+                  <div class="card text-center shadow card" data-bs-toggle="modal" data-bs-target="#installedModal">
                     <div class="card-body m-0 p-0">
                       <p class="card-text fw-semibold m-0 py-1"><i class="bi bi-check-circle-fill h4"></i> Installed</p>
                       <h3 class="card-title py-2">160</h3>
@@ -47,7 +44,7 @@ SessionManager::checkSession();
                   </div>
                 </div>
                 <div class="col-4">
-                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#notinstalledModal">
+                  <div class="card text-center shadow card" data-bs-toggle="modal" data-bs-target="#notinstalledModal">
                     <div class="card-body m-0 p-0">
                       <p class="card-text fw-semibold m-0 py-1"><i class="bi bi-x-circle-fill h4"></i> Not-installed</p>
                       <h3 class="card-title py-2">60</h3>
@@ -60,7 +57,7 @@ SessionManager::checkSession();
             <div class="col-12 rounded mt-3 p-0">
               <div class="row">
                 <div class="col-xl-3 col-6">
-                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#activeModal">
+                  <div class="card text-center shadow card" data-bs-toggle="modal" data-bs-target="#activeModal">
                     <div class="card-body m-0 p-0">
                       <p class="card-text fw-semibold m-0 py-1 text-success"><i class="bi bi-lightbulb-fill h4"></i> Active</p>
                       <!-- <hr class="mt-0"> -->
@@ -69,7 +66,7 @@ SessionManager::checkSession();
                   </div>
                 </div>
                 <div class="col-xl-3 col-6">
-                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#activePoorNetworkModal">
+                  <div class="card text-center shadow card" data-bs-toggle="modal" data-bs-target="#activePoorNetworkModal">
                     <div class="card-body m-0 p-0">
                       <p class="card-text fw-semibold m-0 py-1 text-danger-emphasis text-opacity-25"><i class="bi bi-exclamation-triangle-fill h4"></i> Poor N/W</p>
                       <!-- <hr class="mt-0"> -->
@@ -78,7 +75,7 @@ SessionManager::checkSession();
                   </div>
                 </div>
                 <div class="col-xl-3 col-6 mt-3 mt-xl-0" >
-                  <div class="card text-center shadow"data-bs-toggle="modal" data-bs-target="#powerfailureModal">
+                  <div class="card text-center shadow card"data-bs-toggle="modal" data-bs-target="#powerfailureModal">
                     <div class="card-body m-0 p-0">
                       <p class="card-text fw-semibold m-0 py-1 text-body-tertiary"><i class="bi bi-power h4"></i> Input Power Fail</p>
                       <!-- <hr class="mt-0"> -->
@@ -86,8 +83,8 @@ SessionManager::checkSession();
                     </div>
                   </div>
                 </div>
-                <div class="col-xl-3 col-6 mt-3 mt-xl-0">
-                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#faultModal">
+                <div class="col-xl-3 col-6 mt-3 mt-xl-0 ">
+                  <div class="card text-center shadow card" data-bs-toggle="modal" data-bs-target="#faultModal">
                     <div class="card-body m-0 p-0">
                       <p class="card-text fw-semibold m-0 py-1 text-danger"><i class="bi bi-bug-fill h4"></i> Faulty</p>
                       <!-- <hr class="mt-0"> -->
@@ -101,7 +98,7 @@ SessionManager::checkSession();
             <div class="col-12 rounded mt-3 p-0">
               <div class="row">
                 <div class="col-4">
-                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#AutoOnModal">
+                  <div class="card text-center shadow card" data-bs-toggle="modal" data-bs-target="#AutoOnModal">
                     <div class="card-body m-0 p-0">
                       <p class="card-text fw-semibold m-0 py-1"> <i class="bi bi-clock-fill h4"></i> Auto/System On</p>
                       <!-- <hr class="mt-0"> -->
@@ -110,7 +107,7 @@ SessionManager::checkSession();
                   </div>
                 </div>
                 <div class="col-4">
-                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#manualOnModal">
+                  <div class="card text-center shadow card" data-bs-toggle="modal" data-bs-target="#manualOnModal">
                     <div class="card-body m-0 p-0">
                       <p class="card-text fw-semibold m-0 py-1">  <i class="bi bi-hand-index-fill h4"></i> Manual On</p>
                       <!-- <hr class="mt-0"> -->
@@ -119,7 +116,7 @@ SessionManager::checkSession();
                   </div>
                 </div>
                 <div class="col-4">
-                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#offModal">
+                  <div class="card text-center shadow card" data-bs-toggle="modal" data-bs-target="#offModal">
                     <div class="card-body m-0 p-0">
                       <p class="card-text fw-semibold m-0 py-1"> <i class="bi bi-toggle-off h4"></i> OFF</p>
                       <!-- <hr class="mt-0"> -->
@@ -134,7 +131,7 @@ SessionManager::checkSession();
               <div class="row">
                 <div class="col-xl-6 ">
                   <div class="card h-100 shadow-sm text-left p-2">
-                    <p class="d-flex align-items-center"> <i class="bi bi-lamp-fill h4"></i> Installed Lights: <span><span class="h3 ms-4 text-primary-emphasis"> 2562</span> </span>
+                    <p class="d-flex align-items-center"> <i class="bi bi-lamp-fill h4"></i> Installed Lights: <span><span class="h3 ms-4 text-info"> 2562</span> </span>
                     </p>
                     <div class="progress">
                       <div class="progress-bar bg-success" role="progressbar" style="width: 60%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">60%-ON</div>
@@ -207,7 +204,7 @@ SessionManager::checkSession();
         <div class="col-lg-5 ">
           <div class="row ps-0 ps-lg-2 h-100">
             <div class="col-12 rounded mt-4 mt-lg-2 p-0">
-              <div class="card bg-light-subtle shadow">
+              <div class="card bg-light-subtle shadow card ">
                 <div class="card-header">
                   <i class="bi bi-chat-dots-fill"></i> Messages
                 </div>

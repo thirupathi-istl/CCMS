@@ -1,7 +1,5 @@
 <?php
-
 include("modals/Total_modal.php");
-
 include("modals/Installed_modal.php");
 include("modals/uninstalled_modal.php");
 include("modals/poorNw_modal.php");
@@ -12,6 +10,5 @@ include("modals/Systemon_modal.php");
 include("modals/manualon_modal.php");
 include("modals/off_modal.php");
 include("modals/confirmation_modal.php");
-
 include("../js_modal_scripts/devicelist_modal_script.php");
 ?>
