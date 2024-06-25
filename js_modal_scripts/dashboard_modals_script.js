@@ -46,3 +46,4 @@ function confirmAction(action, selectedDevices, tableId) {
         const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmActionModal'));
         confirmModal.hide();
     }
+    
