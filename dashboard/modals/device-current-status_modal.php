@@ -11,7 +11,7 @@
                         <div class="col-xl-3 col-6">
                             <div class="card text-center shadow">
                                 <div class="card-body m-0 p-0">
-                                    <p class="card-text fw-semibold m-0 py-1"><i class="bi bi-lightbulb-fill h4"></i> Total Lights</p>                                            
+                                    <p class="card-text fw-semibold m-0 py-1"><i class="bi bi-lightbulb-fill h4"></i> Total Lights</p>
                                     <h3 class="card-title py-2">70</h3>
                                 </div>
                             </div>
@@ -35,8 +35,8 @@
                         <div class="col-xl-3 col-6 mt-3 mt-xl-0">
                             <div class="card text-center shadow" >
                                 <div class="card-body m-0 p-0">
-                                    <p class="card-text fw-semibold m-0 py-1 "><i class="bi bi-lightning-fill h4"></i> Voltage</p>
-                                    <h3 class="card-title py-2">60</h3>
+                                    <p class="card-text fw-semibold m-0 py-1 "><i class="bi bi-lightning-fill h4"></i> On/Off Status</p>
+                                    <h3 class="card-title py-2">ON</h3>
                                 </div>
                             </div>
                         </div>
@@ -80,10 +80,10 @@
                             <div class="card shadow bg-primary mt-2 py-2">
                                 <div class="card-body m-0 p-0 text-white">
                                     <div class="row">
-                                        <div class="col-sm-4 justify-content-center d-flex align-items-center">
+                                        <div class="col-md-4 justify-content-center d-flex align-items-center">
                                             <div class="phase-text justify-content-center d-flex align-items-center">B</div>
                                         </div>
-                                        <div class="col-sm-8 justify-content-center d-flex align-items-center">
+                                        <div class="col-md-8 justify-content-center d-flex align-items-center">
                                             <h3 class="card-title py-2 text-center m-0 ">248</h3>
                                         </div>
                                     </div>

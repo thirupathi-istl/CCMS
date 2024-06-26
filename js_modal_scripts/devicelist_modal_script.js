@@ -80,7 +80,7 @@ function showAddLightsForm() {
     addLightModal.show();
 }
 
-// Function to add a new light
+// Function to add a new light 
 function addLight() {
     var brandName = document.getElementById('brandName').value;
     var wattage = document.getElementById('wattage').value;
@@ -103,4 +103,5 @@ function addLight() {
 // Function to delete a light row
 function deleteLightRow(element) {
     element.closest('tr').remove();
+    
 }
