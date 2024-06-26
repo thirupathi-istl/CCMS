@@ -29,6 +29,8 @@ SessionManager::checkSession();
 
       </div>
     </div>
+
+    <!-- Modals links -->
   </main>
   <script src="<?php echo BASE_PATH;?>assets/js/sidebar-menu.js"></script>
   <?php
