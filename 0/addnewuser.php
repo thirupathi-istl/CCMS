@@ -6,9 +6,6 @@ SessionManager::checkSession();
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 <head>
-<style>
-
-    </style>
   <title>Add New User</title>  
   <?php
   include(BASE_PATH."assets/html/start-page.php");
