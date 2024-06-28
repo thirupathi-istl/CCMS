@@ -1,6 +1,11 @@
+function addUser() {
+    const modal = new bootstrap.Modal(document.getElementById('adduser'));
+    modal.show();
+}
 
-    
-let userCount = 1;
+
+let userCount = document.querySelectorAll('.styled-table tbody tr').length;
+
 function addUser() {
     const modal = new bootstrap.Modal(document.getElementById('adduser'));
     modal.show();
@@ -8,23 +13,62 @@ function addUser() {
 
 function addDevice() {
     const name = document.getElementById('userName').value;
-    const role = document.getElementById('userRole').value;
+    const userId = document.getElementById('userid').value; // Assuming this is User ID field
+    const userRole = document.getElementById('UserRole').value;
+    const email = document.getElementById('userEmail').value;
+    const mobile = document.getElementById('userMobile').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmpassword').value;
 
-    if (name && role) {
+    // Check if password and confirm password fields match
+    if (password !== confirmPassword) {
+        showCustomAlert("Password and Confirm Password Should be Same.");
+        return;
+    }
+
+    // Check if all fields are filled
+    if (name && userId && userRole && email && mobile && password) {
         const table = document.querySelector('.styled-table tbody');
         const newRow = table.insertRow();
         newRow.innerHTML =
-            "<td>" + (++userCount) + "</td>" +
-            "<td>" + name + "</td>" +
-            "<td>" + role + "</td>" +
-            "<td><i class='bi bi-trash-fill text-danger' onclick='deleteRow(this)'></i></td>" +
-            "<td><button type='button' class='btn btn-primary' onclick='userview(this)'>Devices Handled</button></td>";
-        clearForm();
+            '<td>' + (table.rows.length) + '</td>' +
+            '<td>' + name + '</td>' +
+            '<td>' + userId + '</td>' +
+            '<td>' + userRole + '</td>' +
+            '<td>' + email + '</td>' +
+            '<td>' + mobile + '</td>' +
+            '<td>' + password + '</td>' +
+            '<td><button type="button" class="btn btn-primary" onclick="userview(this)">Devices Handled</button></td>' +
+            '<td><i class="bi bi-trash-fill text-danger" onclick="deleteRow(this)"></i></td>';
+
+        clearForm(); 
         const modal = bootstrap.Modal.getInstance(document.getElementById('adduser'));
         modal.hide();
+    } else {
+        showCustomAlert("Please fill all the fields.");
     }
 }
 
+// Function to show custom alert
+function showCustomAlert(message) {
+    const customAlert = document.getElementById('customAlert');
+    const customAlertMessage = document.getElementById('customAlertMessage');
+    customAlertMessage.textContent = message;
+    customAlert.style.display = 'flex';
+}
+
+// Function to hide custom alert
+function hideCustomAlert() {
+    const customAlert = document.getElementById('customAlert');
+    customAlert.style.display = 'none';
+}
+
+
+
+
+function clearForm() {
+    document.getElementById('addUserform').reset();
+}
 
 function deleteRow(button) {
     const row = button.closest('tr');
@@ -40,27 +84,13 @@ function updateSerialNumbers() {
     });
 }
 
-function clearForm() {
-    document.getElementById('userName').value = '';
-    document.getElementById('userRole').value = '';
-}
-
 function userview(button) {
     const row = button.closest('tr');
     const cells = row.cells;
-    
-    // Assuming cells[0] is the S.No column, cells[1] is Name, and cells[2] is Role
     const name = cells[1].innerText;
     const role = cells[2].innerText;
-    
-    // Now you can populate the userview modal with this data
     const modalTitle = document.getElementById('addUserModalLabel');
     modalTitle.textContent = 'User Details';
-    
-    // Additional logic to populate the userview modal with relevant data
-    // Example: Populate fields in userview modal with Name and Role
-    
-    // Show the userview modal
     const userviewModal = new bootstrap.Modal(document.getElementById('userview'));
     userviewModal.show();
 }
@@ -124,13 +154,17 @@ function saveUpdate() {
     }
 }
 
-//delete button script
+// Rows delete button script for device handled modal
 function deleteSelectedRows() {
     const checkboxes = document.querySelectorAll('#userview input[type="checkbox"]');
     checkboxes.forEach(checkbox => {
         if (checkbox.checked) {
             const row = checkbox.closest('tr');
-            row.remove();
+            const deviceId = row.querySelector('td:nth-child(2)').textContent; 
+            const deviceName = row.querySelector('td:nth-child(3)').textContent;
+            if (confirm('Are you sure you want to delete device '+deviceName+' with ID '+deviceId+'?')) {
+                row.remove();
+            }
         }
     });
 }
@@ -142,50 +176,64 @@ function addnewDevice(){
 //add device button script
 
 function addSelectedDevices() {
-    // Select all checkboxes in the addnewdevice modal
     const checkboxes = document.querySelectorAll('#addnewdevice input[type="checkbox"]:checked');
-
-    // Reference to the table body in userview modal
     const tableBody = document.querySelector('#userview table tbody');
-
-    // Array to store rows to be removed
     const rowsToRemove = [];
-
-    // Iterate over each checked checkbox
     checkboxes.forEach(checkbox => {
-        // Get the closest row (parent <tr> of the checkbox)
         const row = checkbox.closest('tr');
-
-        // Create a new row in the userview table
         const newRow = document.createElement('tr');
-
-        // Clone each cell from the selected row in addnewdevice modal
         for (let i = 1; i < row.cells.length; i++) {
             const cell = document.createElement('td');
             cell.textContent = row.cells[i].textContent;
             newRow.appendChild(cell);
         }
-
-        // Add checkbox (assuming it's the first column in userview modal)
         const selectCell = document.createElement('td');
         const newCheckbox = document.createElement('input');
         newCheckbox.type = 'checkbox';
         selectCell.appendChild(newCheckbox);
         newRow.insertBefore(selectCell, newRow.firstChild);
-
-        // Append the new row to the table body in userview modal
         tableBody.appendChild(newRow);
-
-        // Add the row to rowsToRemove array
         rowsToRemove.push(row);
     });
-
-    // Remove selected rows from addnewdevice modal
     rowsToRemove.forEach(row => {
         row.remove();
     });
-
-    // Close the addnewdevice modal
     const addNewDeviceModal = bootstrap.Modal.getInstance(document.getElementById('addnewdevice'));
     addNewDeviceModal.hide();
 }
+
+//select all button for deviceshandled modal
+function selectAllDevices_deviceshandled() {
+    var checkboxes = document.querySelectorAll('#userview input[type="checkbox"]');
+    var checked = true;
+
+    checkboxes.forEach(function(checkbox) {
+        if (!checkbox.checked) {
+            checked = false;
+        }
+    });
+    
+    checkboxes.forEach(function(checkbox) {
+        checkbox.checked = !checked;
+    });
+
+}
+//select all button for add button modal
+function selectAllDevicesaddbutton(){
+var checkboxes1 = document.querySelectorAll('#addnewdevice input[type="checkbox"]');
+var checked = true;
+checkboxes1.forEach(function(checkbox) {
+    if (!checkbox.checked) {
+        checked = false;
+    }
+});
+
+checkboxes1.forEach(function(checkbox) {
+    checkbox.checked = !checked;
+});
+
+}
+
+
+
+
