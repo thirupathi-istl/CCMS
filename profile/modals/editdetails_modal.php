@@ -16,11 +16,11 @@
             <div class="row">
               <div class="col">
               <label for="Mobile" class="form-label">Mobile</label>
-              <input type="text" class="form-control" placeholder="Enter Mobile Number" id="Mobile" name="Mobile">
+              <input type="text" class="form-control" placeholder="Enter Mobile Number" id="Mobile" name="Mobile" maxlength="10">
               </div>
               <div class="col">
-              <label for="Email" class="form-label">Email</label>
-              <input type="text" class="form-control" placeholder="Enter Email" id="Email" name="Email">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" placeholder="Enter Email" id="Email" name="Email">
               </div>
             </div>
             
