@@ -1,35 +1,11 @@
-<style>
-.custom-alert {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-} 
-.custom-alert-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    text-align: center;
-}
-.highlight-first-letter::first-letter {
-    color: red;
-    font-weight: bold; 
-    }
-</style>
-
-
+<?php
+include("..assets/css/istl-styles.css");
+?>
 <div class="modal fade" id="adduser" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable ">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addUserModalLabel">Add New User</h1>
+                    <h1 class="modal-title fs-5 highlight-first-letter" id="addUserModalLabel">Add New User</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -70,7 +46,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="addDevice()">Add New User</button>
+                    <button type="button" class="btn btn-primary" onclick="addNewUser()">Add New User</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>

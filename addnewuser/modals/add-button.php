@@ -6,8 +6,18 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                        <div class="col-12 col-md-6 col-lg-6 mb-2">
+                            <div class="input-group">
+                                <input type="text" class="form-control " placeholder="Search..." id="addButtonSearch">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button" onclick="addButtonSearch()">
+                                        <i class="bi bi-search"></i> Search
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                 <div class="table-responsive rounded mt-2 border">
-                    <table class="table table-striped styled-table w-100">
+                    <table class="table table-striped table-type-1 table-sticky-header w-100 text-center addButtonSearch">
                         <thead>
                             <tr>
                                 <th class="bg-logo-color text-white">Select</th>
@@ -33,7 +43,7 @@
                                 <td><input type="checkbox"></td>
                                 <td>2134313</td>
                                 <td>Device6</td>
-                                <td>ECL</td>
+                                <td>Cherlapalli</td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox"></td>
@@ -45,7 +55,7 @@
                                 <td><input type="checkbox"></td>
                                 <td>1431</td>
                                 <td>Device8</td>
-                                <td>ECL</td>
+                                <td>Cherlapalli</td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox"></td>
@@ -57,7 +67,7 @@
                                 <td><input type="checkbox"></td>
                                 <td>1344</td>
                                 <td>Device10</td>
-                                <td>ECL</td>
+                                <td>Cherlapalli</td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox"></td>
@@ -78,3 +88,7 @@
     </div>
 </div>
 
+
+<?php
+include("../js_modal_scripts/searchbar.js");
+?>

@@ -43,44 +43,64 @@ SessionManager::checkSession();
        
                 <div class="col-12 p-0">
                     <div class="table-responsive rounded mt-2 border">
-                    <table class="table table-striped styled-table w-100 text-center resulttable">
-                                <thead>
-                                    <tr>
-                                        <th class="bg-logo-color text-white">S.No</th>
-                                        <th class="bg-logo-color text-white">Name</th>
-                                        <th class="bg-logo-color text-white">User_Id</th>
-                                        <th class="bg-logo-color text-white">User_Role</th>
-                                        <th class="bg-logo-color text-white">Email</th>
-                                        <th class="bg-logo-color text-white">Mobile</th>
-                                        <th class="bg-logo-color text-white">Password</th>
-                                        <th class="bg-logo-color text-white">Status</th>
-                                        <th class="bg-logo-color text-white ">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>XYZ</td>
-                                        <td>B6QA12</td>
-                                        <td>Employee</td>
-                                        <td>name@gmail.com</td>
-                                        <td>1234567890</td>
-                                        <td>xyz@123</td>
-                                        <td><button type="button" class="btn btn-primary" onclick="userview(this)">Devices Handled</button></td>
-                                        <td><i class="bi bi-trash-fill text-danger" onclick="deleteRow(this)"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>ABC</td>
-                                        <td>B6QA25</td>
-                                        <td>Employee</td>
-                                        <td>name@gmail.com</td>
-                                        <td>1234567890</td>
-                                        <td>xyz@123</td>
-                                        <td><button type="button" class="btn btn-primary" onclick="userview(this)">Devices Handled</button></td>
-                                        <td><i class="bi bi-trash-fill text-danger" onclick="deleteRow(this)"></i></td>
-                                    </tr>
-                                </tbody>
+                        <table class="table table-striped styled-table table-sticky-header table-type-1 w-100 text-center resulttable">
+                            <thead>
+                                <tr>
+                                    <th class="bg-logo-color text-white">S.No</th>
+                                    <th class="bg-logo-color text-white">Name</th>
+                                    <th class="bg-logo-color text-white">User_Id</th>
+                                    <th class="bg-logo-color text-white">User_Role</th>
+                                    <th class="bg-logo-color text-white">Email</th>
+                                    <th class="bg-logo-color text-white">Mobile</th>
+                                    <th class="bg-logo-color text-white">Password</th>
+                                    <th class="bg-logo-color text-white">Status</th>
+                                    <th class="bg-logo-color text-white">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>XYZ</td>
+                                    <td>B6QA12</td>
+                                    <td>Employee</td>
+                                    <td>name@gmail.com</td>
+                                    <td>1234567890</td>
+                                    <td>xyz@123</td>
+                                    <td><button type="button" class="btn btn-primary" onclick="userview(this)">Devices Handled</button></td>
+                                    <td>
+                                        <div class="btn-group dropend">                                           
+                                            <button class="btn" type="button" data-bs-toggle="dropdown" style="border:none">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                            <ul class="dropdown-menu bg-white text-center" style="background:none;border:none;">
+                                                <li><p class="mt-2 pointer" onclick="editMainTableDetails(this)"><strong>Edit</strong></p></li>
+                                                <li><i class="bi bi-trash-fill text-danger mb-5 pointer" onclick="deleteRow(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"></i></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>ABC</td>
+                                    <td>B6QA25</td>
+                                    <td>Employee</td>
+                                    <td>name@gmail.com</td>
+                                    <td>1234567890</td>
+                                    <td>xyz@123</td>
+                                    <td><button type="button" class="btn btn-primary" onclick="userview(this)">Devices Handled</button></td>
+                                    <td>
+                                        <div class="btn-group dropend">                                           
+                                            <button class="btn" type="button" data-bs-toggle="dropdown" style="border:none">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                            <ul class="dropdown-menu bg-white text-center" style="background:none;border:none;">
+                                                <li><p class="mt-2 pointer" onclick="editMainTableDetails(this)"><strong>Edit</strong></p></li>
+                                                <li><i class="bi bi-trash-fill text-danger mb-5 pointer" onclick="deleteRow(this)"></i></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -88,6 +108,7 @@ SessionManager::checkSession();
         </div>
     </div>
 </div>
+
 
 
 </main>
@@ -100,5 +121,7 @@ SessionManager::checkSession();
   include(BASE_PATH."addnewuser/modals/adduser-button.php");
   include(BASE_PATH."addnewuser/modals/deviceshandled-button.php");
   include(BASE_PATH."addnewuser/modals/update-button.php");   
-  include(BASE_PATH."addnewuser/modals/add-button.php");  
+  include(BASE_PATH."addnewuser/modals/add-button.php");
+  include(BASE_PATH."addnewuser/modals/edit-user-details.php");  
   ?>
+
