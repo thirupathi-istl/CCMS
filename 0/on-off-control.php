@@ -58,7 +58,7 @@ SessionManager::checkSession();
                   <small>Note: The device follows any one of the above modes to turn on/off the lights. Not all modes operate simultaneously.</small>
                 </p>
                 <div class="d-flex justify-content-end mt-3">
-                  <button type="button" class="btn btn-primary">Multiple Device Selection</button>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#multiple">Multiple Device Selection</button>
                 </div>
               </div>
             </div>
@@ -204,8 +204,12 @@ SessionManager::checkSession();
 </div>
 </div>
 </main>
-
+<!-- Modal -->
+ <?php
+include("../on_off_control/multiple_device_selection.php");
+?>
 <script src="<?php echo BASE_PATH;?>js_modal_scripts/schedule_time_modal_script.js"></script>
+<script src="<?php echo BASE_PATH;?>js_modal_scripts/multiple_device_selection.js"></script>
 <?php
 
 
