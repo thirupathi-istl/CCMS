@@ -3,35 +3,28 @@ function addUser() {
     modal.show();
 }
 
-
 let userCount = document.querySelectorAll('.styled-table tbody tr').length;
 
-function addUser() {
-    const modal = new bootstrap.Modal(document.getElementById('adduser'));
-    modal.show();
-}
-
-function addDevice() {
+function addNewUser(){
     const name = document.getElementById('userName').value;
-    const userId = document.getElementById('userid').value; // Assuming this is User ID field
+    const userId = document.getElementById('userid').value; 
     const userRole = document.getElementById('UserRole').value;
     const email = document.getElementById('userEmail').value;
     const mobile = document.getElementById('userMobile').value;
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmpassword').value;
 
-    // Check if password and confirm password fields match
     if (password !== confirmPassword) {
         showCustomAlert("Password and Confirm Password Should be Same.");
         return;
     }
 
-    // Check if all fields are filled
+
     if (name && userId && userRole && email && mobile && password) {
         const table = document.querySelector('.styled-table tbody');
         const newRow = table.insertRow();
         newRow.innerHTML =
-            '<td>' + (table.rows.length) + '</td>' +
+            '<td>' + (table.rows.length + 1) + '</td>' +
             '<td>' + name + '</td>' +
             '<td>' + userId + '</td>' +
             '<td>' + userRole + '</td>' +
@@ -39,15 +32,15 @@ function addDevice() {
             '<td>' + mobile + '</td>' +
             '<td>' + password + '</td>' +
             '<td><button type="button" class="btn btn-primary" onclick="userview(this)">Devices Handled</button></td>' +
-            '<td><i class="bi bi-trash-fill text-danger" onclick="deleteRow(this)"></i></td>';
+            '<td> <div class="btn-group dropend"><button class="btn" type="button" data-bs-toggle="dropdown" style="border:none"><i class="bi bi-three-dots-vertical"></i></button><ul class="dropdown-menu bg-white text-center" style="background:none;border:none;"><li><p class="mt-2 pointer"  onclick="editMainTableDetails(this)"><strong>Edit</strong></p></li><li><i class="bi bi-trash-fill text-danger mb-5 pointer" onclick="deleteRow(this)"></i></li></ul></div></td>';
 
-        clearForm(); 
+        clearForm();
         const modal = bootstrap.Modal.getInstance(document.getElementById('adduser'));
-        modal.hide();
     } else {
         showCustomAlert("Please fill all the fields.");
     }
 }
+
 
 // Function to show custom alert
 function showCustomAlert(message) {
@@ -113,8 +106,8 @@ function openUpdateModal() {
 
     if (selectedRow) {
         const cells = selectedRow.cells;
-        document.getElementById('devicename').value = cells[2].innerText; // Device Name
         document.getElementById('deviceid').value = cells[1].innerText; // Device ID
+        document.getElementById('devicename').value = cells[2].innerText; // Device Name
         document.getElementById('devicegroup').value = cells[3].innerText; // Group/Area
 
         const updateModal = new bootstrap.Modal(document.getElementById('updatebutton'));
@@ -142,8 +135,8 @@ function saveUpdate() {
 
         if (selectedRow) {
             const cells = selectedRow.cells;
-            cells[2].innerText = devicename; // Update Device Name
             cells[1].innerText = deviceid; // Update Device ID
+            cells[2].innerText = devicename; // Update Device Name
             cells[3].innerText = devicegroup; // Update Group/Area
 
             const updateModal = bootstrap.Modal.getInstance(document.getElementById('updatebutton'));
@@ -232,6 +225,69 @@ checkboxes1.forEach(function(checkbox) {
     checkbox.checked = !checked;
 });
 
+}
+
+//edit user Script
+let currentRow = null;
+
+function editMainTableDetails(element) {
+    if (!element) {
+        console.error('No element provided to editMainTableDetails');
+        return;
+    }
+
+    currentRow = element.closest('tr');
+    if (!currentRow) {
+        console.error('No row found for the provided element');
+        return;
+    }
+    document.getElementById('edituserName').value = currentRow.cells[1].innerText;
+    document.getElementById('edituserid').value = currentRow.cells[2].innerText;
+    document.getElementById('editUserRole').value = currentRow.cells[3].innerText;
+    document.getElementById('edituserEmail').value = currentRow.cells[4].innerText;
+    document.getElementById('edituserMobile').value = currentRow.cells[5].innerText;
+    document.getElementById('editpassword').value = currentRow.cells[6].innerText;
+    var editmodal = new bootstrap.Modal(document.getElementById('edit'));
+    editmodal.show();
+}
+
+function saveUserDetails() {
+    if (currentRow) {
+     
+        const edituserName = document.getElementById('edituserName').value;
+        const edituserid = document.getElementById('edituserid').value;
+        const editUserRole = document.getElementById('editUserRole').value;
+        const edituserEmail = document.getElementById('edituserEmail').value;
+        const edituserMobile = document.getElementById('edituserMobile').value;
+        const editpassword = document.getElementById('editpassword').value;
+        currentRow.cells[1].innerText = edituserName;
+        currentRow.cells[2].innerText = edituserid;
+        currentRow.cells[3].innerText = editUserRole;
+        currentRow.cells[4].innerText = edituserEmail;
+        currentRow.cells[5].innerText = edituserMobile;
+        currentRow.cells[6].innerText = editpassword;
+
+        document.getElementById('Usereditform').reset();
+        var modal = bootstrap.Modal.getInstance(document.getElementById('edit'));
+        if (modal) {
+            modal.hide();
+        }
+
+        currentRow = null;
+    }
+}
+
+function deleteRow(element) {
+    if (!element) {
+        console.error('No element provided to deleteRow');
+        return;
+    }
+    const row = element.closest('tr');
+    if (row) {
+        row.remove();
+    } else {
+        console.error('No row found for the provided element');
+    }
 }
 
 
