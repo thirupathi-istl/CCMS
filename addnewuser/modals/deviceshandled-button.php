@@ -56,6 +56,3 @@
     </div>
 </div>
 
-<?php
-include("../js_modal_scripts/searchbar.js");
-?>
