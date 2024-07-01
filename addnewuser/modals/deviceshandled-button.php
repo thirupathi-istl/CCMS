@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
                 <div class="table-responsive rounded mt-2 border">
-                    <table class="table table-striped styled-table w-100">
+                    <table class="table table-striped styled-table w-100 resulttable">
                         <thead>
                             <tr>
                                 <th class="bg-logo-color text-white">Select</th>
@@ -33,12 +33,14 @@
                     </table>
                 </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer d-flex justify-content-center">
                 <button type="button" class="btn btn-warning" onclick="openUpdateModal()">Update</button>
-                <button type="button" class="btn btn-danger"  onclick="deleteSelectedRows()">Delete</button>
+                <button type="button" class="btn btn-danger" onclick="deleteSelectedRows()">Delete</button>
                 <button type="button" class="btn btn-primary" onclick="addnewDevice()">Add</button>
+                <button type="button" class="btn btn-info" onclick="selectAllDevices_deviceshandled()">Select All</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
+
         </div>
     </div>
 </div>
