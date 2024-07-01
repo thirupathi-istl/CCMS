@@ -8,7 +8,7 @@
             <div class="modal-body" >
                 <div class="col-12 p-0">
                     <div class="table-responsive-1 rounded mt-2 border ">
-                        <table class="table table-striped table-type-1 w-100 "id="totalDeviceTable">
+                        <table class="table table-striped table-type-1 w-100 text-center"id="totalDeviceTable">
                             <thead>
                                 <tr>
                                     <th class="bg-logo-color text-white" scope="col" style="width: 30px !important;">Select</th>

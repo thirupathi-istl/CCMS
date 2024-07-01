@@ -1,15 +1,26 @@
 <div class="modal fade" id="userview" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="addUserModalLabel">User Managing Devices</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                   
+                        <div class="col-12 col-md-6 col-lg-6 mb-2">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="devicehandlesearch">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button" onclick="devicehandleSearch()">
+                                        <i class="bi bi-search"></i> Search
+                                    </button>
+                                </div>
+                            </div>
+                         </div>
                 <div class="table-responsive rounded mt-2 border">
-                    <table class="table table-striped styled-table w-100 resulttable">
+                    <table class="table table-striped styled-table table-type-1  w-100 text-center devicehandlesearch">
                         <thead>
-                            <tr>
+                            <tr> 
                                 <th class="bg-logo-color text-white">Select</th>
                                 <th class="bg-logo-color text-white">Device ID</th>
                                 <th class="bg-logo-color text-white">Device Name</th>
@@ -44,3 +55,7 @@
         </div>
     </div>
 </div>
+
+<?php
+include("../js_modal_scripts/searchbar.js");
+?>

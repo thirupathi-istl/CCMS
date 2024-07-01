@@ -74,7 +74,7 @@ SessionManager::checkSession();
               <div class="card-body pt-0 pe-0">
                 <div class="list-group overflow-y-auto" style=" height:400px; ">
                   <div class="w-100 p-0">
-                   <table class="table table-hover">
+                   <table class="table table-hover text-center">
                     <thead class="thead-dark">
                       <tr>
                         <th scope="col">Device ID</th>
