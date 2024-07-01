@@ -254,7 +254,7 @@ include("../on_off_control/multiple_device_selection.php");
 
     <script src="<?php echo BASE_PATH;?>js_modal_scripts/multiple_device_selection.js"></script>
     <script src="<?php echo BASE_PATH;?>assets/js/sidebar-menu.js"></script>
-    <script src="<?php echo BASE_PATH;?>js_modal_scripts/notificationsettings/notification_setting_modal.js"></script>
+    <script src="<?php echo BASE_PATH;?>js_modal_scripts/notificationsettings/telegram_update_modal.js"></script>
   <?php
   include(BASE_PATH."assets/html/body-end.php"); 
   include(BASE_PATH."assets/html/html-end.php"); 
