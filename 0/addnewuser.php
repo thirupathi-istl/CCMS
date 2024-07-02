@@ -17,6 +17,7 @@ SessionManager::checkSession();
                 <p class="m-0 p-0"><span class="text-body-tertiary">Pages / </span><span>Add New User</span></p>
             </div>
         </div>
+
         <div class="row">     
             <div class="container mt-2 p-0">
                 <div class="row justify-content-between align-items-center">
@@ -27,12 +28,14 @@ SessionManager::checkSession();
                                 <button class="btn btn-primary" type="button" onclick="searchTable()">
                                     <i class="bi bi-search"></i> Search
                                 </button>
+
+                            </div>
+                            <div class="col-auto mb-2 ms-2">
+                                <button type="button" class="btn btn-primary w-md-auto" onclick="addUser()">Add User</button>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 mb-2 text-end ">
-                        <button type="button" class="btn btn-primary w-md-auto" onclick="addUser()">Add User</button>
-                    </div>
+
+                    
                 </div>
             </div>
             <div class="col-12 p-0">
@@ -101,6 +104,7 @@ SessionManager::checkSession();
         </div>
     </div>
 </div>
+
 </div>
 
 <?php
@@ -118,5 +122,4 @@ include(BASE_PATH."addnewuser/modals/edit-user-details.php");
 <?php
 include(BASE_PATH."assets/html/body-end.php"); 
 include(BASE_PATH."assets/html/html-end.php");
-?>D
-
+?>
