@@ -9,7 +9,7 @@
                 <div class="col-12 p-0">
                     <div class="card">
                         <div class="table-responsive rounded m-2 border" style="max-height: 200px; overflow-y: auto;">
-                            <table class="table table-striped table-type-1" id="totalDeviceTable">
+                            <table class="table table-striped table-type-1 text-center" id="totalDeviceTable">
                                 <thead>
                                     <tr>
                                         <th class="bg-logo-color text-white" style="width: 20%;" scope="col">Select</th>
