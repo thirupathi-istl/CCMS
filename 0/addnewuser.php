@@ -120,5 +120,5 @@ include(BASE_PATH."addnewuser/modals/edit-user-details.php");
 <?php
 include(BASE_PATH."assets/html/body-end.php"); 
 include(BASE_PATH."assets/html/html-end.php");
-?>D
+?>
 

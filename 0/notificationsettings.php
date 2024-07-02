@@ -112,9 +112,9 @@ SessionManager::checkSession();
 
                 <div class="card">
                     <div class="card-header bg-primary bg-opacity-25  fw-bold">
-                       SMPS
-                   </div>
-                   <div class="card-body">
+                     SMPS
+                 </div>
+                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <span>Enable/Disable</span>
                         <div class="form-check form-switch">
