@@ -6,17 +6,18 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                   
-                        <div class="col-12 col-md-6 col-lg-6 mb-2">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search..." id="devicehandlesearch">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button" onclick="devicehandleSearch()">
-                                        <i class="bi bi-search"></i> Search
-                                    </button>
+                        <div class="container mt-2 p-0 ">
+                                <div class="row justify-content-end align-items-center mt-2 ">
+                                    <div class="col-auto  mb-2">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Search..." id="devicehandlesearch">
+                                            <button class="btn btn-primary" type="button" onclick="devicehandleSearch()">
+                                                <i class="bi bi-search"></i> Search
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                         </div>
+                        </div>
                 <div class="table-responsive rounded mt-2 border">
                     <table class="table table-striped styled-table table-type-1  w-100 text-center devicehandlesearch">
                         <thead>
@@ -55,7 +56,4 @@
         </div>
     </div>
 </div>
-
-<?php
-include("../js_modal_scripts/searchbar.js");
-?>
+<script src="<?php echo BASE_PATH;?>js_modal_scripts/searchbar.js"></script>

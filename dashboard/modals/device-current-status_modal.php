@@ -1,5 +1,5 @@
 <div class="modal fade" id="openview">
-    <div class="modal-dialog modal-lg modal-fullscreen-lg-down">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="lightsModalLabel">Status</h5>
@@ -193,7 +193,32 @@
                         </div>
 
                     </div>
-                </div>                          
+                </div> 
+                
+
+                <div class="mt-4">
+                    <h5>Total Energy(units)</h5>
+                </div>
+                <div class="col-12 rounded mt-3 p-0">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 mb-2">
+                            <div class="card text-center shadow bg-secondary ">
+                                <div class="card-body m-0 p-0 text-white">
+                                    <p class="card-text fw-semibold m-0 py-1 "></i> kWh</p>
+                                    <h3 class="card-title py-2">22528</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6">
+                            <div class="card text-center shadow bg-secondary ">
+                                <div class="card-body m-0 p-0 text-white">
+                                    <p class="card-text fw-semibold m-0 py-1 ">kVAh</p>
+                                    <h3 class="card-title py-2 ">22641</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

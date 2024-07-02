@@ -52,7 +52,7 @@
                                     </div>
                                     <div class="card">
                                         <div class="table-responsive rounded m-2 border" style="max-height: 200px; overflow-y: auto;">
-                                            <table class="table table-type-1" id="totalDeviceTableAdd">
+                                            <table class="table table-type-1 text-center" id="totalDeviceTableAdd">
                                                 <thead>
                                                     <tr>
                                                         <th class="bg-logo-color text-white" style="width: 20%;" scope="col">Select</th>
@@ -125,7 +125,7 @@
                                     </div>
                                     <div class="card">
                                         <div class="table-responsive rounded m-2 border" style="max-height: 200px; overflow-y: auto;">
-                                            <table class="table table-type-1" id="totalDeviceTableRemove">
+                                            <table class="table table-type-1 text-center" id="totalDeviceTableRemove">
                                                 <thead>
                                                     <tr>
                                                         <th class="bg-logo-color text-white" style="width: 20%;" scope="col">Select</th>
