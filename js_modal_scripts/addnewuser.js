@@ -24,7 +24,7 @@ function addNewUser(){
         const table = document.querySelector('.styled-table tbody');
         const newRow = table.insertRow();
         newRow.innerHTML =
-            '<td>' + (table.rows.length + 1) + '</td>' +
+            '<td>' + (table.rows.length) + '</td>' +
             '<td>' + name + '</td>' +
             '<td>' + userId + '</td>' +
             '<td>' + userRole + '</td>' +

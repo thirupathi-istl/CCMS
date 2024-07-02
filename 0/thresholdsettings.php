@@ -57,7 +57,7 @@ SessionManager::checkSession();
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 p-0 ps-md-2 mt-2">
+            <div class="col-md-6 p-0 ps-md-2  mt-md-2 mt-3">
 
                 <div class="card h-100">
                     <div class="card-header bg-primary bg-opacity-25 fw-bold">
@@ -89,7 +89,7 @@ SessionManager::checkSession();
             </div>
             
         </div>
-        <div class="row mt-4">
+        <div class="row mt-3">
             <div class="col-md-6 p-0 pe-md-2">
                 <div class="card">
                     <div class="card-header bg-primary bg-opacity-25 fw-bold">
@@ -110,7 +110,7 @@ SessionManager::checkSession();
                 </div>
             </div>
         </div>
-        <div class="col-md-6 p-0 ps-md-2">
+        <div class="col-md-6 p-0 ps-md-2 mt-md-0 mt-3">
             <div class="card">
                 <div class="card-header bg-primary bg-opacity-25 fw-bold">
                     Frame Update Time
@@ -139,7 +139,7 @@ SessionManager::checkSession();
         </div>
     </div>
 
-    <div class="row mt-4">
+    <div class="row mt-3">
         <div class="col-md-4 p-0 pe-md-2">
 
             <div class="card">
@@ -162,7 +162,7 @@ SessionManager::checkSession();
             </div>
 
         </div>
-        <div class="col-md-4 p-0 px-md-2">
+        <div class="col-md-4 p-0 px-md-2 mt-md-0 mt-3">
 
             <div class="card">
                 <div class="card-header bg-primary bg-opacity-25 fw-bold">
@@ -184,7 +184,7 @@ SessionManager::checkSession();
             </div>
         </div>
 
-        <div class="col-md-4 p-0 ps-md-2">
+        <div class="col-md-4 p-0 ps-md-2 mt-md-0 mt-3">
 
             <div class="card">
                 <div class="card-header bg-primary bg-opacity-25 fw-bold">

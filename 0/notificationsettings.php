@@ -70,8 +70,7 @@ SessionManager::checkSession();
                     </div>
                 </div> 
             </div>
-            <div class="col-lg-4 p-0 px-lg-2">
-
+            <div class="col-lg-4 p-0 px-lg-2 mt-2 mt-lg-0">
                 <div class="card">
                     <div class="card-header bg-primary bg-opacity-25  fw-bold">
                         Overload
@@ -109,13 +108,13 @@ SessionManager::checkSession();
                     </div>
                 </div> 
             </div>
-            <div class="col-lg-4 p-0 ps-lg-2">
+            <div class="col-lg-4 p-0 ps-lg-2 mt-2 mt-lg-0">
 
                 <div class="card">
                     <div class="card-header bg-primary bg-opacity-25  fw-bold">
-                     SMPS
-                 </div>
-                 <div class="card-body">
+                       SMPS
+                   </div>
+                   <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <span>Enable/Disable</span>
                         <div class="form-check form-switch">
@@ -150,8 +149,8 @@ SessionManager::checkSession();
         </div>
     </div>
 
-    <div class="row mt-3 g-2">
-        <div class="col-lg-4 p-0 ps-lg-2">
+    <div class="row mt-3">
+        <div class="col-lg-4 p-0 pe-lg-2">
 
             <div class="card ">
                 <div class="card-header bg-primary bg-opacity-25  fw-bold">
@@ -190,7 +189,7 @@ SessionManager::checkSession();
                 </div>
             </div> 
         </div>
-        <div class="col-lg-4 p-0 ps-lg-2">
+        <div class="col-lg-4 p-0 mt-2 mt-lg-0 px-lg-2" >
 
             <div class="card">
                 <div class="card-header bg-primary bg-opacity-25  fw-bold">
@@ -237,7 +236,6 @@ SessionManager::checkSession();
 
 <?php
 include("../notificationsettings/telegramupdate_modal.php");
-
 include("../on_off_control/multiple_device_selection.php");
 ?>
 
