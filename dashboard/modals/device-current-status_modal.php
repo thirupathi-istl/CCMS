@@ -204,7 +204,7 @@
                         <div class="col-xl-6 col-lg-6 mb-2">
                             <div class="card text-center shadow bg-secondary ">
                                 <div class="card-body m-0 p-0 text-white">
-                                    <p class="card-text fw-semibold m-0 py-1 "></i> kWh</p>
+                                    <p class="card-text fw-semibold m-0 py-1 ">kWh</p>
                                     <h3 class="card-title py-2">22528</h3>
                                 </div>
                             </div>
