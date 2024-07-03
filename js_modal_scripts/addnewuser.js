@@ -24,15 +24,15 @@ function addNewUser(){
         const table = document.querySelector('.styled-table tbody');
         const newRow = table.insertRow();
         newRow.innerHTML =
-            '<td>' + (table.rows.length + 1) + '</td>' +
+            '<td>' + (table.rows.length) + '</td>' +
             '<td>' + name + '</td>' +
             '<td>' + userId + '</td>' +
             '<td>' + userRole + '</td>' +
             '<td>' + email + '</td>' +
             '<td>' + mobile + '</td>' +
             '<td>' + password + '</td>' +
-            '<td><button type="button" class="btn btn-primary" onclick="userview(this)">Devices Handled</button></td>' +
-            '<td> <div class="btn-group dropend"><button class="btn" type="button" data-bs-toggle="dropdown" style="border:none"><i class="bi bi-three-dots-vertical"></i></button><ul class="dropdown-menu bg-white text-center" style="background:none;border:none;"><li><p class="mt-2 pointer"  onclick="editMainTableDetails(this)"><strong>Edit</strong></p></li><li><i class="bi bi-trash-fill text-danger mb-5 pointer" onclick="deleteRow(this)"></i></li></ul></div></td>';
+            '<td><button type="button" class="btn btn-primary btn-sm p-0 px-2" onclick="userview(this)">Devices</button></td>' +
+            '<td> <div class="btn-group dropend"><button class="btn p-0" type="button" data-bs-toggle="dropdown" style="border:none"><i class="bi bi-three-dots-vertical"></i></button><ul class="dropdown-menu bg-white text-center" style="background:none;border:none;"><li><p class="mt-2 pointer pe-3"  onclick="editMainTableDetails(this)"><strong><i class="bi bi-pen-fill text-primary"></i>Edit</strong></p></li><li><i class="bi bi-trash-fill text-danger mb-5 pointer" onclick="deleteRow(this)"><strong>Delete</strong></i></li></ul></div></td>';
 
         clearForm();
         const modal = bootstrap.Modal.getInstance(document.getElementById('adduser'));
@@ -289,7 +289,3 @@ function deleteRow(element) {
         console.error('No row found for the provided element');
     }
 }
-
-
-
-

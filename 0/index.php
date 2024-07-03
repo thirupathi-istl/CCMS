@@ -25,7 +25,7 @@ SessionManager::checkSession();
       include(BASE_PATH."dropdown-selection/device-list.php");
       ?>
       <div class="row">
-        <div class="col-lg-7">
+        <div class="col-lg-8">
           <div class="row pe-0 pe-lg-2 h-100">
             <div class="col-12 rounded mt-2 p-0 ">
               <div class="row">
@@ -204,7 +204,7 @@ SessionManager::checkSession();
 
           </div>
         </div>
-        <div class="col-lg-5 ">
+        <div class="col-lg-4 ">
           <div class="row ps-0 ps-lg-2 h-100">
             <div class="col-12 rounded mt-4 mt-lg-2 p-0">
               <div class="card bg-light-subtle shadow">
