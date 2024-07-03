@@ -21,9 +21,9 @@ SessionManager::checkSession();
         <?php
         include(BASE_PATH."dropdown-selection/group-device-list.php");
         ?>
-        <div class="row mt-4">
-            <div class="col-md-6 p-0">
-                <div class="container ">
+        <div class="row ">
+            <div class="col-sm-6 p-0 pe-sm-2 ">
+                <div>
                   <div class="card mt-3">
                         <div class="card-header bg-primary bg-opacity-25 fw-bold">
                           GPS
@@ -46,7 +46,7 @@ SessionManager::checkSession();
                         </div>
                     </div>
                 </div>
-                <div class="container ">
+                <div >
                   <div class="card mt-3">
                         <div class="card-header bg-primary bg-opacity-25 fw-bold">
                           Static GPS
@@ -70,38 +70,38 @@ SessionManager::checkSession();
                     </div>
                 </div>
               </div>
-                <div class="col-lg-6">
-                <div class="container ">
-                    <div class="card mt-3">
-                      <div class="card-header bg-primary bg-opacity-25 fw-bold">
-                        Address
+                <div class="col-sm-6 p-0 ps-sm-2 ">
+                  
+                      <div class="card mt-3">
+                            <div class="card-header bg-primary bg-opacity-25 fw-bold">
+                              Address
+                            </div>
+                            <div class="card-body row">
+                                <form class="col-sm-12 col-md-12" id="Address">
+                                    <div class="mb-2 mt-1 ms-3">
+                                      <label for="Street" class="form-label " >Street/Line:</label>
+                                      <input type="text" class="form-control" id="street" placeholder="Enter street">
+                                      <label for="area" class="form-label " >Area:</label>
+                                      <input type="text" class="form-control" id="area" placeholder="Enter Area">
+                                      <label for="city" class="form-label " >City/Town:</label>
+                                      <input type="text" class="form-control" id="city" placeholder="Enter City/Town">
+                                      <label for="district" class="form-label " >District:</label>
+                                      <input type="text" class="form-control" id="district" placeholder="Enter District">
+                                      <label for="State" class="form-label " >State:</label>
+                                      <input type="text" class="form-control" id="State" placeholder="Enter State">
+                                      <label for="pincode" class="form-label " >Pincode:</label>
+                                      <input type="text" class="form-control" id="pincode" placeholder="Enter Pincode">
+                                      <label for="Country" class="form-label " >Country:</label>
+                                      <input type="text" class="form-control" id="Country" placeholder="Enter Country">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer text-end">
+                              <button type="submit" class="btn btn-primary" onclick="">Update</button>
+                            </div>
                         </div>
-                          <div class="card-body row">
-                              <form class="col-sm-12 col-md-12" id="Address">
-                                  <div class="mb-2 mt-1 ms-3">
-                                    <label for="Street" class="form-label " >Street/Line:</label>
-                                    <input type="text" class="form-control" id="street" placeholder="Enter street">
-                                    <label for="area" class="form-label " >Area:</label>
-                                    <input type="text" class="form-control" id="area" placeholder="Enter Area">
-                                    <label for="city" class="form-label " >City/Town:</label>
-                                    <input type="text" class="form-control" id="city" placeholder="Enter City/Town">
-                                    <label for="district" class="form-label " >District:</label>
-                                    <input type="text" class="form-control" id="district" placeholder="Enter District">
-                                    <label for="State" class="form-label " >State:</label>
-                                    <input type="text" class="form-control" id="State" placeholder="Enter State">
-                                    <label for="pincode" class="form-label " >Pincode:</label>
-                                    <input type="text" class="form-control" id="pincode" placeholder="Enter Pincode">
-                                    <label for="Country" class="form-label " >Country:</label>
-                                    <input type="text" class="form-control" id="Country" placeholder="Enter Country">
-                                  </div>
-                              </form>
-                          </div>
-                          <div class="card-footer text-end">
-                            <button type="submit" class="btn btn-primary" onclick="">Update</button>
-                        </div>
-                      </div>
-                  </div>
-            </div>
+                    
+              </div>
             
         </div>
     </div>
