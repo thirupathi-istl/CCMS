@@ -293,9 +293,7 @@ SessionManager::checkSession();
     </div>
     </div>
 
-    <script src="<?php echo BASE_PATH; ?>js_modal_scripts/devicesetting_popover.js"></script>
-
-    <script src="<?php echo BASE_PATH; ?>js_modal_scripts/multiple_device_selection.js"></script>
+    <script src="<?php echo BASE_PATH; ?>js_modal_scripts/popover.js"></script>
     <script src="<?php echo BASE_PATH; ?>assets/js/sidebar-menu.js"></script>
     <?php
     include (BASE_PATH . "assets/html/body-end.php");

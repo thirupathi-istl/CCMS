@@ -31,7 +31,7 @@ SessionManager::checkSession();
                 </div>
             </div>
         </div>
-        <div class="row mt-2">
+        <div class="row mt-3">
             <div class="col-lg-4 p-0 pe-lg-2">
                 <div class="card ">
                     <div class="card-header bg-primary bg-opacity-25  bg-opacity-25 fw-bold">
