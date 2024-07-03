@@ -38,15 +38,15 @@ SessionManager::checkSession();
                     <table class="table table-striped styled-table table-sticky-header table-type-1 w-100 text-center resulttable">
                         <thead>
                             <tr>
-                                <th class="bg-logo-color text-white">S.No</th>
-                                <th class="bg-logo-color text-white">Name</th>
-                                <th class="bg-logo-color text-white">User_Id</th>
-                                <th class="bg-logo-color text-white">User_Role</th>
-                                <th class="bg-logo-color text-white">Email</th>
-                                <th class="bg-logo-color text-white">Mobile</th>
-                                <th class="bg-logo-color text-white">Password</th>
-                                <th class="bg-logo-color text-white">Status</th>
-                                <th class="bg-logo-color text-white">Action</th>
+                                <th class="bg-primary bg-opacity-50 ">S.No</th>
+                                <th class="bg-primary bg-opacity-50">Name</th>
+                                <th class="bg-primary bg-opacity-50">User_Id</th>
+                                <th class="bg-primary bg-opacity-50">User_Role</th>
+                                <th class="bg-primary bg-opacity-50">Email</th>
+                                <th class="bg-primary bg-opacity-50">Mobile</th>
+                                <th class="bg-primary bg-opacity-50">Password</th>
+                                <th class="bg-primary bg-opacity-50">Status</th>
+                                <th class="bg-primary bg-opacity-50">Action</th>
                             </tr>
                         </thead>
                         <tbody>
