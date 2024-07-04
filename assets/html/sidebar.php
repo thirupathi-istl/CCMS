@@ -37,6 +37,13 @@
 			</a>
 		</li>
 
+		<li>
+			<a href="../0/user_activity.php" class="nav-link link-body-emphasis">
+				<i class="bi bi-lightning-charge-fill"></i>
+				User Activity
+			</a>
+		</li>
+
 		<!-- <li>
 			<a href="#" class="nav-link link-body-emphasis">
 				<svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#setting-gear"/></svg>
@@ -55,7 +62,7 @@
 					<li><a href="thresholdsettings.php" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded active_dp"><i class="bi bi-arrow-return-right"></i>Threshold Settings</a></li>
 					<li><a href="editnewgps.php" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"><i class="bi bi-arrow-return-right"></i>Edit GPS Location</a></li>
 					<li><a href="notificationsettings.php" class=" nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"><i class="bi bi-arrow-return-right"></i>Notification Settings</a></li>
-					<li><a href="newsetting.php" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"><i class="bi bi-arrow-return-right"></i>Device Settings</a></li>
+					<li><a href="devicesetting.php" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"><i class="bi bi-arrow-return-right"></i>Device Settings</a></li>
 
 
 				</ul>
