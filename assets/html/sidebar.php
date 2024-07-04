@@ -36,14 +36,6 @@
 				Data Report
 			</a>
 		</li>
-
-		<li>
-			<a href="../0/user_activity.php" class="nav-link link-body-emphasis">
-				<i class="bi bi-lightning-charge-fill"></i>
-				User Activity
-			</a>
-		</li>
-
 		<!-- <li>
 			<a href="#" class="nav-link link-body-emphasis">
 				<svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#setting-gear"/></svg>
@@ -67,6 +59,12 @@
 
 				</ul>
 			</div>
+		</li>
+		<li>
+			<a href="user-activity.php" class="nav-link link-body-emphasis">
+				<i class="bi bi-lightning-charge-fill"></i>
+				User Activity
+			</a>
 		</li>
 
 		<!-- <li>

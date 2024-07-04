@@ -6,21 +6,15 @@ SessionManager::checkSession();
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 <head>
-  <title>User Activity</title>  
-  <?php include(BASE_PATH."assets/html/start-page.php"); ?>
+  <title>User Activity</title> 
   <style>
     .table-container {
       display: none;
-    }
-     @media  (min-width:379px) and (max-width:470px){
-        .custom-size{
-            margin-left:8rem;
-            
-        }
-    } 
-  </style>
-</head>
-<body>
+  }
+</style> 
+<?php 
+include(BASE_PATH."assets/html/start-page.php"); 
+?>
 <div class="d-flex flex-column flex-shrink-0 p-3 main-content">
     <div class="container-fluid">
         <div class="row d-flex align-items-center">
@@ -208,6 +202,7 @@ SessionManager::checkSession();
         </div>
     </div>
 </div>
+</main>
 <script src="<?php echo BASE_PATH;?>assets/js/sidebar-menu.js"></script>
 <script src="<?php echo BASE_PATH;?>js_modal_scripts/user_activity.js"></script>
 <script>
