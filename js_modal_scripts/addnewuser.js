@@ -32,7 +32,7 @@ function addNewUser(){
             '<td>' + mobile + '</td>' +
             '<td>' + password + '</td>' +
             '<td><button type="button" class="btn btn-primary btn-sm p-0 px-2" onclick="userview(this)">Devices</button></td>' +
-            '<td> <div class="btn-group dropend"><button class="btn p-0" type="button" data-bs-toggle="dropdown" style="border:none"><i class="bi bi-three-dots-vertical"></i></button><ul class="dropdown-menu bg-white text-center" style="background:none;border:none;"><li><p class="mt-2 pointer pe-3"  onclick="editMainTableDetails(this)"><strong><i class="bi bi-pen-fill text-primary"></i>Edit</strong></p></li><li><i class="bi bi-trash-fill text-danger mb-5 pointer" onclick="deleteRow(this)"><strong>Delete</strong></i></li></ul></div></td>';
+            '<td><div class="btn-group dropend p-0"><button class="btn p-0"  type="button" data-bs-toggle="dropdown" style="border:none"><i class="bi bi-three-dots-vertical"></i></button><ul class="dropdown-menu p-0 border-0"  ><div class="list-group"><button type="button"  onclick="editMainTableDetails(this)" class="list-group-item list-group-item-action" aria-current="true"><i class="bi bi-pen-fill text-primary fst-normal"><strong> Edit</strong></i></button><button type="button" class="list-group-item list-group-item-action" onclick="deleteRow(this)"><i class="bi bi-trash-fill text-danger fst-normal" ><strong> Delete</strong></i></button><button type="button" class="list-group-item list-group-item-action" onclick="permissionModal()"><i class="bi bi-shield-lock-fill"></i><strong>Permissions</strong></button></div></ul></div></td>';
 
         clearForm();
         const modal = bootstrap.Modal.getInstance(document.getElementById('adduser'));
@@ -288,4 +288,10 @@ function deleteRow(element) {
     } else {
         console.error('No row found for the provided element');
     }
+}
+
+//Permission Modal script
+
+function permissionModal(){
+    var permission=new bootstrap.Modal(document.getElementById("permission")).show();
 }

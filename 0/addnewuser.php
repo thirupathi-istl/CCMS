@@ -69,7 +69,8 @@ SessionManager::checkSession();
                                                 <button type="button"  onclick="editMainTableDetails(this)" class="list-group-item list-group-item-action" aria-current="true">
                                                     <i class="bi bi-pen-fill text-primary fst-normal"><strong> Edit</strong></i>
                                                 </button>
-                                                <button type="button" onclick="deleteRow(this)" class="list-group-item list-group-item-action"><i class="bi bi-trash-fill text-danger fst-normal" ><strong> Delete</strong></i></button>
+                                                <button type="button" class="list-group-item list-group-item-action" onclick="deleteRow(this)"><i class="bi bi-trash-fill text-danger fst-normal" ><strong> Delete</strong></i></button>
+                                                <button type="button" class="list-group-item list-group-item-action" onclick="permissionModal()"><i class="bi bi-shield-lock-fill"></i><strong>Permissions</strong></button>
                                             </div>
                                         </ul>
                                     </div>
@@ -86,8 +87,8 @@ SessionManager::checkSession();
                                 <td>abc@123</td>
                                 <td><button type="button" class="btn btn-primary btn-sm p-0 px-2"  onclick="userview(this)">Devices</button></td>
                                 <td>
-                                    <div class="btn-group dropend">                                           
-                                        <button class="btn p-0" type="button" data-bs-toggle="dropdown" style="border:none">
+                                    <div class="btn-group dropend p-0">                                           
+                                        <button class="btn p-0"  type="button" data-bs-toggle="dropdown" style="border:none">
                                             <i class="bi bi-three-dots-vertical"></i>
                                         </button>
                                         <ul class="dropdown-menu p-0 border-0"  >
@@ -95,7 +96,8 @@ SessionManager::checkSession();
                                                 <button type="button"  onclick="editMainTableDetails(this)" class="list-group-item list-group-item-action" aria-current="true">
                                                     <i class="bi bi-pen-fill text-primary fst-normal"><strong> Edit</strong></i>
                                                 </button>
-                                                <button type="button" onclick="deleteRow(this)" class="list-group-item list-group-item-action"><i class="bi bi-trash-fill text-danger fst-normal" ><strong> Delete</strong></i></button>
+                                                <button type="button" class="list-group-item list-group-item-action" onclick="deleteRow(this)"><i class="bi bi-trash-fill text-danger fst-normal" ><strong> Delete</strong></i></button>
+                                                <button type="button" class="list-group-item list-group-item-action" onclick="permissionModal()"><i class="bi bi-shield-lock-fill"></i><strong>Permissions</strong></button>
                                             </div>
                                         </ul>
                                     </div>
@@ -114,7 +116,8 @@ include(BASE_PATH."addnewuser/modals/adduser-button.php");
 include(BASE_PATH."addnewuser/modals/deviceshandled-button.php");
 include(BASE_PATH."addnewuser/modals/update-button.php");   
 include(BASE_PATH."addnewuser/modals/add-button.php");
-include(BASE_PATH."addnewuser/modals/edit-user-details.php");  
+include(BASE_PATH."addnewuser/modals/edit-user-details.php");
+include(BASE_PATH."addnewuser/modals/permissions.php");  
 ?>
 </main>
 <script src="<?php echo BASE_PATH;?>assets/js/sidebar-menu.js"></script>
