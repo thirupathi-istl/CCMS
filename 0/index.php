@@ -1,6 +1,4 @@
 
-<!-- this is my index file -->
-
 <?php
 require_once 'config-path.php';
 require_once '../session/session-manager.php';
@@ -32,8 +30,8 @@ SessionManager::checkSession();
                 <div class="col-4 pointer pointer">
                   <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#TotalModal">
                     <div class="card-body m-0 p-0">
-                      <p class="card-text fw-semibold m-0 py-1"><i class="bi bi-bar-chart-fill h4"></i> Total</p>
-                      <h3 class="card-title py-2">220</h3>
+                      <p class="card-text fw-semibold text-info-emphasis m-0 py-1"><i class="bi bi-bar-chart-fill h4"></i> Total</p>
+                      <h3 class="card-title py-2 text-primary">220</h3>
                     </div>
                   </div>
                 </div>
@@ -41,16 +39,16 @@ SessionManager::checkSession();
                 <div class="col-4 pointer pointer">
                   <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#installedModal">
                     <div class="card-body m-0 p-0">
-                      <p class="card-text fw-semibold m-0 py-1"><i class="bi bi-check-circle-fill h4"></i> Installed</p>
-                      <h3 class="card-title py-2">160</h3>
+                      <p class="card-text fw-semibold text-info-emphasis m-0 py-1"><i class="bi bi-check-circle-fill h4"></i> Installed</p>
+                      <h3 class="card-title py-2 text-primary">160</h3>
                     </div>
                   </div>
                 </div>
                 <div class="col-4 pointer pointer">
                   <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#notinstalledModal">
                     <div class="card-body m-0 p-0">
-                      <p class="card-text fw-semibold m-0 py-1"><i class="bi bi-x-circle-fill h4"></i> Not-installed</p>
-                      <h3 class="card-title py-2">60</h3>
+                      <p class="card-text fw-semibold text-info-emphasis m-0 py-1"><i class="bi bi-x-circle-fill h4"></i> Not-installed</p>
+                      <h3 class="card-title py-2 text-primary">60</h3>
                     </div>
                   </div>
                 </div>
@@ -102,7 +100,7 @@ SessionManager::checkSession();
               <div class="row">
                 <div class="col-4 pointer">
                   <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#AutoOnModal">
-                    <div class="card-body m-0 p-0">
+                    <div class="card-body m-0 p-0 text-success">
                       <p class="card-text fw-semibold m-0 py-1"> <i class="bi bi-clock-fill h4"></i> Auto/System On</p>
                       <!-- <hr class="mt-0"> -->
                       <h3 class="card-title py-2">100</h3>
@@ -111,7 +109,7 @@ SessionManager::checkSession();
                 </div>
                 <div class="col-4 pointer">
                   <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#manualOnModal">
-                    <div class="card-body m-0 p-0">
+                    <div class="card-body m-0 p-0 text-info-emphasis">
                       <p class="card-text fw-semibold m-0 py-1">  <i class="bi bi-hand-index-fill h4"></i> Manual On</p>
                       <!-- <hr class="mt-0"> -->
                       <h3 class="card-title py-2">30</h3>
@@ -120,7 +118,7 @@ SessionManager::checkSession();
                 </div>
                 <div class="col-4 pointer">
                   <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#offModal">
-                    <div class="card-body m-0 p-0">
+                    <div class="card-body m-0 p-0 text-danger">
                       <p class="card-text fw-semibold m-0 py-1"> <i class="bi bi-toggle-off h4"></i> OFF</p>
                       <!-- <hr class="mt-0"> -->
                       <h3 class="card-title py-2">30</h3>
@@ -208,104 +206,104 @@ SessionManager::checkSession();
           <div class="row ps-0 ps-lg-2 h-100">
             <div class="col-12 rounded mt-4 mt-lg-2 p-0">
               <div class="card bg-light-subtle shadow">
-                <div class="card-header">
-                  <i class="bi bi-chat-dots-fill"></i> Messages
+                <div class="card-header fw-bold">
+                  <i class="bi bi-chat-dots-fill"></i> Updates
                 </div>
                 <div class="card-body">
                   <div class="list-group overflow-y-auto" style=" height:600px;">
                     <a href="#" class="list-group-item list-group-item-action " aria-current="true">
                       <div class="d-flex w-100 justify-content-between">
-                        <small class="mb-1 sub-sup-font-size">BMC_CCMS_1(P(1) BAIRAGARH)</small>
-                        <small class="text-body-secondary">06:49:39 29-04-2024</small>
+                        <small class="mb-1 sub-sup-font-size fw-medium text-primary">BMC_CCMS_1(P(1) BAIRAGARH)</small>
+                        <small class="text-body-secondary font-small">06:49:39 29-04-2024</small>
                       </div>
-                      <small class="mb-1 font-small">ID:BMC_CCMS_1(P(1) BAIRAGARH) Power Resumed TIME:06:48:39 29-04-2024 GPS: http://maps.google.com/?q=23.2791383,77.3370483.</small>
+                      <small class="mb-1 font-small  text-info-emphasis">ID:BMC_CCMS_1(P(1) BAIRAGARH) Power Resumed TIME:06:48:39 29-04-2024 GPS: http://maps.google.com/?q=23.2791383,77.3370483.</small>
 
                     </a>
                     <a href="#" class="list-group-item list-group-item-action " aria-current="true">
                       <div class="d-flex w-100 justify-content-between">
-                        <small class="mb-1 sub-sup-font-size">CCMS_13</small>
-                        <small class="text-body-secondary">05:51:20 30-04-2024</small>
+                        <small class="mb-1 sub-sup-font-size fw-medium text-primary">CCMS_13</small>
+                        <small class="text-body-secondary font-small">05:51:20 30-04-2024</small>
                       </div>
-                      <small class="mb-1 font-small">ID:CCMS_13 MCB/Contactor Turned ON in R, Y & B TIME:00:00:53 30/04/2024.</small>
+                      <small class="mb-1 font-small  text-info-emphasis">ID:CCMS_13 MCB/Contactor Turned ON in R, Y & B TIME:00:00:53 30/04/2024.</small>
 
                     </a>
                     <a href="#" class="list-group-item list-group-item-action " aria-current="true">
                       <div class="d-flex w-100 justify-content-between">
-                        <small class="mb-1 sub-sup-font-size">BMC_CCMS_1(P(1)</small>
-                        <small class="text-body-secondary">05:47:59 29-04-2024</small>
+                        <small class="mb-1 sub-sup-font-size fw-medium text-primary">BMC_CCMS_1(P(1)</small>
+                        <small class="text-body-secondary font-small">05:47:59 29-04-2024</small>
                       </div>
-                      <small class="mb-1 font-small">ID:BMC_CCMS_1(P(1) BAIRAGARH) Switched ON(MANUAL) Lights GPS: http://maps.google.com/?q=23.2791383,77.3370483.</small>
+                      <small class="mb-1 font-small  text-info-emphasis">ID:BMC_CCMS_1(P(1) BAIRAGARH) Switched ON(MANUAL) Lights GPS: http://maps.google.com/?q=23.2791383,77.3370483.</small>
 
                     </a>
                     <a href="#" class="list-group-item list-group-item-action " aria-current="true">
                       <div class="d-flex w-100 justify-content-between">
-                        <small class="mb-1 sub-sup-font-size">BMC_CCMS_92(P(92)_N2345043400_BAIRAGARH CHICHLI)</small>
-                        <small class="text-body-secondary">05:52:52 23-04-2024</small>
+                        <small class="mb-1 sub-sup-font-size fw-medium text-primary">BMC_CCMS_92(P(92)_N2345043400_BAIRAGARH CHICHLI)</small>
+                        <small class="text-body-secondary font-small">05:52:52 23-04-2024</small>
                       </div>
-                      <small class="mb-1 font-small">ID:BMC_CCMS_92(P(92)_N2345043400_BAIRAGARH CHICHLI) Switched ON(MANUAL) Lights GPS: http://maps.google.com/?q=23.150455,77.4102717</small>
+                      <small class="mb-1 font-small  text-info-emphasis">ID:BMC_CCMS_92(P(92)_N2345043400_BAIRAGARH CHICHLI) Switched ON(MANUAL) Lights GPS: http://maps.google.com/?q=23.150455,77.4102717</small>
 
                     </a>
                     <a href="#" class="list-group-item list-group-item-action " aria-current="true">
                       <div class="d-flex w-100 justify-content-between">
-                        <small class="mb-1 sub-sup-font-size">BMC_CCMS_1(P(1) BAIRAGARH)</small>
-                        <small class="text-body-secondary">06:49:39 29-04-2024</small>
+                        <small class="mb-1 sub-sup-font-size fw-medium text-primary">BMC_CCMS_1(P(1) BAIRAGARH)</small>
+                        <small class="text-body-secondary font-small">06:49:39 29-04-2024</small>
                       </div>
-                      <small class="mb-1 font-small">ID:BMC_CCMS_1(P(1) BAIRAGARH) Power Resumed TIME:06:48:39 29-04-2024 GPS: http://maps.google.com/?q=23.2791383,77.3370483.</small>
+                      <small class="mb-1 font-small  text-info-emphasis">ID:BMC_CCMS_1(P(1) BAIRAGARH) Power Resumed TIME:06:48:39 29-04-2024 GPS: http://maps.google.com/?q=23.2791383,77.3370483.</small>
 
                     </a>
                     <a href="#" class="list-group-item list-group-item-action " aria-current="true">
                       <div class="d-flex w-100 justify-content-between">
-                        <small class="mb-1 sub-sup-font-size">CCMS_13</small>
-                        <small class="text-body-secondary">05:51:20 30-04-2024</small>
+                        <small class="mb-1 sub-sup-font-size fw-medium text-primary">CCMS_13</small>
+                        <small class="text-body-secondary font-small">05:51:20 30-04-2024</small>
                       </div>
-                      <small class="mb-1 font-small">ID:CCMS_13 MCB/Contactor Turned ON in R, Y & B TIME:00:00:53 30/04/2024.</small>
+                      <small class="mb-1 font-small  text-info-emphasis">ID:CCMS_13 MCB/Contactor Turned ON in R, Y & B TIME:00:00:53 30/04/2024.</small>
 
                     </a>
                     <a href="#" class="list-group-item list-group-item-action " aria-current="true">
                       <div class="d-flex w-100 justify-content-between">
-                        <small class="mb-1 sub-sup-font-size">BMC_CCMS_1(P(1))</small>
-                        <small class="text-body-secondary">05:47:59 29-04-2024</small>
+                        <small class="mb-1 sub-sup-font-size fw-medium text-primary">BMC_CCMS_1(P(1))</small>
+                        <small class="text-body-secondary font-small">05:47:59 29-04-2024</small>
                       </div>
-                      <small class="mb-1 font-small">ID:BMC_CCMS_1(P(1) BAIRAGARH) Switched ON(MANUAL) Lights GPS: http://maps.google.com/?q=23.2791383,77.3370483.</small>
+                      <small class="mb-1 font-small  text-info-emphasis">ID:BMC_CCMS_1(P(1) BAIRAGARH) Switched ON(MANUAL) Lights GPS: http://maps.google.com/?q=23.2791383,77.3370483.</small>
 
                     </a>
                     <a href="#" class="list-group-item list-group-item-action " aria-current="true">
                       <div class="d-flex w-100 justify-content-between">
-                        <small class="mb-1 sub-sup-font-size">BMC_CCMS_92(P(92)_N2345043400_BAIRAGARH CHICHLI)</small>
-                        <small class="text-body-secondary">05:52:52 23-04-2024</small>
+                        <small class="mb-1 sub-sup-font-size fw-medium text-primary">BMC_CCMS_92(P(92)_N2345043400_BAIRAGARH CHICHLI)</small>
+                        <small class="text-body-secondary font-small">05:52:52 23-04-2024</small>
                       </div>
-                      <small class="mb-1 font-small">ID:BMC_CCMS_92(P(92)_N2345043400_BAIRAGARH CHICHLI) Switched ON(MANUAL) Lights GPS: http://maps.google.com/?q=23.150455,77.4102717</small>
+                      <small class="mb-1 font-small  text-info-emphasis">ID:BMC_CCMS_92(P(92)_N2345043400_BAIRAGARH CHICHLI) Switched ON(MANUAL) Lights GPS: http://maps.google.com/?q=23.150455,77.4102717</small>
 
                     </a><a href="#" class="list-group-item list-group-item-action " aria-current="true">
                       <div class="d-flex w-100 justify-content-between">
-                        <small class="mb-1 sub-sup-font-size">BMC_CCMS_1(P(1) BAIRAGARH)</small>
-                        <small class="text-body-secondary">06:49:39 29-04-2024</small>
+                        <small class="mb-1 sub-sup-font-size fw-medium text-primary">BMC_CCMS_1(P(1) BAIRAGARH)</small>
+                        <small class="text-body-secondary font-small">06:49:39 29-04-2024</small>
                       </div>
-                      <small class="mb-1 font-small">ID:BMC_CCMS_1(P(1) BAIRAGARH) Power Resumed TIME:06:48:39 29-04-2024 GPS: http://maps.google.com/?q=23.2791383,77.3370483.</small>
+                      <small class="mb-1 font-small  text-info-emphasis">ID:BMC_CCMS_1(P(1) BAIRAGARH) Power Resumed TIME:06:48:39 29-04-2024 GPS: http://maps.google.com/?q=23.2791383,77.3370483.</small>
 
                     </a>
                     <a href="#" class="list-group-item list-group-item-action " aria-current="true">
                       <div class="d-flex w-100 justify-content-between">
-                        <small class="mb-1 sub-sup-font-size">CCMS_13</small>
-                        <small class="text-body-secondary">05:51:20 30-04-2024</small>
+                        <small class="mb-1 sub-sup-font-size fw-medium text-primary">CCMS_13</small>
+                        <small class="text-body-secondary font-small">05:51:20 30-04-2024</small>
                       </div>
-                      <small class="mb-1 font-small">ID:CCMS_13 MCB/Contactor Turned ON in R, Y & B TIME:00:00:53 30/04/2024.</small>
+                      <small class="mb-1 font-small  text-info-emphasis">ID:CCMS_13 MCB/Contactor Turned ON in R, Y & B TIME:00:00:53 30/04/2024.</small>
 
                     </a>
                     <a href="#" class="list-group-item list-group-item-action " aria-current="true">
                       <div class="d-flex w-100 justify-content-between">
-                        <small class="mb-1 sub-sup-font-size">BMC_CCMS_1(P(1))</small>
-                        <small class="text-body-secondary">05:47:59 29-04-2024</small>
+                        <small class="mb-1 sub-sup-font-size fw-medium text-primary">BMC_CCMS_1(P(1))</small>
+                        <small class="text-body-secondary font-small">05:47:59 29-04-2024</small>
                       </div>
-                      <small class="mb-1 font-small">ID:BMC_CCMS_1(P(1) BAIRAGARH) Switched ON(MANUAL) Lights GPS: http://maps.google.com/?q=23.2791383,77.3370483.</small>
+                      <small class="mb-1 font-small  text-info-emphasis">ID:BMC_CCMS_1(P(1) BAIRAGARH) Switched ON(MANUAL) Lights GPS: http://maps.google.com/?q=23.2791383,77.3370483.</small>
 
                     </a>
                     <a href="#" class="list-group-item list-group-item-action " aria-current="true">
                       <div class="d-flex w-100 justify-content-between">
                         <h6 class="mb-1">BMC_CCMS_92(P(92)_N2345043400_BAIRAGARH CHICHLI)</h6>
-                        <small class="text-body-secondary">05:52:52 23-04-2024</small>
+                        <small class="text-body-secondary font-small">05:52:52 23-04-2024</small>
                       </div>
-                      <small class="mb-1 font-small">ID:BMC_CCMS_92(P(92)_N2345043400_BAIRAGARH CHICHLI) Switched ON(MANUAL) Lights GPS: http://maps.google.com/?q=23.150455,77.4102717</small>
+                      <small class="mb-1 font-small  text-info-emphasis">ID:BMC_CCMS_92(P(92)_N2345043400_BAIRAGARH CHICHLI) Switched ON(MANUAL) Lights GPS: http://maps.google.com/?q=23.150455,77.4102717</small>
 
                     </a>
 

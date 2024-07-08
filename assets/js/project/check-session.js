@@ -1,6 +1,6 @@
 let idleTime = 0;
-let warningTime = 780; 
 let timeout = 900; 
+let warningTime =timeout-120; 
 let warningShown = false;
 let timerInterval;
 
@@ -63,6 +63,7 @@ function refreshSession() {
     })
     .then(response => response.json())
     .then(data => {
+        console.log(data.status);
         if (data.status === 'logout') {
             window.location.href = 'logout.php';
         }
@@ -70,7 +71,14 @@ function refreshSession() {
 }
 
 function checkSession() {
-    fetch('../session/session-check.php')
+
+    fetch('../session/session-check.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'action=logout'
+    })
     .then(response => response.json())
     .then(data => {
         if (data.status === 'logout') {
