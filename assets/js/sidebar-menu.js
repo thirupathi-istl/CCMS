@@ -48,9 +48,9 @@ $('.collapse .active').closest('.collapse').prev('.nav-link').attr('aria-expande
 
 
 
-$(".nav-pills >li > a").click(function (e) {
- // $(".leftside-navigation ul ul").slideUp(), $(this).next().is(":visible") || $(this).next().slideDown(), e.stopPropagation();
-  $('.active').closest('.collapse').addClass('show');
-});
+// $(".nav-pills >li > a").click(function (e) {
+//  // $(".leftside-navigation ul ul").slideUp(), $(this).next().is(":visible") || $(this).next().slideDown(), e.stopPropagation();
+//   $('.active').closest('.collapse').addClass('show');
+// });
 
 /*});*/

@@ -71,7 +71,7 @@ SessionManager::checkSession();
                                     <td>
                                         <button class="btn btn-info btn-sm p-0 px-2" onclick="openLightsModal(this)">10</button>
                                     </td>
-                                    <td><i class="bi bi-trash-fill text-danger" onclick="deleteRow(this)"></i></td>
+                                    <td><i class="bi bi-trash-fill text-danger pointer" onclick="deleteRow(this)"></i></td>
                                 </tr>
 
                                 <tr>
@@ -88,40 +88,7 @@ SessionManager::checkSession();
                                     <td>
                                         <button class="btn btn-info btn-sm p-0 px-2" onclick="openLightsModal(this)">15</button>
                                     </td>
-                                    <td><i class="bi bi-trash-fill text-danger" onclick="deleteRow(this)"></i></td>
-                                </tr>
-
-                                <tr>
-                                    <td>Device 1</td>
-                                    <td>ID001</td>
-                                    <td>Installed</td>
-                                    <td>29-05-2024</td>
-                                    <td>25</td>
-                                    <td class="col-1">15:25:23 29-05-2024</td>
-                                    <td>On</td>
-                                    <td>Automatic</td>
-                                    <td>Active</td>
-                                    <td><a href="https://www.google.com/maps?q=17.467754,%2078.603072" target="_blank">Location</a></td>
-                                    <td>
-                                        <button class="btn btn-info btn-sm p-0 px-2" onclick="openLightsModal(this)">10</button>
-                                    </td>
-                                    <td><i class="bi bi-trash-fill text-danger" onclick="deleteRow(this)"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>Device 2</td>
-                                    <td>ID002</td>
-                                    <td>Installed</td>
-                                    <td>29-05-2024</td>
-                                    <td>15</td>
-                                    <td class="col-1">15:25:23 29-05-2024</td>
-                                    <td>Off</td>
-                                    <td>Manual</td>
-                                    <td>Inactive</td>
-                                    <td><a href="https://www.google.com/maps?q=17.467754,%2078.603072" target="_blank">Location</a></td>
-                                    <td>
-                                        <button class="btn btn-info btn-sm p-0 px-2" onclick="openLightsModal(this)">15</button>
-                                    </td>
-                                    <td><i class="bi bi-trash-fill text-danger" onclick="deleteRow(this)"></i></td>
+                                    <td><i class="bi bi-trash-fill text-danger pointer" onclick="deleteRow(this)"></i></td>
                                 </tr>
 
                                 <tr>
@@ -138,7 +105,7 @@ SessionManager::checkSession();
                                     <td>
                                         <button class="btn btn-info btn-sm p-0 px-2" onclick="openLightsModal(this)">10</button>
                                     </td>
-                                    <td><i class="bi bi-trash-fill text-danger" onclick="deleteRow(this)"></i></td>
+                                    <td><i class="bi bi-trash-fill text-danger pointer" onclick="deleteRow(this)"></i></td>
                                 </tr>
                                 <tr>
                                     <td>Device 2</td>
@@ -154,7 +121,7 @@ SessionManager::checkSession();
                                     <td>
                                         <button class="btn btn-info btn-sm p-0 px-2" onclick="openLightsModal(this)">15</button>
                                     </td>
-                                    <td><i class="bi bi-trash-fill text-danger" onclick="deleteRow(this)"></i></td>
+                                    <td><i class="bi bi-trash-fill text-danger pointer" onclick="deleteRow(this)"></i></td>
                                 </tr>
 
                                 <tr>
@@ -171,7 +138,7 @@ SessionManager::checkSession();
                                     <td>
                                         <button class="btn btn-info btn-sm p-0 px-2" onclick="openLightsModal(this)">10</button>
                                     </td>
-                                    <td><i class="bi bi-trash-fill text-danger" onclick="deleteRow(this)"></i></td>
+                                    <td><i class="bi bi-trash-fill text-danger pointer" onclick="deleteRow(this)"></i></td>
                                 </tr>
                                 <tr>
                                     <td>Device 2</td>
@@ -187,7 +154,7 @@ SessionManager::checkSession();
                                     <td>
                                         <button class="btn btn-info btn-sm p-0 px-2" onclick="openLightsModal(this)">15</button>
                                     </td>
-                                    <td><i class="bi bi-trash-fill text-danger" onclick="deleteRow(this)"></i></td>
+                                    <td><i class="bi bi-trash-fill text-danger pointer" onclick="deleteRow(this)"></i></td>
                                 </tr>
 
                                 <tr>
@@ -204,7 +171,7 @@ SessionManager::checkSession();
                                     <td>
                                         <button class="btn btn-info btn-sm p-0 px-2" onclick="openLightsModal(this)">10</button>
                                     </td>
-                                    <td><i class="bi bi-trash-fill text-danger" onclick="deleteRow(this)"></i></td>
+                                    <td><i class="bi bi-trash-fill text-danger pointer" onclick="deleteRow(this)"></i></td>
                                 </tr>
                                 <tr>
                                     <td>Device 2</td>
@@ -220,7 +187,40 @@ SessionManager::checkSession();
                                     <td>
                                         <button class="btn btn-info btn-sm p-0 px-2" onclick="openLightsModal(this)">15</button>
                                     </td>
-                                    <td><i class="bi bi-trash-fill text-danger" onclick="deleteRow(this)"></i></td>
+                                    <td><i class="bi bi-trash-fill text-danger pointer" onclick="deleteRow(this)"></i></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Device 1</td>
+                                    <td>ID001</td>
+                                    <td>Installed</td>
+                                    <td>29-05-2024</td>
+                                    <td>25</td>
+                                    <td class="col-1">15:25:23 29-05-2024</td>
+                                    <td>On</td>
+                                    <td>Automatic</td>
+                                    <td>Active</td>
+                                    <td><a href="https://www.google.com/maps?q=17.467754,%2078.603072" target="_blank">Location</a></td>
+                                    <td>
+                                        <button class="btn btn-info btn-sm p-0 px-2" onclick="openLightsModal(this)">10</button>
+                                    </td>
+                                    <td><i class="bi bi-trash-fill text-danger pointer" onclick="deleteRow(this)"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Device 2</td>
+                                    <td>ID002</td>
+                                    <td>Installed</td>
+                                    <td>29-05-2024</td>
+                                    <td>15</td>
+                                    <td class="col-1">15:25:23 29-05-2024</td>
+                                    <td>Off</td>
+                                    <td>Manual</td>
+                                    <td>Inactive</td>
+                                    <td><a href="https://www.google.com/maps?q=17.467754,%2078.603072" target="_blank">Location</a></td>
+                                    <td>
+                                        <button class="btn btn-info btn-sm p-0 px-2" onclick="openLightsModal(this)">15</button>
+                                    </td>
+                                    <td><i class="bi bi-trash-fill text-danger pointer" onclick="deleteRow(this)"></i></td>
                                 </tr>
                             </tbody>
                         </table>
