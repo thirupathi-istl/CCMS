@@ -11,7 +11,9 @@ SessionManager::checkSession();
   
   <?php
   include(BASE_PATH."assets/html/start-page.php");
+  
   ?>
+
   <div class="d-flex flex-column flex-shrink-0 p-3 main-content">
     <div class="container-fluid">
       <div class="row d-flex align-items-center">

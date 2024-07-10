@@ -1,4 +1,4 @@
- <select class="form-select" aria-label="Large select example">
+ <select class="form-select" id="group-devices" aria-label="Large select example">
   <option value="1" >HYD</option>
   <option value="2" >WRL</option>
   <option value="3" >CHERLAPLLI</option>

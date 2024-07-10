@@ -1,3 +1,7 @@
 </head>
 <body>
-	<div style="width:100%; height: 100%; position: fixed;" class="bg-body-tertiary">
+	<div id="pre-loader" class="pre-loader" >
+		<div class="istl-loader"></div>
+		<div class="loader-text">Loading...</div>
+	</div>
+	<div class="body-container bg-body-tertiary">

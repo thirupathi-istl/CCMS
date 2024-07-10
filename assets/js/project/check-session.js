@@ -63,7 +63,6 @@ function refreshSession() {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data.status);
         if (data.status === 'logout') {
             window.location.href = 'logout.php';
         }
@@ -107,3 +106,5 @@ function showModal() {
 function hideModal() {
     document.getElementById('popup').style.display = 'none';
 }
+
+

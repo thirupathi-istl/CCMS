@@ -9,23 +9,23 @@
             <form class="mt-3 d-flex justify-content-center" method="post">
                 <div class="w-75">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="email" placeholder="Email ID" required>
-                        <label for="email" >User ID</label>
+                        <input type="text" class="form-control" name="userid" id="userid" placeholder="User-ID/Mobile-No/Email ID" required>
+                        <label for="userid" >User-ID / Mobile-No</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="password" placeholder="Password" required>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
                         <label for="password">Password</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-primary w-50 mb-3" type="submit">Login</button>
+                        <button class="btn btn-primary w-50" type="submit">Login</button>
                     </div>
                 </div>
 
             </form>
-            <div class="d-flex justify-content-center col-12">
-                <span class="text-danger"><?php echo $login_error;   ?></span>
+            <div class="d-flex justify-content-center col-12 mt-2 ">
+                <span class="text-danger font-small"><?php echo $login_error;   ?></span>
             </div>
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center mt-1">
                 <a href="#" id="open_fp_model" class="nav-link text-primary ">Forgot your password?</a>
             </div>
             <div class="d-flex justify-content-center mt-2">

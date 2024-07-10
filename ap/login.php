@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<script src="<?php echo BASE_PATH?>assets/js/color-modes-login.js"></script>
 	<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" ></script>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 	<?php
 	include(BASE_PATH."assets/html/body-start.php");
@@ -46,4 +47,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		?>
 	</div>
 </body>
+<script src="<?php echo BASE_PATH;?>assets/js/project/preloader.js"></script>
 </html>

@@ -1,22 +1,28 @@
 <?php
+header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
 $login_error="";
 
 include("config-path.php");
 require_once '../session/session-manager.php';
 
 SessionManager::startSession();
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {   
-    SessionManager::login("0");
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    echo "<script>
-    localStorage.setItem('client_type', '0');
-    window.location.href = 'index.php';
-    </script>";
-    exit();
+    $user_login_id = strtolower($_POST['userid']);
+    $password = $_POST['password']; 
+    SessionManager::login("0", $user_login_id,  $password);    
+
 }
-
 ?>
-
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 <head>
@@ -34,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="<?php echo BASE_PATH?>assets/js/color-modes-login.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" ></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <?php
     include(BASE_PATH."assets/html/body-start.php");
@@ -47,4 +54,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ?>
     </div>
 </body>
+<script src="<?php echo BASE_PATH;?>assets/js/project/preloader.js"></script>
 </html>

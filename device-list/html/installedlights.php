@@ -12,11 +12,11 @@
                     <table class="table table-striped styled-table w-100 text-center">
                         <thead>
                             <tr>
-                                <th class="bg-logo-color text-white">Brand Name</th>
-                                <th class="bg-logo-color text-white">Wattage</th>
-                                <th class="bg-logo-color text-white">Lights</th>
-                                <th class="bg-logo-color text-white">Total Watts</th>
-                                <th class="bg-logo-color text-white">Action</th>
+                                <th class="bg-primary-subtle">Brand Name</th>
+                                <th class="bg-primary-subtle">Watts</th>
+                                <th class="bg-primary-subtle">Total Lights</th>
+                                <th class="bg-primary-subtle">Total Wattage</th>
+                                <th class="bg-primary-subtle">Action</th>
                             </tr>
                         </thead>
                         <tbody id="lightsTableBody">

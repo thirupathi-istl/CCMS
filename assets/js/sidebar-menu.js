@@ -39,8 +39,7 @@ url_path=path;
 const target = $('a[href="' + path + '"]');
 target.addClass('active');
 target.removeClass('link-body-emphasis');
-  //$('.active').closest('.nav-link').addClass('active');
- // $('.active').closest('.nav-link').removeClass('link-body-emphasis');
+
 $('.active').closest('.collapse').addClass('show');
 $('.collapse .active').closest('.collapse').prev('.nav-link').addClass('border bg-body-secondary');
 $('.collapse .active').closest('.collapse').prev('.nav-link').removeClass('collapsed');
@@ -48,9 +47,10 @@ $('.collapse .active').closest('.collapse').prev('.nav-link').attr('aria-expande
 
 
 
-$(".nav-pills >li > a").click(function (e) {
+/*$(".nav-pills >li > a").click(function (e) {
  // $(".leftside-navigation ul ul").slideUp(), $(this).next().is(":visible") || $(this).next().slideDown(), e.stopPropagation();
-  $('.active').closest('.collapse').addClass('show');
-});
+
+ // $('.active').closest('.collapse').addClass('show');
+});*/
 
 /*});*/
