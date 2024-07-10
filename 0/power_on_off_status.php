@@ -6,7 +6,7 @@ SessionManager::checkSession();
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 <head>
-  <title>Alerts</title> 
+  <title>Power ON/OFF Status</title>
 <?php 
 include(BASE_PATH."assets/html/start-page.php"); 
 ?>
@@ -14,7 +14,7 @@ include(BASE_PATH."assets/html/start-page.php");
     <div class="container-fluid">
         <div class="row d-flex align-items-center">
             <div class="col-12 p-0">
-                <p class="m-0 p-0"><span class="text-body-tertiary">Pages / </span><span>Alerts</span></p>
+                <p class="m-0 p-0"><span class="text-body-tertiary">Pages / </span><span>Power ON/OFF Status</span></p>
             </div>
         </div>
         <?php include(BASE_PATH."dropdown-selection/group-device-list.php"); ?>
@@ -32,59 +32,41 @@ include(BASE_PATH."assets/html/start-page.php");
                     </div>
                 </div>
             </div>
-
-            <!-- alerts -->
-            <div id="alerts_table" class="table-container">
+            <!-- Power On/Off Status --> 
+             <div class="col-xl-1 col-lg-1 clo-md-1 col-sm-1 col-xs-2"></div>
+            <div id="power_on_off_table" class="table-container col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-8">
                 <div class="table-responsive rounded mt-2 border">
                     <table class="table table-striped table-bordered table-hover table-type-1 table-sticky-header w-100">
                         <thead class="sticky-header text-center">
-                            <tr class="header-row-1">                                    
+                            <tr>                                    
                                 <th class="bg-primary text-white">Alerts</th>
-                                <th class="bg-primary text-white">Phases/Status</th>
-                                <th class="bg-primary text-white" colspan="3">Voltage (Volts)</th>
-                                <th class="bg-primary text-white" colspan="3">Current (Amp)</th>
                                 <th class="bg-primary text-white">Data & Time</th>
                             </tr>
-                            <tr class="header-row-2">
-                                <th class="bg-secondary text-white"></th>
-                                <th class="bg-secondary text-white"></th>
-                                <th class="bg-secondary text-white">R</th>
-                                <th class="bg-secondary text-white">Y</th>
-                                <th class="bg-secondary text-white">B</th>
-                                <th class="bg-secondary text-white">R</th>
-                                <th class="bg-secondary text-white">Y</th>
-                                <th class="bg-secondary text-white">B</th>            
-                                <th class="bg-secondary text-white"></th>
-                            </tr>
                         </thead>
-                        <tbody class="text-center">    
+                        <tbody class="text-center">
                             <tr> 
-                                <td>HIGH Voltage</td>
-                                <td>Y (R & B Normal)</td>                                   
-                                <td>170</td>
-                                <td>170</td>
-                                <td>170</td>
-                                <td>220</td>
-                                <td>220</td>
-                                <td>220</td>
+                                <td>ID:CCMS_1 Switched On</td>
                                 <td>16:00:38 17-08-2023</td>
                             </tr>
                             <tr>  
-                                <td>MCB/Contactor OFF</td>
-                                <td>R (Y & B Phase(s) ON)</td>                                  
-                                <td>150</td>
-                                <td>150</td>
-                                <td>150</td>
-                                <td>210</td>
-                                <td>210</td>
-                                <td>210</td>
-                                <td>16:00:38 17-08-2023</td>
+                                <td>ID:CCMS_1 Switched Off</td>
+                                <td>20:52:22 17-08-2023</td>
+                            </tr>
+
+                            <tr> 
+                                <td>ID:CCMS_4 Switched On</td>
+                                <td>17:00:38 18-08-2023</td>
+                            </tr>
+                            <tr>  
+                                <td>ID:CCMS_4 Switched Off</td>
+                                <td>20:52:22 18-08-2023</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            
+            <div class="col-xl-1 col-lg-1 clo-md-1 col-sm-1 col-xs-2"></div>
+           
         </div>
     </div>
 </div>

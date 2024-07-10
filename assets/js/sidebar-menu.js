@@ -46,11 +46,12 @@ $('.collapse .active').closest('.collapse').prev('.nav-link').removeClass('colla
 $('.collapse .active').closest('.collapse').prev('.nav-link').attr('aria-expanded', 'true');
 
 
-
 /*$(".nav-pills >li > a").click(function (e) {
  // $(".leftside-navigation ul ul").slideUp(), $(this).next().is(":visible") || $(this).next().slideDown(), e.stopPropagation();
 
  // $('.active').closest('.collapse').addClass('show');
 });*/
+
+
 
 /*});*/
