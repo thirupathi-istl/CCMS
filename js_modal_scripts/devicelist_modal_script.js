@@ -34,7 +34,7 @@
         '<td>' +
             '<button class="btn btn-info btn-sm p-0 px-2" onclick="openLightsModal(this)">0</button>' +
         '</td>' +
-        '<td><i class="bi bi-trash-fill text-danger" onclick="deleteRow(this)"></i></td>';
+        '<td><i class="bi bi-trash-fill text-danger pointer" onclick="deleteRow(this)"></i></td>';
     
     
         // Append new row to table
