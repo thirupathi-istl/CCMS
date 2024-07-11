@@ -205,7 +205,7 @@ SessionManager::checkSession();
 </div>
 </main>
 <!-- Modal -->
- <?php
+<?php
 include("../on_off_control/multiple_device_selection.php");
 ?>
 <script src="<?php echo BASE_PATH;?>js_modal_scripts/schedule_time_modal_script.js"></script>
@@ -216,6 +216,16 @@ include("../on_off_control/multiple_device_selection.php");
 include(BASE_PATH."dashboard/modals/schedule_time_modal.php"); 
 ?>
 <script src="<?php echo BASE_PATH;?>assets/js/sidebar-menu.js"></script>
+
+<script type="text/javascript">
+
+  /*let device_id = localStorage.getItem("SELECTED_ID");
+  if (!device_id) {
+    device_id = document.getElementById('device_id').value;
+  }
+  alert(device_id);*/
+</script>
+
 <?php
 include(BASE_PATH."assets/html/body-end.php"); 
 include(BASE_PATH."assets/html/html-end.php"); 

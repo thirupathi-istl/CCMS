@@ -41,6 +41,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" ></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+
+    // JavaScript code to remove specific items from localStorage
+        localStorage.removeItem("Devive_ID_Selection");
+        localStorage.removeItem("SELECTED_ID");
+        localStorage.removeItem("GroupName");
+        localStorage.removeItem("GroupNameValue");
+        
+    </script>
 
     <?php
     include(BASE_PATH."assets/html/body-start.php");

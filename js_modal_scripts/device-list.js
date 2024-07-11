@@ -1,6 +1,21 @@
-add_device_list();
-function add_device_list() {
-    var group_id = document.getElementById('group-devices').value;
+var group_name=localStorage.getItem("GroupNameValue")
+if(group_name==""||group_name==null)
+{
+    group_name="ALL";
+}
+add_device_list(group_name);
+
+let group_list = document.getElementById('group-list');
+
+group_list.addEventListener('change', function() {
+    let selectedValue = group_list.value;
+    add_device_list(selectedValue);
+});
+
+
+function add_device_list(group_id) {
+   // var group_id = document.getElementById('group-list').value;
+
     if (group_id !== "" && group_id !== null) {
         $("#pre-loader").css('display', 'block');
         $.ajax({

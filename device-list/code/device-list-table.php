@@ -14,11 +14,11 @@ $add_confirm = false;
 $code ="";
 $user_devices="";
 
-$group_ids = "ALL";
+/*$group_ids = "ALL";*/
 
-/*if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$group_ids = $_POST['D_ID'];
-*/
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	$group_ids = $_POST['GROUP_ID'];
+
 
 
 	$conn = mysqli_connect(HOST, USERNAME, PASSWORD, DB_USER);
@@ -26,23 +26,41 @@ $group_ids = "ALL";
 		die("Connection failed: " . mysqli_connect_error());
 	} else {
 		$sql = "";
+		$group_by="";
+		$stmt = "";
 
-		$group_ids = htmlspecialchars(mysqli_real_escape_string($conn, $group_ids));
+		$group_ids =trim( htmlspecialchars(mysqli_real_escape_string($conn, $group_ids)));
 
 		require_once(BASE_PATH_1."common-files/client-super-admin-device-names.php");
 		if($group_ids=="ALL")
 		{
 			
 			$sql = "SELECT $list FROM user_device_list WHERE login_id = ? ORDER BY LENGTH(device_id), device_id";
+			$stmt = mysqli_prepare($conn, $sql);
+			mysqli_stmt_bind_param($stmt, "i", $user_id);
 		}
 		else
 		{
+			$sql_group = "SELECT group_by FROM device_selection_group WHERE login_id = ?";
+			$stmt_group = mysqli_prepare($conn, $sql_group);
+			mysqli_stmt_bind_param($stmt_group, "i", $user_id);
 
-			$sql = "SELECT $list FROM device_list_by_group WHERE login_id = ? GROUP BY device_group ORDER BY device_group";
+			if (mysqli_stmt_execute($stmt_group)) {
+				mysqli_stmt_store_result($stmt_group);
+				mysqli_stmt_bind_result($stmt_group, $group_by);
+				mysqli_stmt_fetch($stmt_group);
+			} else {
+				die("Error retrieving group_by: " . mysqli_error($conn));
+			}
+			mysqli_stmt_close($stmt_group);
+
+			$sql = "SELECT $list FROM device_list_by_group WHERE login_id = ? AND $group_by = ? GROUP BY $group_by ORDER BY $group_by";
+			$stmt = mysqli_prepare($conn, $sql);
+			mysqli_stmt_bind_param($stmt, "is", $user_id, $group_ids);
+
 		}
 		
-		$stmt = mysqli_prepare($conn, $sql);
-		mysqli_stmt_bind_param($stmt, "i", $user_id);
+		
 
 		if (mysqli_stmt_execute($stmt)) {
 			$results = mysqli_stmt_get_result($stmt);
@@ -228,11 +246,11 @@ $group_ids = "ALL";
 		mysqli_close($conn_db_all);
 	}
 	
-/*}
+}
 else
 {
 	$return_response="Data not Available";
-}*/
+}
 
 echo json_encode($send);
 ?>

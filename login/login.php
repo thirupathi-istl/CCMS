@@ -60,7 +60,7 @@ if (mysqli_stmt_execute($stmt)) {
 
 mysqli_stmt_close($stmt);
 if (strtoupper($status) === "ACTIVE") {
-		
+
 	$_SESSION['mobile_no'] = $mobile_no;
 	$_SESSION['login_user_id'] = $user_id;
 	$_SESSION['user_name'] = $user_name;
@@ -90,8 +90,9 @@ if (strtoupper($status) === "ACTIVE") {
 		$result = mysqli_stmt_get_result($stmt);
 		if (mysqli_num_rows($result) > 0) {
 			$redirect = true;
+
 			while ($r = mysqli_fetch_assoc($result)) {
-				$device_list[] = array("d_id" => $r['device_id'], "d_name" => $r['device_name']);
+				$device_list[] = array("D_ID" => $r['device_id'], "D_NAME" => $r['device_name']);
 			}
 		} else {
 			if ($role == "SUPERADMIN" || $role == "ADMIN") {
