@@ -14,75 +14,17 @@ $add_confirm = false;
 $code ="";
 $user_devices="";
 
-/*$group_ids = "ALL";*/
+/*$group_id = "ALL";*/
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$group_ids = $_POST['GROUP_ID'];
+	$group_id = $_POST['GROUP_ID'];
 
-
-
-	$conn = mysqli_connect(HOST, USERNAME, PASSWORD, DB_USER);
-	if (!$conn) {
-		die("Connection failed: " . mysqli_connect_error());
-	} else {
-		$sql = "";
-		$group_by="";
-		$stmt = "";
-
-		$group_ids =trim( htmlspecialchars(mysqli_real_escape_string($conn, $group_ids)));
-
-		require_once(BASE_PATH_1."common-files/client-super-admin-device-names.php");
-		if($group_ids=="ALL")
-		{
-			
-			$sql = "SELECT $list FROM user_device_list WHERE login_id = ? ORDER BY LENGTH(device_id), device_id";
-			$stmt = mysqli_prepare($conn, $sql);
-			mysqli_stmt_bind_param($stmt, "i", $user_id);
-		}
-		else
-		{
-			$sql_group = "SELECT group_by FROM device_selection_group WHERE login_id = ?";
-			$stmt_group = mysqli_prepare($conn, $sql_group);
-			mysqli_stmt_bind_param($stmt_group, "i", $user_id);
-
-			if (mysqli_stmt_execute($stmt_group)) {
-				mysqli_stmt_store_result($stmt_group);
-				mysqli_stmt_bind_result($stmt_group, $group_by);
-				mysqli_stmt_fetch($stmt_group);
-			} else {
-				die("Error retrieving group_by: " . mysqli_error($conn));
-			}
-			mysqli_stmt_close($stmt_group);
-
-			$sql = "SELECT $list FROM device_list_by_group WHERE login_id = ? AND $group_by = ? GROUP BY $group_by ORDER BY $group_by";
-			$stmt = mysqli_prepare($conn, $sql);
-			mysqli_stmt_bind_param($stmt, "is", $user_id, $group_ids);
-
-		}
-		
-		
-
-		if (mysqli_stmt_execute($stmt)) {
-			$results = mysqli_stmt_get_result($stmt);
-			if (mysqli_num_rows($results) > 0) {
-				while ($r = mysqli_fetch_assoc($results)) {
-					$device_list[]=array("id"=>$r['device_id'], "name"=>$r['device_name']);
-					$user_devices=$user_devices."'".$r['device_id']."',";
-				}
-			}
-		}
-		mysqli_close($conn);
-	}
+	include_once(BASE_PATH_1."common-files/selecting_group_device.php");
 
 	if($user_devices!="")
 	{
 		$user_devices= substr($user_devices, 0, -1);
 	}
-
-	/*foreach ($device_list as $device) {
-		echo "Device ID: " . $device['id'] . "\n";
-		echo "Device Name: " . $device['name'] . "\n";
-	}*/
 
 	$conn_db_all = mysqli_connect(HOST,USERNAME,PASSWORD, DB_ALL);
 	if (!$conn_db_all) {
@@ -119,9 +61,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					$unit_capacity=$r['unit_capacity'];
 					$operation_mode=$r['operation_mode'];
 					$installed_lights=$r['total_lights'];
-
-
-
 
 
 					if($r['location']!='0,0'&& strpos($r['location'], "0000000,000000") === false)
@@ -207,10 +146,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 					foreach ($device_list as $device) {
 
-						$c_id =  $device['id'];
+						$c_id =  $device['D_ID'];
 						if(trim($device_id)===$c_id)
 						{						
-							$name= $device['name'];						
+							$name= $device['D_NAME'];						
 						}
 					}
 					$installed_lights ='<button class="btn btn-info btn-sm p-0 px-2" onclick=openLightsModal("'.$device_id.'","'.$name.'")>'.$installed_lights.'</button>';

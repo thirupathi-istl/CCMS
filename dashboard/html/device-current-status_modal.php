@@ -49,8 +49,8 @@
                 <div class="col-12 rounded  p-0">
                     <div class="row">
                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 ">
-                            <div class="card shadow bg-danger mt-2 py-2">
-                                <div class="card-body m-0 p-0 text-white">
+                            <div class="card shadow mt-2 py-2" style="background: rgba(238, 43, 43, 0.05)">
+                                <div class="card-body m-0 p-0 text-danger">
                                     <div class="row">
                                         <div class="col-md-4 justify-content-center d-flex align-items-center">
                                             <div class="phase-text justify-content-center d-flex align-items-center">R</div>
@@ -63,8 +63,8 @@
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-4  col-md-4 col-sm-4 col-4">
-                            <div class="card shadow bg-warning mt-2 py-2">
-                                <div class="card-body m-0 p-0 text-white">
+                            <div class="card shadow mt-2 py-2" style="background:rgba(238, 218, 43, 0.15)">
+                                <div class="card-body m-0 p-0 text-warning">
                                     <div class="row">
                                         <div class="col-md-4 justify-content-center d-flex align-items-center">
                                             <div class="phase-text justify-content-center d-flex align-items-center">Y</div>
@@ -77,8 +77,8 @@
                             </div>
                         </div>
                         <div class="col-xl-4  col-lg-4 col-md-4 col-sm-4 col-4" >
-                            <div class="card shadow bg-primary mt-2 py-2">
-                                <div class="card-body m-0 p-0 text-white">
+                            <div class="card shadow mt-2 py-2" style="background:rgba(43, 127, 238, 0.15)">
+                                <div class="card-body m-0 p-0 text-primary">
                                     <div class="row">
                                         <div class="col-md-4 justify-content-center d-flex align-items-center">
                                             <div class="phase-text justify-content-center d-flex align-items-center">B</div>
@@ -99,8 +99,8 @@
                 <div class="col-12 rounded  p-0">
                     <div class="row">
                         <div class="col-xl-4  col-lg-4 col-md-4 col-sm-4 col-4">
-                            <div class="card shadow bg-danger mt-2 py-2">
-                                <div class="card-body m-0 p-0 text-white">
+                            <div class="card shadow mt-2 py-2" style="background: rgba(238, 43, 43, 0.05)">
+                                <div class="card-body m-0 p-0 text-danger">
                                     <div class="row">
                                         <div class="col-md-4 justify-content-center d-flex align-items-center">
                                             <div class="phase-text justify-content-center d-flex align-items-center">R</div>
@@ -113,8 +113,8 @@
                             </div>
                         </div>
                         <div class="col-xl-4  col-lg-4 col-md-4 col-sm-4 col-4">
-                            <div class="card shadow bg-warning  mt-2 py-2">
-                                <div class="card-body m-0 p-0 text-white">
+                            <div class="card shadow mt-2 py-2" style="background:rgba(238, 218, 43, 0.15)">
+                                <div class="card-body m-0 p-0 text-warning">
                                     <div class="row">
                                         <div class="col-md-4 justify-content-center d-flex align-items-center">
                                             <div class="phase-text justify-content-center d-flex align-items-center">Y</div>
@@ -127,8 +127,8 @@
                             </div>
                         </div>
                         <div class="col-xl-4  col-lg-4 col-md-4 col-sm-4 col-4" >
-                            <div class="card shadow bg-primary mt-2 py-2">
-                                <div class="card-body m-0 p-0 text-white">
+                            <div class="card shadow mt-2 py-2" style="background:rgba(43, 127, 238, 0.15)">
+                                <div class="card-body m-0 p-0 text-primary">
                                     <div class="row">
                                         <div class="col-md-4 justify-content-center d-flex align-items-center">
                                             <div class="phase-text justify-content-center d-flex align-items-center">B</div>
@@ -150,8 +150,8 @@
                 <div class="col-12 rounded  p-0">
                     <div class="row">
                         <div class="col-xl-4 col-lg-4">
-                            <div class="card shadow bg-danger mt-2 py-2">
-                                <div class="card-body m-0 p-0 text-white">
+                            <div class="card shadow mt-2 py-2" style="background: rgba(238, 43, 43, 0.05)">
+                                <div class="card-body m-0 p-0 text-danger">
                                     <div class="row">
                                         <div class="col-md-4 justify-content-center d-flex align-items-center">
                                             <div class="phase-text justify-content-center d-flex align-items-center">R</div>
@@ -164,8 +164,8 @@
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-4">
-                            <div class="card shadow bg-warning mt-2 py-2">
-                                <div class="card-body m-0 p-0 text-white">
+                            <div class="card shadow mt-2 py-2" style="background:rgba(238, 218, 43, 0.15)">
+                                <div class="card-body m-0 p-0 text-warning">
                                     <div class="row">
                                         <div class="col-md-4 justify-content-center d-flex align-items-center">
                                             <div class="phase-text justify-content-center d-flex align-items-center">Y</div>
@@ -178,8 +178,8 @@
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-4" >
-                            <div class="card shadow bg-primary mt-2 py-2">
-                                <div class="card-body m-0 p-0 text-white">
+                            <div class="card shadow mt-2 py-2" style="background:rgba(43, 127, 238, 0.15)">
+                                <div class="card-body m-0 p-0 text-primary">
                                     <div class="row">
                                         <div class="col-md-4 justify-content-center d-flex align-items-center">
                                             <div class="phase-text justify-content-center d-flex align-items-center">B</div>
