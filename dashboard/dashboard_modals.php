@@ -1,11 +1,11 @@
 <?php
-include("html/total_modal.php");
+include("html/total_devices.php");
 include("html/installed_modal.php");
 include("html/uninstalled_modal.php");
 include("html/poor-network-modal.php");
 include("html/active_modal.php");
-include("html/inputfail_modal.php");
-include("html/fault_modal.php");
+include("html/power_failure.php");
+include("html/faulty_devices.php");
 include("html/system-on-modal.php");
 include("html/manual-on-modal.php");
 include("html/off_modal.php");

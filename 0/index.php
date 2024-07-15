@@ -27,27 +27,27 @@ SessionManager::checkSession();
             <div class="col-12 rounded mt-2 p-0 ">
               <div class="row">
                 <div class="col-4 pointer pointer">
-                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#TotalModal">
+                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#TotalModal" id="total_device">
                     <div class="card-body m-0 p-0">
                       <p class="card-text fw-semibold text-info-emphasis m-0 py-1"><i class="bi bi-bar-chart-fill h4"></i> Total</p>
-                      <h3 class="card-title py-2 text-primary" id="total_devices">220</h3>
+                      <h3 class="card-title py-2 text-primary" id="total_devices">0</h3>
                     </div>
                   </div>
                 </div>
 
                 <div class="col-4 pointer pointer">
-                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#installedModal">
+                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#installedModal" id="installed_devices_list">
                     <div class="card-body m-0 p-0">
                       <p class="card-text fw-semibold text-info-emphasis m-0 py-1"><i class="bi bi-check-circle-fill h4"></i> Installed</p>
-                      <h3 class="card-title py-2 text-primary" id="installed_devices">160</h3>
+                      <h3 class="card-title py-2 text-primary" id="installed_devices">0</h3>
                     </div>
                   </div>
                 </div>
                 <div class="col-4 pointer pointer">
-                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#notinstalledModal">
+                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#notinstalledModal"  id="not_installed_devices_list">
                     <div class="card-body m-0 p-0">
                       <p class="card-text fw-semibold text-info-emphasis m-0 py-1"><i class="bi bi-x-circle-fill h4"></i> Not-installed</p>
-                      <h3 class="card-title py-2 text-primary" id="not_installed_devices">60</h3>
+                      <h3 class="card-title py-2 text-primary" id="not_installed_devices">0</h3>
                     </div>
                   </div>
                 </div>
@@ -57,38 +57,38 @@ SessionManager::checkSession();
             <div class="col-12 rounded mt-3 p-0">
               <div class="row">
                 <div class="col-xl-3 col-6 pointer">
-                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#activeModal">
+                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#activeModal" id="active_device_list">
                     <div class="card-body m-0 p-0">
-                      <p class="card-text fw-semibold m-0 py-1 text-success"><i class="bi bi-lightbulb-fill h4"></i> Active</p>
+                      <p class="card-text fw-semibold m-0 py-1 text-success "><i class="bi bi-lightbulb-fill h4"></i> Active</p>
                       <!-- <hr class="mt-0"> -->
-                      <h3 class="card-title py-2 text-success" id="active_devices">220</h3>
+                      <h3 class="card-title py-2 text-success" id="active_devices">0</h3>
                     </div>
                   </div>
                 </div>
                 <div class="col-xl-3 col-6 pointer">
-                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#activePoorNetworkModal">
+                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#activePoorNetworkModal" id="poor_nw_device_list">
                     <div class="card-body m-0 p-0">
-                      <p class="card-text fw-semibold m-0 py-1 text-danger-emphasis text-opacity-25"><i class="bi bi-exclamation-triangle-fill h4"></i> Poor N/W</p>
+                      <p class="card-text fw-semibold m-0 py-1 text-warning-emphasis"><i class="bi bi-exclamation-triangle-fill h4"></i> Poor N/W</p>
                       <!-- <hr class="mt-0"> -->
-                      <h3 class="card-title py-2 text-danger-emphasis text-opacity-25" id="poornetwork">160</h3>
+                      <h3 class="card-title py-2 text-warning-emphasis text-opacity-25" id="poornetwork">0</h3>
                     </div>
                   </div>
                 </div>
                 <div class="col-xl-3 col-6 pointer mt-3 mt-xl-0" >
-                  <div class="card text-center shadow"data-bs-toggle="modal" data-bs-target="#powerfailureModal">
+                  <div class="card text-center shadow"data-bs-toggle="modal" data-bs-target="#powerfailureModal" id="power_failure_device_list">
                     <div class="card-body m-0 p-0">
                       <p class="card-text fw-semibold m-0 py-1 text-body-tertiary"><i class="bi bi-power h4"></i> Input Power Fail</p>
                       <!-- <hr class="mt-0"> -->
-                      <h3 class="card-title py-2 text-body-tertiary" id="input_power_fail">60</h3>
+                      <h3 class="card-title py-2 text-body-tertiary" id="input_power_fail">0</h3>
                     </div>
                   </div>
                 </div>
                 <div class="col-xl-3 col-6 pointer mt-3 mt-xl-0">
-                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#faultModal">
+                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#faultModal" id="faulty_device_list">
                     <div class="card-body m-0 p-0">
                       <p class="card-text fw-semibold m-0 py-1 text-danger"><i class="bi bi-bug-fill h4"></i> Faulty</p>
                       <!-- <hr class="mt-0"> -->
-                      <h3 class="card-title py-2 text-danger" id="faulty">60</h3>
+                      <h3 class="card-title py-2 text-danger" id="faulty">0</h3>
                     </div>
                   </div>
                 </div>
@@ -98,29 +98,29 @@ SessionManager::checkSession();
             <div class="col-12 rounded mt-3 p-0">
               <div class="row">
                 <div class="col-4 pointer">
-                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#AutoOnModal">
+                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#AutoOnModal" id="auto_on_devices_list">
                     <div class="card-body m-0 p-0 text-success">
                       <p class="card-text fw-semibold m-0 py-1"> <i class="bi bi-clock-fill h4"></i> Auto/System On</p>
                       <!-- <hr class="mt-0"> -->
-                      <h3 class="card-title py-2" id="auto_on">100</h3>
+                      <h3 class="card-title py-2" id="auto_on">0</h3>
                     </div>
                   </div>
                 </div>
                 <div class="col-4 pointer">
-                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#manualOnModal">
+                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#manualOnModal" id="manual_on_devices_list">
                     <div class="card-body m-0 p-0 text-info-emphasis">
                       <p class="card-text fw-semibold m-0 py-1">  <i class="bi bi-hand-index-fill h4"></i> Manual On</p>
                       <!-- <hr class="mt-0"> -->
-                      <h3 class="card-title py-2" id="manual_on">30</h3>
+                      <h3 class="card-title py-2" id="manual_on">0</h3>
                     </div>
                   </div>
                 </div>
                 <div class="col-4 pointer">
-                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#offModal">
+                  <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#offModal" id="off_devices_list">
                     <div class="card-body m-0 p-0 text-danger">
                       <p class="card-text fw-semibold m-0 py-1"> <i class="bi bi-toggle-off h4"></i> OFF</p>
                       <!-- <hr class="mt-0"> -->
-                      <h3 class="card-title py-2" id="off">30</h3>
+                      <h3 class="card-title py-2" id="off">0</h3>
                     </div>
                   </div>
                 </div>
@@ -209,19 +209,8 @@ SessionManager::checkSession();
                   <i class="bi bi-chat-dots-fill"></i> Updates
                 </div>
                 <div class="card-body">
-                  <div class="list-group overflow-y-auto" style=" height:600px;">
-                    <a href="#" class="list-group-item list-group-item-action " aria-current="true">
-                      <div class="d-flex w-100 justify-content-between">
-                        <small class="mb-1 sub-sup-font-size fw-medium text-primary d-flex align-content-center"><i class="bi bi-cpu pe-2"></i><span id="alert_id">BMC_CCMS_1(P(1) BAIRAGARH)</span></small>
-                      </div>
-                      <small class="mb-1 font-small  text-info-emphasis">ID:BMC_CCMS_1(P(1) BAIRAGARH) Power Resumed TIME:06:48:39 29-04-2024 GPS: http://maps.google.com/?q=23.2791383,77.3370483.</small>
+                  <div id="alerts_list" class="list-group overflow-y-auto" style=" height:600px;">
 
-                      <div class="d-flex w-100 justify-content-end ">
-
-                         <small class="mb-1  font-x-small text-primary d-flex align-content-center"><i class="bi bi-clock pe-1"></i><span id="alert_date_time">06:49:39 29-04-2024</span></small>
-                      
-                      </div>
-                    </a>
 
 
                   </div>
@@ -242,7 +231,6 @@ include(BASE_PATH."dashboard/dashboard_modals.php");
 </main>
 <script src="<?php echo BASE_PATH;?>assets/js/sidebar-menu.js"></script>
 <script src="<?php echo BASE_PATH;?>js_modal_scripts/dashboard_modals_script.js"></script>
-<script src="<?php echo BASE_PATH;?>js_modal_scripts/viewbutton.js"></script>
 <script src="<?php echo BASE_PATH;?>js_modal_scripts/dashboard.js"></script>
 
 <?php

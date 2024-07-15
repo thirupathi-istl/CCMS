@@ -8,11 +8,11 @@ $mobile_no = $sessionVars['mobile_no'];
 $user_id = $sessionVars['user_id'];
 $role = $sessionVars['role'];
 $user_login_id = $sessionVars['user_login_id'];
-
+//=================================================
 $return_response = "";
-$add_confirm = false;
-$code ="";
+$total_switch_point=0;
 $user_devices="";
+//=================================================
 
 /*$group_id = "ALL";*/
 
@@ -76,11 +76,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					{
 						if($r['active_device']==1)
 						{						
-							$device_status="Active";
+							$device_status="<span class='text-white fw-semibold bg-success py-1 px-2 rounded'> Active</span>";
 						}
 						else if($r['poor_network']==1)
 						{
-							$device_status="Poor Newtwork";
+							$device_status="<span class='fw-semibold bg-warning py-1 px-2 rounded'> Poor Newtwork</span>";
 						}
 						else if($r['power_failure']==1)
 						{
@@ -91,12 +91,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							$device_status="Faulty";
 						}
 
-						$installation_status="Installed";
+						$installation_status="<span class='text-success fw-semibold'> Installed</span>";
 					}
 					else
 					{
-						$device_status="Not Installed";
-						$installation_status="Not Installed";
+						$device_status="<span class='text-danger fw-semibold'> Not Installed</span>";
+						$installation_status= "<span class='text-danger fw-semibold'> Not Installed</span>";
 
 					}
 
@@ -107,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 					if ($on_off_status == "1")
 					{
-						$on_off_status="ON";
+						$on_off_status="<span class='text-white fw-semibold bg-info-emphasis py-1 px-2 rounded'>Auto ON</span>";
 					}
 					else if ($on_off_status == "2")
 					{
@@ -115,32 +115,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					}
 					else if ($on_off_status == "3")
 					{
-						$on_off_status="SERVER ON";
+						$on_off_status="<span class='text-white fw-semibold bg-success py-1 px-2 rounded'> Server ON</span>";
 					}
 					else if ($on_off_status == "4")
 					{
-						$on_off_status="WIFI ON";
+						$on_off_status="<span class='text-white fw-semibold bg-success py-1 px-2 rounded'> Wifi ON</span>";
 					}
 					else if ($on_off_status == "5")
 					{
-						$on_off_status="MANUAL ON";
+						$on_off_status="<span class='text-white fw-semibold bg-info-emphasis py-1 px-2 rounded'> Manual ON</span>";
 					}
 					else if ($on_off_status == "6")
-					{
-						$on_off_status="SERVER OFF";
+					{						
+						$on_off_status="<span class='text-white fw-semibold bg-danger py-1 px-2 rounded'> SERVER OFF</span>";
 					}
 
 					else if ($on_off_status == "7")
 					{
-						$on_off_status="WIFI OFF";
+						$on_off_status="<span class='text-white fw-semibold bg-danger py-1 px-2 rounded'> WIFI OFF</span>";
 					}
 					else if ($on_off_status == "0")
 					{
-						$on_off_status="OFF";
+						$on_off_status="<span class='text-white fw-semibold bg-danger py-1 px-2 rounded'> OFF</span>";
 					}
 					else
 					{
-						$on_off_status="OFF";
+						$on_off_status="<span class='text-white fw-semibold bg-danger py-1 px-2 rounded'> OFF</span>";
 					}
 					$name=$device_id;
 
@@ -154,7 +154,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					}
 					$installed_lights ='<button class="btn btn-info btn-sm p-0 px-2" onclick=openLightsModal("'.$device_id.'","'.$name.'")>'.$installed_lights.'</button>';
 					
-					if($installation_date==""||$installation_date==null)
+					/*if($installation_date==""||$installation_date==null)
 					{
 						$installation_date='<button class="address_update btn btn-primary pt-0 pb-0" onclick=update_installation_date("'.$device_id.'","'.$name.'")>Update</button>';
 
@@ -163,7 +163,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					{
 						$installation_date=$installation_date.'<a class="edit pl-3 pb-0" title="Edit" data-toggle="tooltip" onclick=update_installation_date("'.$device_id.'","'.$name.'")><i class="fa fa-pencil text-primary mr-2" style="font-size:20px ;cursor: pointer;" aria-hidden="true"></i></a>';
 
-					}
+					}*/
 
 					
 					

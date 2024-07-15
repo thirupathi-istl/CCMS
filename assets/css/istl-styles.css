@@ -184,3 +184,11 @@
 		color: red;
 		font-weight: bold; 
 	}
+
+
+	.bg-info-emphasis{
+		background-color:  #087a91;
+	}
+	[data-bs-theme="dark"] .bg-info-emphasis{
+		background-color:  #0989aa;
+	}

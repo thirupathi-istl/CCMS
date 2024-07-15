@@ -9,15 +9,12 @@ $mobile_no = $sessionVars['mobile_no'];
 $user_id = $sessionVars['user_id'];
 $role = $sessionVars['role'];
 $user_login_id = $sessionVars['user_login_id'];
-
+//==================================//
 $return_response = "";
-$add_confirm = false;
-$code ="";
-$user_devices="";
 $device_list = array ();
-
-$locations=array();
+$user_devices="";
 $total_switch_point=0;
+//==================================//
 
 //$group_id="ALL";
 

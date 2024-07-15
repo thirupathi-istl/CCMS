@@ -1,5 +1,5 @@
 <div class="modal fade" id="manualOnModal" tabindex="-1" aria-labelledby="manualOnModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="manualOnModalLabel">Manual ON Devices</h5>
@@ -11,59 +11,24 @@
                         <table class="table table-striped table-type-1 w-100 text-center">
                             <thead>
                                 <tr>
-                                    <th class="bg-logo-color text-white" scope="col">Device ID</th>
-                                    <th class="bg-logo-color text-white" scope="col">Device Name</th>
-                                    <th class="bg-logo-color text-white" scope="col">Location</th>
-                                    <th class="bg-logo-color text-white" scope="col">Manual On Time</th>
-                                    <th class="bg-logo-color text-white" scope="col">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Rows of active poor network devices data -->
-                                <tr>
-                                    <td>Device 1</td>
-                                    <td> CCMS 1</td>
-                                    <td><a href="https://www.google.com/maps?q=17.467754,%2078.603072" target="_blank">Location</a></td>
-                                    <td>2024-06-09 10:30 am</td>
-                                    <td><button class="btn btn-info btn-sm p-0 px-2 " onclick="openOpenviewModal()" >View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Device 2</td>
-                                    <td> CCMS 1</td>
+                                 <th class="bg-success-subtle" scope="col">Device ID</th>
+                                 <th class="bg-success-subtle" scope="col">Device Name</th>                                    
+                                 <th class="bg-success-subtle col-size-1" scope="col">Last Record Updated</th>
+                                 <th class="bg-success-subtle col-size-1" scope="col">Last Communication at</th>
+                                 <th class="bg-success-subtle" scope="col">Status</th>
+                                 <th class="bg-success-subtle" scope="col">Location</th>
+                             </tr>
+                         </thead>
+                         <tbody id="manual_on_devices_table">
 
-                                    <td><a href="https://www.google.com/maps?q=17.467754,%2078.603072" target="_blank">Location</a></td>
-                                    <td>2024-06-09 10:30 am</td>
-                                    <td><button class="btn btn-info btn-sm p-0 px-2 " onclick="openOpenviewModal()" >View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Device 3</td>
-                                    <td> CCMS 1</td>
-                                    <td><a href="https://www.google.com/maps?q=17.467754,%2078.603072" target="_blank">Location</a></td>
-                                    <td>2024-06-09 10:30 am</td>
-                                    <td><button class="btn btn-info btn-sm p-0 px-2 " onclick="openOpenviewModal()" >View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Device 3</td>
-                                    <td> CCMS 1</td>
-                                    <td><a href="https://www.google.com/maps?q=17.467754,%2078.603072" target="_blank">Location</a></td>
-                                    <td>2024-06-09 10:30 am</td>
-                                    <td><button class="btn btn-info btn-sm p-0 px-2 " onclick="openOpenviewModal()" >View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Device 3</td>
-                                    <td> CCMS 1</td>
-                                    <td><a href="https://www.google.com/maps?q=17.467754,%2078.603072" target="_blank">Location</a></td>
-                                    <td>2024-06-09 10:30 am</td>
-                                    <td><button class="btn btn-info btn-sm p-0 px-2 " onclick="openOpenviewModal()" >View</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
     </div>
+</div>
 </div>

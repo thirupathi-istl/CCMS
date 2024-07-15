@@ -3,19 +3,28 @@ if(group_name==""||group_name==null)
 {
 	group_name="ALL";
 }
-update_switchPoints_status(group_name);
+if (group_name !== "" && group_name !== null) {
+	update_switchPoints_status(group_name);
+	update_alerts(group_name);
+	$("#pre-loader").css('display', 'block');
+}
+
 
 let group_list = document.getElementById('group-list');
 
 group_list.addEventListener('change', function() {
-	let selectedValue = group_list.value;
-	update_switchPoints_status(selectedValue);
+	let group_name = group_list.value;
+	if (group_name !== "" && group_name !== null) {
+		update_switchPoints_status(group_name);
+		update_alerts(group_name);
+		$("#pre-loader").css('display', 'block');
+	}
 });
 function update_switchPoints_status(group_id){
         // AJAX request when the page is loaded or when an event triggers it
-	if (group_id !== "" && group_id !== null) {
-		$("#pre-loader").css('display', 'block');
-		$.ajax({
+
+
+	$.ajax({
             type: "POST", // Method type
             url: "../dashboard/code/switchpoint_details.php", // PHP script URL
             data: {
@@ -37,7 +46,7 @@ function update_switchPoints_status(group_id){
             	$("#installed_lights").text(response.TOTAL_LIGHTS);
             	$("#installed_lights_on").text(response.ON_LIGHTS);
             	$("#installed_lights_off").text(response.OFF_LIGHT);
-            	$("#installed_load").text(response.INSTALLED_LOAD);
+            	$("#installed_load").text("Installed Lights Load = "+response.INSTALLED_LOAD);
             	$("#active_load").text(response.ACTIVE_LOAD);
             	$("#total_consumption_units").text(response.KWH);
             	$("#energy_saved_units").text(response.SAVED_UNITS);
@@ -72,96 +81,300 @@ function update_switchPoints_status(group_id){
             },
             error: function(xhr, status, error) {
             	console.error("AJAX Error:", status, error);
-                // Handle errors here if necessary
+            	$("#pre-loader").css('display', 'none');
             }
         });
-	}
 }
 
 
-//=========================================================
-//=========================================================
-//=========================================================
+function update_alerts(group_id){
+
+	$.ajax({
+            type: "POST", // Method type
+            url: "../dashboard/code/update_alerts.php", // PHP script URL
+            data: {
+                GROUP_ID: group_id // Optional data to send to PHP script
+            },
+            dataType: "json", // Expected data type from PHP script
+            success: function(response) {
+                // Update HTML elements with response data
+            	$("#alerts_list").html(""); 
+            	$("#alerts_list").html(response);     
+            	//$("#pre-loader").css('display', 'none');       	
+            },
+            error: function(xhr, status, error) {
+            	$("#alerts_list").html(""); 
+            	console.error("Error:", status, error);
+            	$("#pre-loader").css('display', 'none');
+                // Handle errors here if necessary
+            }
+        });
+}
+
+document.getElementById('total_device').onclick = function() {
+
+	let group_id = group_list.value;
+	if (group_id !== "" && group_id !== null) {		
+		get_devices_status( group_id, "ALL")
+	}
+};
+document.getElementById('installed_devices_list').onclick = function() {
+
+
+	let group_id = group_list.value;
+	if (group_id !== "" && group_id !== null) {		
+		get_devices_status( group_id, "INSTALLED")
+	}
+};
+
+
+document.getElementById('not_installed_devices_list').onclick = function() {
+
+	let group_id = group_list.value;
+	if (group_id !== "" && group_id !== null) {		
+		get_devices_status( group_id, "NOTINSTALLED")
+	}
+};
+
+function get_devices_status(group_id, status)
+{
+	
+	$("#pre-loader").css('display', 'block');		
+	$.ajax({
+            type: "POST", // Method type
+            url: "../dashboard/code/dashboard_device_list.php", // PHP script URL
+            data: {
+                GROUP_ID: group_id, STATUS: status // Optional data to send to PHP script
+            },
+            dataType: "json", // Expected data type from PHP script
+            success: function(response) {
+            	$("#not_installed_device_list_table").html(""); 
+            	$("#total_device_table").html("");
+            	$("#installed_device_list_table").html("");  
+            	if(status=="ALL")
+            	{
+            		$("#total_device_table").html(response); 
+            	}
+            	else if(status=="INSTALLED")
+            	{
+            		$("#installed_device_list_table").html(response); 
+            	}
+            	else
+            	{
+            		$("#not_installed_device_list_table").html(response); 
+            	}
+            	$("#pre-loader").css('display', 'none');       	
+            },
+            error: function(xhr, status, error) {
+            	$("#total_device_table").html(""); 
+            	console.error("Error:", status, error);
+            	$("#pre-loader").css('display', 'none');
+                // Handle errors here if necessary
+            }
+        });
+}
+
+document.getElementById('active_device_list').onclick = function() {
+
+    let group_id = group_list.value;
+    if (group_id !== "" && group_id !== null) {     
+        installed_devices_status( group_id, "ACTIVE_DEVICES")
+    }
+};
+
+document.getElementById('poor_nw_device_list').onclick = function() {
+
+    let group_id = group_list.value;
+    if (group_id !== "" && group_id !== null) {     
+        installed_devices_status( group_id, "POOR_NW_DEVICES")
+    }
+};
+document.getElementById('power_failure_device_list').onclick = function() {
+
+    let group_id = group_list.value;
+    if (group_id !== "" && group_id !== null) {     
+        installed_devices_status( group_id, "POWER_FAIL_DEVICES")
+    }
+};
+document.getElementById('faulty_device_list').onclick = function() {
+
+    let group_id = group_list.value;
+    if (group_id !== "" && group_id !== null) {     
+        installed_devices_status( group_id, "FAULTY_DEVICES")
+    }
+};
+
+function installed_devices_status(group_id, status)
+{
+
+    $("#pre-loader").css('display', 'block');       
+    $.ajax({
+            type: "POST", // Method type
+            url: "../dashboard/code/installed_devices_status.php", // PHP script URL
+            data: {
+                GROUP_ID: group_id, STATUS: status // Optional data to send to PHP script
+            },
+            dataType: "json", // Expected data type from PHP script
+            success: function(response) {
+
+
+
+                if(status=="ACTIVE_DEVICES")
+                {
+                    $("#active_device_list_update_table").html(""); 
+                    $("#active_device_list_update_table").html(response); 
+                }
+                else if(status=="POOR_NW_DEVICES")
+                {
+                    $("#poor_nw_list_table").html("");
+                    $("#poor_nw_list_table").html(response); 
+                }
+                else if(status=="POWER_FAIL_DEVICES")
+                {
+                    $("#power_fail_devices_table").html("");
+                    $("#power_fail_devices_table").html(response); 
+                }
+
+                else if(status=="FAULTY_DEVICES")
+                {
+                    $("#faulty_device_list_table").html("");
+                    $("#faulty_device_list_table").html(response); 
+                }
+                $("#pre-loader").css('display', 'none');        
+            },
+            error: function(xhr, status, error) {
+                $("#total_device_table").html(""); 
+                console.error("Error:", status, error);
+                $("#pre-loader").css('display', 'none');
+                // Handle errors here if necessary
+            }
+        });
+}
+
+
+document.getElementById('auto_on_devices_list').onclick = function() {
+
+    let group_id = group_list.value;
+    if (group_id !== "" && group_id !== null) {     
+        active_device_status( group_id, "ON_LIGHTS")
+    }
+};
+
+
+document.getElementById('off_devices_list').onclick = function() {
+
+    let group_id = group_list.value;
+    if (group_id !== "" && group_id !== null) {     
+        active_device_status( group_id, "OFF_LIGHTS")
+    }
+};
+document.getElementById('manual_on_devices_list').onclick = function() {
+
+    let group_id = group_list.value;
+    if (group_id !== "" && group_id !== null) {     
+        active_device_status( group_id, "MANUAL_ON")
+    }
+};
+
+
+function active_device_status(group_id, status)
+{
+
+    $("#pre-loader").css('display', 'block');       
+    $.ajax({
+            type: "POST", // Method type
+            url: "../dashboard/code/active_device_lights_status.php", // PHP script URL
+            data: {
+                GROUP_ID: group_id, STATUS: status // Optional data to send to PHP script
+            },
+            dataType: "json", // Expected data type from PHP script
+            success: function(response) {
+
+
+
+                if(status=="ON_LIGHTS")
+                {
+                    $("#on_devices_table").html(""); 
+                    $("#on_devices_table").html(response); 
+                }
+                else if(status=="OFF_LIGHTS")
+                {
+                    $("#off_device_table").html("");
+                    $("#off_device_table").html(response); 
+                }
+
+                else if(status=="MANUAL_ON")
+                {
+                    $("#manual_on_devices_table").html("");
+                    $("#manual_on_devices_table").html(response); 
+                }
+                $("#pre-loader").css('display', 'none');        
+            },
+            error: function(xhr, status, error) {
+                $("#total_device_table").html(""); 
+                console.error("Error:", status, error);
+                $("#pre-loader").css('display', 'none');
+                // Handle errors here if necessary
+            }
+        });
+}
+
+function openOpenviewModal(device_id) {
+
+    $("#pre-loader").css('display', 'block');       
+    $.ajax({
+            type: "POST", // Method type
+            url: "../dashboard/code/device_latest_values_update.php", // PHP script URL
+            data: {
+                DEVICE_ID: device_id // Optional data to send to PHP script
+            },
+            dataType: "json", // Expected data type from PHP script
+            success: function(data) {
+               $('total_light').text(data.LIGHTS);     
+               $('#on_percentage').text(data.LIGHTS_ON);     
+               $('#off_percentage').text(data.LIGHTS_OFF);     
+               $('#on_off_status').html(data.ON_OFF_STATUS);    
+               $('#v_r').text(data.V_PH1);     
+               $('#v_y').text(data.V_PH2);     
+               $('#v_b').text(data.V_PH3);    
+               $('#i_r').text(data.I_PH1);    
+               $('#i_y').text(data.I_PH2);     
+               $('#i_b').text(data.I_PH3);    
+               $('#watt_r').text(data.KW_R);     
+               $('#watt_y').text(data.KW_Y);    
+               $('#watt_b').text(data.KW_B);     
+               $('#kwh').text(data.KWH);     
+               $('#kvah').text(data.KVAH);    
+               $('#record_date_time').text(data.DATE_TIME);   
+               $("#pre-loader").css('display', 'none');  
+               var openviewModal = document.getElementById('openview');
+               var bootstrapModal = new bootstrap.Modal(openviewModal);
+               bootstrapModal.show();      
+           },
+           error: function(xhr, status, error) {
+            $("#total_device_table").html(""); 
+            console.error("Error:", status, error);
+            $("#pre-loader").css('display', 'none');
+                // Handle errors here if necessary
+        }
+    });
+
+
+}
 
 
 
 
-	/*function add_device_list(group_id) {
-   // var group_id = document.getElementById('group-list').value;
 
-		if (group_id !== "" && group_id !== null) {
-			$("#pre-loader").css('display', 'block');
-			$.ajax({
-				type: "POST",
-				url: '../device-list/code/device-list-table.php',
-				traditional: true,
-				data: { GROUP_ID: group_id },
-				dataType: "json",
-				success: function (data) {
-					const device_list_table = document.getElementById('device_list_table');
-					device_list_table.innerHTML = '';
 
-					if (Object.keys(data).length) {
-						for (var i = 0; i < data.length; i++) {
-							if (data[i].ACTIVE_STATUS == 0) {
-								var newRow = document.createElement('tr');
-								newRow.innerHTML =
-								'<td>' + data[i].D_ID + '</td>' +
-								'<td>' + data[i].D_NAME + '</td>' +
-								'<td>' + data[i].INSTALLED_STATUS + '</td>' +
-								'<td>' + data[i].INSTALLED_DATE + '</td>' +
-								'<td>' + data[i].KW + '</td>' +
-								'<td class="col-size-1">' + data[i].DATE_TIME + '</td>' +
-								'<td>' + data[i].ON_OFF_STATUS + '</td>' +
-								'<td>' + data[i].OPERATION_MODE + '</td>' +
-								'<td>' + data[i].WORKING_STATUS + '</td>' +
-								'<td>' + data[i].LMARK + '</td>' +
-								'<td>' + data[i].INSTALLED_LIGHTS + '</td>' +
-								'<td><i class="bi bi-trash-fill text-danger pointer h5" onclick="delete_device_id(this, \'' + data[i].REMOVE + '\')"></i></td>';
-								device_list_table.appendChild(newRow);
-							}
-						}
 
-						for (var i = 0; i < data.length; i++) {
-							if (data[i].ACTIVE_STATUS == 1) {
-								var newRow = document.createElement('tr');
-								newRow.innerHTML =
-								'<td>' + data[i].D_ID + '</td>' +
-								'<td>' + data[i].D_NAME + '</td>' +
-								'<td>' + data[i].INSTALLED_STATUS + '</td>' +
-								'<td>' + data[i].INSTALLED_DATE + '</td>' +
-								'<td>' + data[i].KW + '</td>' +
-								'<td class="col-size-1">' + data[i].DATE_TIME + '</td>' +
-								'<td>' + data[i].ON_OFF_STATUS + '</td>' +
-								'<td>' + data[i].OPERATION_MODE + '</td>' +
-								'<td>' + data[i].WORKING_STATUS + '</td>' +
-								'<td>' + data[i].LMARK + '</td>' +
-								'<td>' + data[i].INSTALLED_LIGHTS + '</td>' +                           
-								'<td><i class="bi bi-trash-fill text-danger pointer h5" onclick="delete_device_id(this, \'' + data[i].REMOVE + '\')"></i></td>';
-								device_list_table.appendChild(newRow);
-							}
 
-						}
-					}
-					else
-					{
-						var newRow = document.createElement('tr');
-						newRow.innerHTML ='<td class="text-danger" colspan="12">Device List not found</td>';
-						device_list_table.appendChild(newRow); 
-					}
-					$("#pre-loader").css('display', 'none');
-				},
-				error: function (textStatus, errorThrown) {
-					alert("Error getting the data");
-					$("#pre-loader").css('display', 'none');
-				},
-				failure: function () {
-					alert("Failed to get the data");
-					$("#pre-loader").css('display', 'none');
-				}
-			});
-		}
-	}*/
+
+
+
+
+
+
 
 
 
