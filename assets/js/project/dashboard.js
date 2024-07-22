@@ -20,10 +20,9 @@ group_list.addEventListener('change', function() {
 		$("#pre-loader").css('display', 'block');
 	}
 });
+
+
 function update_switchPoints_status(group_id){
-        // AJAX request when the page is loaded or when an event triggers it
-
-
 	$.ajax({
             type: "POST", // Method type
             url: "../dashboard/code/switchpoint_details.php", // PHP script URL
@@ -330,28 +329,28 @@ function openOpenviewModal(device_id) {
             },
             dataType: "json", // Expected data type from PHP script
             success: function(data) {
-               $('total_light').text(data.LIGHTS);     
-               $('#on_percentage').text(data.LIGHTS_ON);     
-               $('#off_percentage').text(data.LIGHTS_OFF);     
-               $('#on_off_status').html(data.ON_OFF_STATUS);    
-               $('#v_r').text(data.V_PH1);     
-               $('#v_y').text(data.V_PH2);     
-               $('#v_b').text(data.V_PH3);    
-               $('#i_r').text(data.I_PH1);    
-               $('#i_y').text(data.I_PH2);     
-               $('#i_b').text(data.I_PH3);    
-               $('#watt_r').text(data.KW_R);     
-               $('#watt_y').text(data.KW_Y);    
-               $('#watt_b').text(data.KW_B);     
-               $('#kwh').text(data.KWH);     
-               $('#kvah').text(data.KVAH);    
-               $('#record_date_time').text(data.DATE_TIME);   
-               $("#pre-loader").css('display', 'none');  
-               var openviewModal = document.getElementById('openview');
-               var bootstrapModal = new bootstrap.Modal(openviewModal);
-               bootstrapModal.show();      
-           },
-           error: function(xhr, status, error) {
+             $('total_light').text(data.LIGHTS);     
+             $('#on_percentage').text(data.LIGHTS_ON);     
+             $('#off_percentage').text(data.LIGHTS_OFF);     
+             $('#on_off_status').html(data.ON_OFF_STATUS);    
+             $('#v_r').text(data.V_PH1);     
+             $('#v_y').text(data.V_PH2);     
+             $('#v_b').text(data.V_PH3);    
+             $('#i_r').text(data.I_PH1);    
+             $('#i_y').text(data.I_PH2);     
+             $('#i_b').text(data.I_PH3);    
+             $('#watt_r').text(data.KW_R);     
+             $('#watt_y').text(data.KW_Y);    
+             $('#watt_b').text(data.KW_B);     
+             $('#kwh').text(data.KWH);     
+             $('#kvah').text(data.KVAH);    
+             $('#record_date_time').text(data.DATE_TIME);   
+             $("#pre-loader").css('display', 'none');  
+             var openviewModal = document.getElementById('openview');
+             var bootstrapModal = new bootstrap.Modal(openviewModal);
+             bootstrapModal.show();      
+         },
+         error: function(xhr, status, error) {
             $("#total_device_table").html(""); 
             console.error("Error:", status, error);
             $("#pre-loader").css('display', 'none');

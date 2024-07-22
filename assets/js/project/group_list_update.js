@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   const groupListElement = document.getElementById('group-list');
   const deviceIdDropdown = document.getElementById('device_id');
+  const multipleList = document.getElementById('multi_selection_device_id');
 
   if (groupListElement) {
     groupList();
@@ -18,6 +19,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (groupListElement) {
     groupListElement.addEventListener('change', changeGroupList);
+  }
+
+  if (multipleList) {
+    const script = document.createElement('script');
+    script.src = '../assets/js/project/multi-selection.js';
+    document.head.appendChild(script);
   }
 
   function setDeviceId() {        
@@ -76,20 +83,28 @@ document.addEventListener('DOMContentLoaded', function() {
  function updateDeviceDropdown(data) {
   deviceIdDropdown.innerHTML = '';
 
-  data.forEach(id_list => {
-    const option = document.createElement('option');
-    option.value = id_list.D_ID;    
-    option.textContent = id_list.D_NAME;
-    deviceIdDropdown.appendChild(option);
-  });
+  if (multipleList) {
+   multipleList.innerHTML = '';
+ }
 
-  deviceIdDropdown.selectedIndex = 0;
-  /*const multipleList = document.getElementById('multi_selection_device_id');
-          if (multipleList) {
-            const script = document.createElement('script');
-            script.src = '../static/js/multi-selection.js';
-            document.head.appendChild(script);
-  }*/
+ data.forEach(id_list => {
+  const option = document.createElement('option');
+  const option_multi = document.createElement('option');
+  option.value = id_list.D_ID;    
+  option_multi.value = id_list.D_ID;    
+  option.textContent = id_list.D_NAME;
+  option_multi.textContent = id_list.D_NAME;
+  deviceIdDropdown.appendChild(option);
+
+  if (multipleList) {
+    multipleList.appendChild(option_multi);
+  }
+});
+
+ deviceIdDropdown.selectedIndex = 0;
+
+
+
 }
 
 function localStorageReset() {
@@ -97,6 +112,7 @@ function localStorageReset() {
   const groupListValue = groupListElement.value;
   localStorage.setItem("GroupName", indexGroupList);
   localStorage.setItem("GroupNameValue", groupListValue);
+  localStorage.setItem("Devive_ID_Selection", 0);
 
   if (deviceIdDropdown)
   {

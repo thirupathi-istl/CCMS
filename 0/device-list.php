@@ -81,7 +81,7 @@ include(BASE_PATH."device-list/html/addlight.php");
 ?>
 </main>
 <script src="<?php echo BASE_PATH;?>assets/js/sidebar-menu.js"></script>
-<script src="<?php echo BASE_PATH;?>js_modal_scripts/device-list.js"></script>
+<script src="<?php echo BASE_PATH;?>assets/js/project/device-list.js"></script>
 <script src="<?php echo BASE_PATH;?>js_modal_scripts/searchbar.js"></script>
 <?php
 include(BASE_PATH."assets/html/body-end.php");

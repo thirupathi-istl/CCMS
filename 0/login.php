@@ -48,6 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         localStorage.removeItem("SELECTED_ID");
         localStorage.removeItem("GroupName");
         localStorage.removeItem("GroupNameValue");
+
+        
+       /* localStorage.setItem("SELECTED_ID", 0);*/
         
     </script>
 

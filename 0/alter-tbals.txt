@@ -1,0 +1,1 @@
+ALTER TABLE `user_activity_log` ADD `user_mobile` VARCHAR(20) NOT NULL DEFAULT '--' AFTER `date_time`, ADD `email` VARCHAR(100) NOT NULL DEFAULT '--' AFTER `user_mobile`, ADD `name` VARCHAR(100) NOT NULL DEFAULT '--' AFTER `email`, ADD `role` VARCHAR(100) NULL DEFAULT '--' AFTER `name`;

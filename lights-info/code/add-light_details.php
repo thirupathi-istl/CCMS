@@ -44,19 +44,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check user permissions
     $sql = "SELECT lights_info_update FROM user_permissions WHERE login_id = ?";
     $stmt = mysqli_prepare($conn1, $sql);
-    if ($stmt) {
+    if ($stmt) 
+    {
         mysqli_stmt_bind_param($stmt, "s", $user_login_id);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_bind_result($stmt, $permission_check);
         mysqli_stmt_fetch($stmt);
         mysqli_stmt_close($stmt);
-
-        if ($permission_check != 1) {
+        mysqli_close($conn1);
+        if ($permission_check != 1) 
+        {
             echo json_encode(["status" => "error", "message" => "No permission to add the device"]);
             mysqli_close($conn1);
             exit();
         }
-    } else {
+    } 
+    else 
+    {
         echo json_encode(["status" => "error", "message" => "Error preparing query for user permissions: " . mysqli_error($conn1)]);
         mysqli_close($conn1);
         exit();
@@ -90,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $conn2 = mysqli_connect(HOST, USERNAME, PASSWORD, DB_ALL);
                 if (!$conn2) {
                     echo json_encode(["status" => "error", "message" => "Connection to second database failed: " . mysqli_connect_error()]);
-                    mysqli_close($conn);
+                    mysqli_close($conn2);
                     exit();
                 }
 

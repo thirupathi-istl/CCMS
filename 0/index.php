@@ -231,7 +231,7 @@ include(BASE_PATH."dashboard/dashboard_modals.php");
 </main>
 <script src="<?php echo BASE_PATH;?>assets/js/sidebar-menu.js"></script>
 <script src="<?php echo BASE_PATH;?>js_modal_scripts/dashboard_modals_script.js"></script>
-<script src="<?php echo BASE_PATH;?>js_modal_scripts/dashboard.js"></script>
+<script src="<?php echo BASE_PATH;?>assets/js/project/dashboard.js"></script>
 
 <?php
 include(BASE_PATH."assets/html/body-end.php"); 
