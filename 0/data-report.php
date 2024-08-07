@@ -99,7 +99,7 @@ SessionManager::checkSession();
 						</table>
 					</div>
 					<div class="col-12 d-flex justify-content-end">
-						<button class="btn btn-secondary btn-sm mt-2" onclick="add_more_records()">+ More Records</button>
+						<button class="btn btn-secondary btn-sm mt-2" id="btn_add_more" onclick="add_more_records()">+ More Records</button>
 					</div>
 
 				</div>

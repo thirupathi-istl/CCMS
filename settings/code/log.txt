@@ -1,0 +1,70 @@
+22
+
+
+INSERT INTO `limits_current` (`device_id`, `i_r`, `i_y`, `i_b`, `date_time`, `user_mobile`, `email`, `name`, `role`) 
+                VALUES (?, ?, ?, ?, current_timestamp(), ?, ?, ?, ?)
+
+
+22
+
+
+INSERT INTO `limits_current` (`device_id`, `i_r`, `i_y`, `i_b`, `date_time`, `user_mobile`, `email`, `name`, `role`) 
+                VALUES (?, ?, ?, ?, current_timestamp(), ?, ?, ?, ?)
+
+
+12
+
+
+INSERT INTO `limits_current` (`device_id`, `i_r`, `i_y`, `i_b`, `date_time`, `user_mobile`, `email`, `name`, `role`) 
+            VALUES (?, ?, ?, ?, current_timestamp(), ?, ?, ?, ?)
+
+
+1
+
+
+INSERT INTO `limits_current` (`device_id`, `i_r`, `i_y`, `i_b`, `date_time`, `user_mobile`, `email`, `name`, `role`) 
+            VALUES (?, ?, ?, ?, current_timestamp(), ?, ?, ?, ?)
+
+
+1
+
+
+INSERT INTO `limits_current` (`device_id`, `i_r`, `i_y`, `i_b`, `date_time`, `user_mobile`, `email`, `name`, `role`) 
+            VALUES (?, ?, ?, ?, current_timestamp(), ?, ?, ?, ?)
+
+
+1
+
+
+INSERT INTO `limits_current` (`device_id`, `i_r`, `i_y`, `i_b`, `date_time`, `user_mobile`, `email`, `name`, `role`) 
+            VALUES (?, ?, ?, ?, current_timestamp(), ?, ?, ?, ?)
+
+
+1
+
+
+INSERT INTO `limits_current` (`device_id`, `i_r`, `i_y`, `i_b`, `date_time`, `user_mobile`, `email`, `name`, `role`) 
+            VALUES (?, ?, ?, ?, current_timestamp(), ?, ?, ?, ?)
+
+
+1
+
+
+INSERT INTO `limits_current` (`device_id`, `i_r`, `i_y`, `i_b`, `date_time`, `user_mobile`, `email`, `name`, `role`) 
+            VALUES (?, ?, ?, ?, current_timestamp(), ?, ?, ?, ?)
+
+
+1
+
+
+INSERT INTO `limits_current` (`device_id`, `i_r`, `i_y`, `i_b`, `date_time`, `user_mobile`, `email`, `name`, `role`) 
+            VALUES (?, ?, ?, ?, current_timestamp(), ?, ?, ?, ?)
+
+
+1
+
+
+INSERT INTO `limits_current` (`device_id`, `i_r`, `i_y`, `i_b`, `date_time`, `user_mobile`, `email`, `name`, `role`) 
+            VALUES (?, ?, ?, ?, current_timestamp(), ?, ?, ?, ?)
+
+

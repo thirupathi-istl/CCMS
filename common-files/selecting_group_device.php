@@ -33,7 +33,7 @@ if (!$conn_user) {
 		}
 		mysqli_stmt_close($stmt_group);
 
-		$sql = "SELECT $list FROM device_list_by_group WHERE login_id = ? AND $group_by = ? GROUP BY $group_by ORDER BY $group_by";
+		$sql = "SELECT $list FROM device_list_by_group WHERE login_id = ? AND $group_by = ?  ORDER BY LENGTH(device_id), device_id";
 		$stmt = mysqli_prepare($conn_user, $sql);
 		mysqli_stmt_bind_param($stmt, "is", $user_id, $group_id);
 

@@ -51,11 +51,12 @@
 			<div class="collapse " id="home-collapse">
 				<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small px-3">
 					
-					<li><a href="thresholdsettings.php" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded active_dp"><i class="bi bi-arrow-return-right"></i>Threshold Settings</a></li>
-					<li><a href="editnewgps.php" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"><i class="bi bi-arrow-return-right"></i>Edit GPS Location</a></li>
-					<li><a href="notificationsettings.php" class=" nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"><i class="bi bi-arrow-return-right"></i>Notification Settings</a></li>
-					<li><a href="devicesetting.php" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"><i class="bi bi-arrow-return-right"></i>Device Settings</a></li>
+					<li><a href="settings.php" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded active_dp"><i class="bi bi-arrow-return-right"></i>Threshold Settings</a></li>
 					<li><a href="add-group-area.php" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"><i class="bi bi-arrow-return-right"></i>Add Group or Area</a></li>
+					<li><a href="location-details.php" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"><i class="bi bi-arrow-return-right"></i>Location Update</a></li>
+					<li><a href="notificationsettings.php" class=" nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"><i class="bi bi-arrow-return-right"></i>Notification Settings</a></li>
+					<li><a href="settings-iot.php" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"><i class="bi bi-arrow-return-right"></i>IoT Settings</a></li>
+					
 
 
 				</ul>
@@ -63,19 +64,19 @@
 		</li>
 
 		<li>
-            <a href="#" class="nav-link btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#alertsCollapse" aria-expanded="false">
-                <i class="bi bi-bell-fill"></i>
-                Alerts
-            </a>
-            <div class="collapse" id="alertsCollapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small px-3">
-                    <li><a href="alerts.php" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded active_dp"><i class="bi bi-arrow-return-right"></i>Alerts</a></li>
-                    <li><a href="power_on_off_status.php" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"><i class="bi bi-arrow-return-right"></i>Power On/Off Status</a></li>
-                    <li><a href="door_alert.php" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"><i class="bi bi-arrow-return-right"></i>Door Alert</a></li>
-                    <li><a href="notification.php" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"><i class="bi bi-arrow-return-right"></i>Notification</a></li>
-                </ul>
-            </div>
-        </li>
+			<a href="#" class="nav-link btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#alertsCollapse" aria-expanded="false">
+				<i class="bi bi-bell-fill"></i>
+				Alerts
+			</a>
+			<div class="collapse" id="alertsCollapse">
+				<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small px-3">
+					<li><a href="alerts.php" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded active_dp"><i class="bi bi-arrow-return-right"></i>Alerts</a></li>
+					<li><a href="power_on_off_status.php" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"><i class="bi bi-arrow-return-right"></i>Power On/Off Status</a></li>
+					<li><a href="door_alert.php" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"><i class="bi bi-arrow-return-right"></i>Door Alert</a></li>
+					<li><a href="notification.php" class="nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"><i class="bi bi-arrow-return-right"></i>Notification</a></li>
+				</ul>
+			</div>
+		</li>
 
 		<!-- <li>
 			<a href="#" class="nav-link btn-toggle collapsed"  data-bs-toggle="collapse" data-bs-target="#alert-collapse" aria-expanded="false">
