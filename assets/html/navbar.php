@@ -11,31 +11,33 @@
 
     <div class="d-flex pe-1">
 
-      <div class=" dropdown me-1">
+     <!--  <div class=" dropdown me-1">
        <a href="#" class="d-flex align-items-center content-justify-center link-body-emphasis text-decoration-none mt-2 fw-bold" data-bs-toggle="dropdown" data-bs-offset="10,20"  aria-expanded="false">        
          <svg class="bi pe-none me-2" width="20" height="20"><use xlink:href="#bell"/></svg>
        </a>
-       <!--  <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
-          <svg class="bi pe-none me-2" width="20" height="20"><use xlink:href="#bell"/></svg>
-        </button> -->
+      
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" style="width:300px">
           <li><a class="dropdown-item" href="#">Notification 1</a></li>
           <li><a class="dropdown-item" href="#">Notification 2</a></li>
           <li><hr class="dropdown-divider"></li>
           <li><a class="dropdown-item" href="#">View All Notifications</a></li>
         </ul>
-      </div>
+      </div> -->
 
       <div class="dropdown">
 
         <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-1">
+          <img src="../assets/photos/profile/profile.png" alt="" width="32" height="32" class="rounded-circle me-1">
+          
         </a>
-        <ul class="dropdown-menu text-small shadow dropdown-menu-end" aria-labelledby="navbarDropdown">
-          <li class="bg-primary py-2"><h6 class=" mb-0 ms-2"> Welcome <strong>ISTLABS</strong></h6></li>
-          <li><a class="dropdown-item bs-primary" href="#">Settings</a></li>
+        <ul class="dropdown-menu text-small shadow dropdown-menu-end pt-0" aria-labelledby="navbarDropdown">
+          <li class="bg-dark-subtle py-2"><h6 class=" my-0 ms-2"> Welcome <strong><?php $sessionVars = SessionManager::SessionVariables();
+          $user_name = $sessionVars['user_name']; echo  $user_name;?></strong></h6></li>
+          <!-- <li><a class="dropdown-item bs-primary" href="#">Settings</a></li> -->
           <li><a class="dropdown-item" href="profile.php">Profile</a></li>
-          <li><a class="dropdown-item" href="addnewuser.php">Add New User</a></li>
+          <?php if (hasPermission('users_list', $menu_list)): ?>
+            <li><a class="dropdown-item" href="users-list.php">Users</a></li>
+          <?php endif; ?>
           <li><hr class="dropdown-divider"></li>
           <li><a class="dropdown-item" href="logout.php">Sign Out</a></li>
         </ul>

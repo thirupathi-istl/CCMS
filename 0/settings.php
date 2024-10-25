@@ -5,10 +5,8 @@ SessionManager::checkSession();
 ?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
-
 <head>
     <title>Dashboard</title>
-
     <?php
     include (BASE_PATH . "assets/html/start-page.php");
     ?>
@@ -26,7 +24,7 @@ SessionManager::checkSession();
             <div class="row">
                 <div class="col-12">
                     <div class="d-flex justify-content-end mt-3">
-                        <button  type="button" onclick="multi_selection()" class="btn btn-primary btn-sm" id="add_devices_to_dp_selection" data-bs-toggle="modal" data-bs-target="#group_device_multiselection">Multiple Device Selection</button>
+                        <button  type="button" class="btn btn-primary btn-sm" id="add_devices_to_dp_selection" data-bs-toggle="modal" data-bs-target="#group_device_multiselection">Multiple Device Selection</button>
                     </div>
                 </div>
 

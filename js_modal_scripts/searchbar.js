@@ -1,5 +1,5 @@
 //search script addnewuser
-function searchTable() {
+/*function searchTable() {
     var input = document.getElementById("searchInput").value.toLowerCase().trim();
     var rows = document.querySelectorAll(".resulttable tbody tr");
 
@@ -21,7 +21,7 @@ function searchTable() {
             row.classList.remove("highlight");
         }
     });
-}
+}*/
 try{
 document.getElementById("searchInput").addEventListener("input", searchTable);
 }

@@ -1,3 +1,27 @@
+
+var elements = document.getElementById('update_time').style.display = 'none';
+
+document.addEventListener('DOMContentLoaded', function() {
+	var deviceIdSection = document.getElementById('device_id_section');
+	if (deviceIdSection) {
+		deviceIdSection.style.setProperty('display', 'none', 'important');
+	}
+});
+
+// window.onload = function() {
+// 	document.getElementById('device_id').style.display = 'none';
+// 	document.getElementById('device_id_section').style.display = 'none';
+
+// };
+
+// document.addEventListener('DOMContentLoaded', function() {
+// 	document.getElementById('device_id').style.display = 'none';
+// 	document.getElementById('device_id_section').style.display = 'none';
+// });
+
+
+
+
 function handleGroupChange() {
 	const group_name = document.getElementById('group_name');
 	const selectedValue = group_name.value;
@@ -199,5 +223,54 @@ function updateDevice()
 	{
 		alert("Please devices ");
 		return false;
+	}
+}
+
+function updateGroupDevice()
+{
+
+	var updating_group=document.getElementById('group_for_view').value;
+	if(updating_group==""||updating_group==null)
+	{
+		alert("Please Select Group..");
+		return false;
+
+	}
+	if (confirm(`Are you sure you want to update?`)) {
+		$("#pre-loader").css('display', 'block'); 
+		$.ajax({
+			type: "POST",
+			url: '../devices/code/update-group-view.php',
+			traditional: true,
+
+			data: { GROUP:updating_group },
+			dataType: "json",
+			success: function(response) {
+				$("#pre-loader").css('display', 'none');
+				if(response.status=="success")
+				{
+					alert(response.message);
+					var select_group_list = document.getElementById('group-list');
+					select_group_list.innerHTML = '';
+						select_group_list.appendChild(new Option('ALL', 'ALL')); // Add default option
+						response.group_list.forEach(function(item) {
+							var option = document.createElement('option');
+							option.value = item.GROUP;
+							option.textContent = item.GROUP;
+							select_group_list.appendChild(option);
+						});
+						select_group_list.dispatchEvent(new Event('change'));
+
+					}
+					else
+					{
+						alert(response.message);
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					$("#pre-loader").css('display', 'none');
+					alert(`Error: ${textStatus}, ${errorThrown}`);
+				}
+			});
 	}
 }

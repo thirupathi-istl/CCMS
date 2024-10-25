@@ -1,15 +1,16 @@
 let idleTime = 0;
-let timeout = 900; 
-let warningTime =timeout-120; 
+let timeout = 900; //in seconds 900 =15 minute 
+let warningTime =timeout-120;  //in seconds 120 =2 minutes 
 let warningShown = false;
 let timerInterval;
 
 setInterval(timerIncrement, 1000); // 1 second
 
 document.onclick = document.onkeypress = function () {
-    idleTime = 0;
+   
     if (!warningShown) {
         refreshSession();
+         idleTime = 0;
     }
 };
 
@@ -23,11 +24,16 @@ function timerIncrement() {
         checkSession();
     }
 }
-
 function startTimer() {
+    // Reset minutes and seconds each time the timer starts
     let minutes = 2;
     let seconds = 0;
-    updateTimer();
+
+    // Clear any previous timerInterval if it's already running
+    if (timerInterval) {
+        clearInterval(timerInterval);
+    }
+    updateTimer(); // Display initial time
 
     function updateTimer() {
         let displayMinutes = minutes.toString().padStart(2, '0');
@@ -39,7 +45,7 @@ function startTimer() {
         if (seconds === 0) {
             if (minutes === 0) {
                 clearInterval(timerInterval);
-                return;
+                return; // Timer finished
             } else {
                 minutes--;
                 seconds = 59;
@@ -50,8 +56,9 @@ function startTimer() {
         updateTimer();
     }
 
-    timerInterval = setInterval(decrementTime, 1000);
+    timerInterval = setInterval(decrementTime, 1000); // Start the interval
 }
+
 
 function refreshSession() {
     fetch('../session/session-check.php', {

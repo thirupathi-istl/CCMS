@@ -1,24 +1,32 @@
 <?php
+header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
 $login_error="";
-require_once '../base-path/config-path.php';
+
+include("../base-path/config-path.php");
 require_once '../session/session-manager.php';
 
 SessionManager::startSession();
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {   
-	SessionManager::login("ap");
-	echo "<script>
-	localStorage.setItem('client_type', 'ap');
-	window.location.href = '" . BASE_PATH . "0/index.php';
-	</script>";
-	exit();
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+	$user_login_id = strtolower($_POST['userid']);
+	$password = $_POST['password']; 
+	SessionManager::login("ap", $user_login_id,  $password);    
+
 }
 ?>
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-bs-theme="auto">
 <head>
 	<title>Login</title>  
-
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
@@ -33,19 +41,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" ></script>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript">
+		localStorage.removeItem("Devive_ID_Selection");
+		localStorage.removeItem("SELECTED_ID");
+		localStorage.removeItem("GroupName");
+		localStorage.removeItem("GroupNameValue");
+	</script>
 
 	<?php
 	include(BASE_PATH."assets/html/body-start.php");
 	include(BASE_PATH."assets/icons-svg/icons.php");
 	include(BASE_PATH."assets/html/theme-selection.php");
 	?>
-	<div class="background " >
+	<div class="background">
 		<?php
-		//include(BASE_PATH."login/tg-redco.php");
 		include(BASE_PATH."login/login-card.php");
 		include(BASE_PATH."login/registration-toast.php");
 		?>
 	</div>
 </body>
 <script src="<?php echo BASE_PATH;?>assets/js/project/preloader.js"></script>
+<script src="<?php echo BASE_PATH;?>assets/js/project/password-show-hide.js"></script>
 </html>

@@ -1,9 +1,19 @@
 <?php
 require_once 'config-path.php';
 require_once '../session/session-manager.php';
+
 SessionManager::checkSession();
+$sessionVars = SessionManager::SessionVariables();
+
+$mobile_no = $sessionVars['mobile_no'];
+$user_id = $sessionVars['user_id'];
+$role = $sessionVars['role'];
+$user_login_id = $sessionVars['user_login_id'];
+$user_name = $sessionVars['user_name'];
+$user_email = $sessionVars['user_email'];
+$client_login = $sessionVars['client_login'];
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
   <title>Profile</title>  
@@ -26,9 +36,9 @@ SessionManager::checkSession();
               </div>
             </div>
             <div class="card-body border-top ">
-              <h5 class="card-title" id="name">Pathivada Harsha Vardhan</h5>
-              <h6 class="card-text" id="empid">#Admin </h6>
-              <h6 class="card-text "id="role">Bhopal</h6>
+              <h5 class="card-title" id="name"><?php echo $user_name; ?></h5>
+              <h6 class="card-text" id="role">#<?php echo $role; ?> </h6>
+              <h6 class="card-text "id="zone">@ <?php echo $client_login; ?></h6>
 
             </div>
           </div>
@@ -56,7 +66,7 @@ SessionManager::checkSession();
                   <li class="list-group-item d-flex justify-content-between align-items-center">
                     <div class="ms-2 me-auto">
                       <div class="fw-bold"> Name</div>
-                      <span id="empname">Pathivada Harsha Vardhan</span>
+                      <span id="empname"><?php echo $user_name;?></span>
                     </div>
                   </li>
 
@@ -68,7 +78,7 @@ SessionManager::checkSession();
                   <li class="list-group-item d-flex justify-content-between align-items-center">
                     <div class="ms-2 me-auto">
                       <div class="fw-bold">Mobile</div>
-                      <span id="mobile">8011115157</span>
+                      <span id="mobile"><?php echo $mobile_no;?></span>
                     </div>
                   </li>
                 </ul>
@@ -78,7 +88,7 @@ SessionManager::checkSession();
                   <li class="list-group-item d-flex justify-content-between align-items-center">
                     <div class="ms-2 me-auto">
                       <div class="fw-bold">Email</div>
-                      <span id="email">harsha@istlabs.in</span>
+                      <span id="email"><?php echo $user_email;?></span>
 
                     </div>
                   </li>
@@ -97,10 +107,10 @@ SessionManager::checkSession();
                   <li class="list-group-item d-flex justify-content-between align-items-center">
                     <div class="ms-2 me-auto">
                       <div class="fw-bold">User Name</div>
-                      <span id="username">Harsha@istlabs.in</span>
+                      <span id="username"><?php echo $user_id;?></span>
                     </div>
                     <button type="button" class="btn btn-primary btn-sm ms-auto" onclick="openUsernameModal()">
-                      Edit
+                      Change
                     </button>
                   </li>
                 </ul>
@@ -110,10 +120,10 @@ SessionManager::checkSession();
                   <li class="list-group-item d-flex justify-content-between align-items-center">
                     <div class="ms-2 me-auto">
                       <div class="fw-bold">Password</div>
-                      <span id="password">1234567</span>
+                      <!-- <span id="password"><?php echo $mobile_no;?></span> -->
                     </div>
                     <button type="button" class="btn btn-primary btn-sm ms-auto" onclick="openPasswordModal()">
-                      Edit
+                      Change
                     </button>
                   </li>
                 </ul>
@@ -128,16 +138,16 @@ SessionManager::checkSession();
 </div> 
 </div>  
 </div>
+</main>
 <?php
-include("../profile/modals/editdetails_modal.php");
-include("../profile/modals/passwordchange_modal.php");
-include("../profile/modals/username_modal.php");
+include("../profile/html/edit-details.php");
+include("../profile/html/password-change.php");
+include("../profile/html/username-update.php");
 ?>
 
-</main>
+
 <script src="<?php echo BASE_PATH;?>assets/js/sidebar-menu.js"></script>
-<script src="<?php echo BASE_PATH;?>js_modal_scripts/profilejs/editdetails_modal.js"></script>
-<script src="<?php echo BASE_PATH;?>js_modal_scripts/profilejs/username_password.js"></script>
+<script src="<?php echo BASE_PATH;?>assets/js/project/profile-update.js"></script>
 
 <?php
 include(BASE_PATH."assets/html/body-end.php"); 

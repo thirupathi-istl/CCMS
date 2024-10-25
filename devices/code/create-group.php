@@ -87,11 +87,11 @@ if ($permission_check == 1)
             $district = "";
             $city_or_town = "";
 
-            $user_activity = "Added the device(s) to " . $new_group . " Group";
+            $user_activity = "Added the device(s) to the Group";
             $device_id = strtoupper($device_id);
 
             // Retrieve group details
-            $sql_group_list = "SELECT `state`, `district`, `city_or_town` FROM device_list_by_group WHERE login_id = ? AND device_group_or_area = ? LIMIT 1";
+            $sql_group_list = "SELECT `state`, `district`, `city_or_town`, `device_group_or_area` FROM device_list_by_group WHERE login_id = ? AND s_id = ? LIMIT 1";
             $stmt = mysqli_prepare($conn, $sql_group_list);
 
             if ($stmt) {
@@ -152,11 +152,11 @@ if ($permission_check == 1)
             case 'CREATE_NEW':  
 
 
-            $user_activity = "Created New Group/area and added the device(s) to " . $new_group . " Group";
+            $user_activity = "Created New Group/area and added the device(s) to the Group";
             $device_id=strtoupper($device_id);
 
 
-            $sql_group_list = "SELECT `state`, `district`, `city_or_town` FROM device_list_by_group WHERE device_group_or_area = ? LIMIT 1";
+            $sql_group_list = "SELECT `state`, `district`, `city_or_town`, `device_group_or_area` FROM device_list_by_group WHERE device_group_or_area = ? LIMIT 1";
             $stmt = mysqli_prepare($conn, $sql_group_list);
 
             if ($stmt) {
@@ -220,8 +220,18 @@ if ($permission_check == 1)
     }
 
         // Prepare and execute the user activity log insertion query
+    $group_by_column="device_group_or_area";
+    $query = "SELECT `group_by` FROM device_selection_group WHERE login_id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "i", $user_id);  
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_bind_result($stmt, $group_by_column);
+    mysqli_stmt_fetch($stmt);
+    mysqli_stmt_close($stmt);
 
-    $sql_group_list = "SELECT `device_group_or_area` AS `group_list` FROM device_list_by_group WHERE login_id = ? GROUP BY device_group_or_area ORDER BY device_group_or_area";
+   // $sql_group_list = "SELECT `device_group_or_area` AS `group_list` FROM device_list_by_group WHERE login_id = ? GROUP BY device_group_or_area ORDER BY device_group_or_area";
+    $sql_group_list = "SELECT `$group_by_column` AS `group_list`  FROM device_list_by_group  WHERE login_id = ?  GROUP BY `$group_by_column` ORDER BY `$group_by_column`";
+
     $stmt = mysqli_prepare($conn, $sql_group_list);
     mysqli_stmt_bind_param($stmt, "i", $user_id);
 
@@ -256,12 +266,12 @@ if ($permission_check == 1)
 
     echo json_encode( $response);
 
-    }
-    else
-    { 
-        $response["message"] = "Invalid request method.";
+}
+else
+{ 
+    $response["message"] = "Invalid request method.";
 
-    }
+}
 }
 
 

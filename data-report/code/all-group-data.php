@@ -41,7 +41,7 @@ if (!$conn) {
 			$count = 1;
 
 			while ($r = mysqli_fetch_assoc($result)) {
-				foreach ($device_list as $key => $value) {
+				/*foreach ($device_list as $key => $value) {
 					$id = $value->D_ID;
 
 					if ($r['device_id'] == $id) {
@@ -51,6 +51,16 @@ if (!$conn) {
 						include("table_cells.php");
 						break;
 					}
+				}*/
+
+				$device_ids = array_column($device_list, 'D_ID');
+				$index = array_search($r['device_id'], $device_ids);
+
+				if ($index !== false) {
+					include("set_parameters.php");
+					include("table_cells.php");
+					$d_name = "<small class='font-small'> (" . $device_list[$index]->D_NAME. ")</small>";
+					$db = strtolower($device_list[$index]->D_ID);
 				}
 			}
 		} else {

@@ -9,7 +9,7 @@ $user_id = $sessionVars['user_id'];
 $role = $sessionVars['role'];
 
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
     <title>Device List</title>
@@ -48,18 +48,18 @@ $role = $sessionVars['role'];
                         <table class="table table-striped table-type-1 w-100 text-center deviceListSearch">
                             <thead>
                                 <tr>
-                                    <th class="bg-logo-color text-white">Device-Name</th>
-                                    <th class="bg-logo-color text-white">Device-ID</th>
-                                    <th class="bg-logo-color text-white">Installation Status</th>
-                                    <th class="bg-logo-color text-white">Installed Date</th>
-                                    <th class="bg-logo-color text-white">Capacity(kW)</th>
-                                    <th class="bg-logo-color text-white col-size-1">Last Update</th>
-                                    <th class="bg-logo-color text-white">On/Off Status</th>
-                                    <th class="bg-logo-color text-white">Operation Mode</th>
-                                    <th class="bg-logo-color text-white">Active Status</th>
-                                    <th class="bg-logo-color text-white">Location</th>
-                                    <th class="bg-logo-color text-white">Installed Lights</th>
-                                    <th class="bg-logo-color text-white">Actions</th>
+                                    <th class="table-header-row-1">Device-Name</th>
+                                    <th class="table-header-row-1">Device-ID</th>
+                                    <th class="table-header-row-1">Installation Status</th>
+                                    <th class="table-header-row-1">Installed Date</th>
+                                    <th class="table-header-row-1">Capacity(kW)</th>
+                                    <th class="table-header-row-1 col-size-1">Last Update</th>
+                                    <th class="table-header-row-1">On/Off Status</th>
+                                    <th class="table-header-row-1">Operation Mode</th>
+                                    <th class="table-header-row-1">Active Status</th>
+                                    <th class="table-header-row-1">Location</th>
+                                    <th class="table-header-row-1">Installed Lights</th>
+                                    <th class="table-header-row-1">Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="device_list_table">

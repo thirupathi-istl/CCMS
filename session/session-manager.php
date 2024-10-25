@@ -6,9 +6,9 @@ class SessionManager {
         }
     }
 
-    public static function login($clientType, $user_login_id,  $password) {
+    public static function login($login_path, $user_login_id,  $password) {
         self::startSession();
-        $_SESSION['client_type'] = $clientType;
+        $_SESSION['client'] = $login_path;
         require("../login/login.php");
 
 
@@ -16,15 +16,19 @@ class SessionManager {
 
     public static function logout() {
         self::startSession();
-        if (isset($_SESSION['client_type'])) {
-            $clientType = $_SESSION['client_type'];
-
-            $path=BASE_PATH.$clientType;            
+        if (isset($_SESSION['client'])) {
+            $login_path = $_SESSION['client'];
+            $login_path_vrsn = $_SESSION['client_login'];
+            $path="";
+            if($login_path!="ISTL")
+            {
+                $path=BASE_PATH.$login_path."/"; 
+            }      
             session_unset();
-            //session_destroy();
+            session_destroy();
             echo "<script>
             localStorage.removeItem('client_type');
-            window.location.href = '$path/login.php';
+            window.location.href = '$path'+'login.php';
             </script>";
             exit();
         }
@@ -50,7 +54,7 @@ class SessionManager {
     }
     public static function checkSession() {
         self::startSession();
-        if (!isset($_SESSION['client_type'])) {
+        if (!isset($_SESSION['client'])) {
             echo "<script>
             var clientType = localStorage.getItem('client_type');
             if(clientType!='0')

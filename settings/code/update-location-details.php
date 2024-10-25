@@ -26,7 +26,7 @@ if (!$conn) {
     echo json_encode($response);
     exit();
 }
-$sql = "SELECT threshold_settings FROM user_permissions WHERE login_id = ?";
+$sql = "SELECT device_info_update FROM user_permissions WHERE login_id = ?";
 $stmt = mysqli_prepare($conn, $sql);
 if ($stmt) {
     mysqli_stmt_bind_param($stmt, "s", $user_login_id);
@@ -179,7 +179,7 @@ if ($permission_check == 1)
                     mysqli_stmt_bind_param($stmt_update, "i", $id);
                     if (mysqli_stmt_execute($stmt_update)) {
                         $response["status"] = "success";
-                        $response["message"] = "Record updated successfully";
+                        $response["message"] = "Updated successfully";
                     } else {
                         $response["message"] = "Error updating record: " . mysqli_error($conn_db);
                     }

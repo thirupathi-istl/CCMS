@@ -47,7 +47,7 @@ $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DB_ALL);
 if (!$conn) {
 	die("Connection failed: " . mysqli_connect_error());
 } else {
-	$sql_lights = "SELECT * FROM `alerts_and_updates` WHERE device_id IN ($user_devices)";
+	$sql_lights = "SELECT * FROM `alerts_and_updates` WHERE device_id IN ($user_devices) ORDER BY id DESC";
 
 	if ($result = mysqli_query($conn, $sql_lights)) {
 		if (mysqli_num_rows($result) > 0) {

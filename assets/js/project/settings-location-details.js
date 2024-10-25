@@ -1,3 +1,11 @@
+let error_message = document.getElementById('error-message');
+let error_message_text = document.getElementById('error-message-text');
+let success_message = document.getElementById('success-message');
+let success_message_text = document.getElementById('success-message-text');
+
+const error_toast= bootstrap.Toast.getOrCreateInstance(error_message);
+const success_toast= bootstrap.Toast.getOrCreateInstance(success_message);
+
 let device_id = localStorage.getItem("SELECTED_ID");
 if (!device_id) {
 	device_id = document.getElementById('device_id').value;
@@ -6,10 +14,21 @@ if (!device_id) {
 load_saved_settings(device_id)
 let device_id_list=document.getElementById('device_id');
 device_id_list.addEventListener('change', function() {
+	
 	device_id = document.getElementById('device_id').value;
 	load_saved_settings(device_id);
+	refresh_data();
 
 });
+
+setTimeout(refresh_data, 50);
+setInterval(refresh_data, 20000);
+function refresh_data() {
+	if (typeof update_frame_time === "function") {
+		device_id = document.getElementById('device_id').value;
+		update_frame_time(device_id);
+	} 
+}
 
 
 function update_coordinates(){
@@ -19,7 +38,9 @@ function update_coordinates(){
 
 	if (!latLongPattern.test(coordinates)) {
 		document.getElementById('coordinates').classList.add('border-danger');
-		alert("Invalid coordinates. Please enter valid latitude and longitude values in the format 'latitude,longitude'.");
+		
+		error_message_text.textContent="Invalid coordinates. Please enter valid latitude and longitude values in the format 'latitude,longitude'.";
+		error_toast.show();
 		return false; 
 	}
 	document.getElementById('coordinates').classList.remove('border-danger');
@@ -39,11 +60,13 @@ function update_coordinates(){
 			dataType: "json",
 			success: function(response) {
 				$("#pre-loader").css('display', 'none');
-				alert(response.message);
+				success_message_text.textContent=response.message;
+				success_toast.show();
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				$("#pre-loader").css('display', 'none');
-				alert(`Error: ${textStatus}, ${errorThrown}`);
+				error_message_text.textContent="Error getting the data";
+				error_toast.show();
 			}
 		});
 	}
@@ -83,11 +106,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
 							checkbox.checked = true;
 						}
 					}
-					alert(response.message);
+					success_message_text.textContent=response.message;
+					success_toast.show();
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
 					$("#pre-loader").css('display', 'none');
-					alert(`Error: ${textStatus}, ${errorThrown}`);
+					error_message_text.textContent="Error getting the data";
+					error_toast.show();
 				}
 			});
 		}
@@ -117,7 +142,7 @@ function load_saved_settings(device_id)
             dataType: "json", // Expected data type from PHP script
             success: function(response) {
                 // Update HTML elements with response data
-            	
+            	$("#pre-loader").css('display', 'none');
             	if(response.success) {
 
             		
@@ -148,11 +173,15 @@ function load_saved_settings(device_id)
             		
             	} else {
             		// Handle error message if success is false
-            		alert(response.message);
+            		
+            		error_message_text.textContent=response.message;
+            		error_toast.show();
+
             	}	
             },
             error: function(xhr, status, error) {
-            	console.error("AJAX Error:", status, error);
+            	error_message_text.textContent="Error getting the data";
+            	error_toast.show();
             	$("#pre-loader").css('display', 'none');
             }
          });
@@ -228,11 +257,13 @@ function update_address(){
 				dataType: "json",
 				success: function(response) {
 					$("#pre-loader").css('display', 'none');
-					alert(response.message);
+					success_message_text.textContent=response.message;
+					success_toast.show();
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
 					$("#pre-loader").css('display', 'none');
-					alert(`Error: ${textStatus}, ${errorThrown}`);
+					error_message_text.textContent="Error getting the data";
+					error_toast.show();
 				}
 			});
 		}

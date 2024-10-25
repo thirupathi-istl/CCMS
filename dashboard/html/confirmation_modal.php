@@ -7,7 +7,9 @@
             </div>
             <div class="modal-body">
                 <p id="confirmActionText"></p>
+                
                 <ul id="selectedDevicesList"></ul>
+
                 <div class="form-group">
                     <label for="actionDate">Select Date:</label>
                     <input type="date" class="form-control" id="actionDate">

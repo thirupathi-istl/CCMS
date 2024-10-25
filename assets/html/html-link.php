@@ -3,6 +3,7 @@
 <meta name="description" content="">
 <meta name="generator" content="Hugo 0.122.0">
 <link href="<?php echo BASE_PATH?>assets/css/bootstrap.css" rel="stylesheet">
+<link href="<?php echo BASE_PATH?>assets/css/date-range-picker.min.css" rel="stylesheet">
 <link href="<?php echo BASE_PATH?>assets/css/sidebars.css" rel="stylesheet">
 <link href="<?php echo BASE_PATH?>assets/css/istl-styles.css" rel="stylesheet">
 <script src="<?php echo BASE_PATH?>assets/js/bootstrap.bundle.min.js"></script>

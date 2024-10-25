@@ -3,7 +3,7 @@ require_once 'config-path.php';
 require_once '../session/session-manager.php';
 SessionManager::checkSession();
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
 	<title>Loaded Settings</title> 

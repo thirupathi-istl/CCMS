@@ -3,7 +3,7 @@ require_once 'config-path.php';
 require_once '../session/session-manager.php';
 SessionManager::checkSession();
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
 	<title>Data report</title> 
@@ -42,53 +42,53 @@ SessionManager::checkSession();
 						<table class="table table-striped table-bordered table-hover table-type-1 table-sticky-header w-100">
 							<thead class="sticky-header text-center">
 								<tr class="header-row-1">
-									<th class="bg-primary text-white"></th>
-									<th class="bg-primary text-white col-size-1" >Updated at</th>
-									<th class="bg-primary text-white">ON/OFF Status</th>
-									<th class="bg-primary text-white" colspan="3">Phase Voltages (Volts)</th>
-									<th class="bg-primary text-white" colspan="3">Phase Currents (Amps)</th>
-									<th class="bg-primary text-white" colspan="4">KW</th>
-									<th class="bg-primary text-white" colspan="4">KVA</th>
+									<th class="table-header-row-1"></th>
+									<th class="table-header-row-1 col-size-1" >Updated at</th>
+									<th class="table-header-row-1">ON/OFF Status</th>
+									<th class="table-header-row-1" colspan="3">Phase Voltages (Volts)</th>
+									<th class="table-header-row-1" colspan="3">Phase Currents (Amps)</th>
+									<th class="table-header-row-1" colspan="4">KW</th>
+									<th class="table-header-row-1" colspan="4">KVA</th>
 
-									<th class="bg-primary text-white" colspan="2">Energy (Units)</th>
-									<th class="bg-primary text-white" colspan="3">Power Factor</th>
-									<th class="bg-primary text-white" colspan="3">Frequency (Hz)</th>
-									<th class="bg-primary text-white">Signal Level</th>
-									<th class="bg-primary text-white">Location</th>
+									<th class="table-header-row-1" colspan="2">Energy (Units)</th>
+									<th class="table-header-row-1" colspan="3">Power Factor</th>
+									<th class="table-header-row-1" colspan="3">Frequency (Hz)</th>
+									<th class="table-header-row-1">Signal Level</th>
+									<th class="table-header-row-1">Location</th>
 								</tr>
 								<tr class="header-row-2">
 
-									<th class="bg-secondary text-white">Device Id</th>
-									<th class="bg-secondary text-white col-size-1"></th>
-									<th class="bg-secondary text-white"></th>
-									<th class="bg-secondary text-white">R</th>
-									<th class="bg-secondary text-white">Y</th>
-									<th class="bg-secondary text-white">B</th>
+									<th class="table-header-row-2">Device Id</th>
+									<th class="table-header-row-2 col-size-1"></th>
+									<th class="table-header-row-2"></th>
+									<th class="table-header-row-2">R</th>
+									<th class="table-header-row-2">Y</th>
+									<th class="table-header-row-2">B</th>
 
-									<th class="bg-secondary text-white">R</th>
-									<th class="bg-secondary text-white">Y</th>
-									<th class="bg-secondary text-white">B</th>
+									<th class="table-header-row-2">R</th>
+									<th class="table-header-row-2">Y</th>
+									<th class="table-header-row-2">B</th>
 
-									<th class="bg-secondary text-white">R</th>
-									<th class="bg-secondary text-white">Y</th>
-									<th class="bg-secondary text-white">B</th>
-									<th class="bg-secondary text-white">Total</th>
+									<th class="table-header-row-2">R</th>
+									<th class="table-header-row-2">Y</th>
+									<th class="table-header-row-2">B</th>
+									<th class="table-header-row-2">Total</th>
 
-									<th class="bg-secondary text-white">R</th>
-									<th class="bg-secondary text-white">Y</th>
-									<th class="bg-secondary text-white">B</th>
-									<th class="bg-secondary text-white">Total</th>
+									<th class="table-header-row-2">R</th>
+									<th class="table-header-row-2">Y</th>
+									<th class="table-header-row-2">B</th>
+									<th class="table-header-row-2">Total</th>
 
-									<th class="bg-secondary text-white">kWh</th>
-									<th class="bg-secondary text-white">kVAh</th>
-									<th class="bg-secondary text-white">R</th>
-									<th class="bg-secondary text-white">Y</th>
-									<th class="bg-secondary text-white">B</th>
-									<th class="bg-secondary text-white">R</th>
-									<th class="bg-secondary text-white">Y</th>
-									<th class="bg-secondary text-white">B</th>
-									<th class="bg-secondary text-white"></th>
-									<th class="bg-secondary text-white"></th>
+									<th class="table-header-row-2">kWh</th>
+									<th class="table-header-row-2">kVAh</th>
+									<th class="table-header-row-2">R</th>
+									<th class="table-header-row-2">Y</th>
+									<th class="table-header-row-2">B</th>
+									<th class="table-header-row-2">R</th>
+									<th class="table-header-row-2">Y</th>
+									<th class="table-header-row-2">B</th>
+									<th class="table-header-row-2"></th>
+									<th class="table-header-row-2"></th>
 
 								</tr>
 							</thead>

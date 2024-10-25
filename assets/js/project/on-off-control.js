@@ -22,10 +22,31 @@ let group_list = document.getElementById('group-list');
 group_list.addEventListener('change', function() {
 	let group_name = group_list.value;
 	if (group_name !== "" && group_name !== null) {
-		update_device_on_off_modes(group_name);		
+		update_device_on_off_modes(group_name);
+		refresh_data();		
 		$("#pre-loader").css('display', 'block');
 	}
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+	refresh_data();	
+});
+setInterval(refresh_data, 20000);
+function refresh_data() {
+	if (typeof update_frame_time === "function") {
+		device_id = document.getElementById('device_id').value;
+		update_frame_time(device_id);
+	} 
+	let group_name = group_list.value;
+	if (group_name !== "" && group_name !== null) {
+		var scrollPosition = document.querySelector('.table-responsive').scrollTop;
+		if(scrollPosition<=5)
+		{
+
+			update_device_on_off_modes(group_name);
+		}
+	}
+}
 
 
 
@@ -191,6 +212,34 @@ function update_device_on_off_modes(group_name){
 
 			$("#operational_mode_table").html("");
 			$("#operational_mode_table").html(response);
+			
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			$("#pre-loader").css('display', 'none');
+			alert(`Error: ${textStatus}, ${errorThrown}`);
+		}
+	});
+}
+
+
+function fetch_more_records()
+{
+
+	$("#pre-loader").css('display', 'block');
+	let group_name = group_list.value;
+	$.ajax({
+		type: "POST",
+		url: '../on-off-control/code/on-off-modes-table.php',
+		traditional: true,
+		data: { GROUP_ID: group_name, FETCH_MORE:"MORE"},
+		dataType: "json",
+		success: function(response) {
+			$("#pre-loader").css('display', 'none');
+
+			if(response!="")
+			{
+				$("#operational_mode_table").append(response);
+			}
 			
 		},
 		error: function(jqXHR, textStatus, errorThrown) {

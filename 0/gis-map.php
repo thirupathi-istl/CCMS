@@ -3,7 +3,7 @@ require_once 'config-path.php';
 require_once '../session/session-manager.php';
 SessionManager::checkSession();
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
   <title>Gis Map</title>  
@@ -19,7 +19,7 @@ SessionManager::checkSession();
         </div>
       </div>
       <?php
-      include(BASE_PATH."dropdown-selection/device-list.php");
+      include(BASE_PATH."dropdown-selection/gis-dropdown.php");
       ?>
       <div class="row">
         <div class="col-12">
@@ -44,7 +44,7 @@ SessionManager::checkSession();
     </div>
   </div>
 </main>
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvlom5_AlCYoIgXu94yl_VyRRRBc0xSFQ&callback=initMap" async defer></script>
 <script src="<?php echo BASE_PATH;?>assets/js/project/map.js"></script>
 <script src="<?php echo BASE_PATH;?>assets/js/sidebar-menu.js"></script>
 <?php

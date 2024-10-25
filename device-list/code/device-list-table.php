@@ -12,7 +12,9 @@ $user_login_id = $sessionVars['user_login_id'];
 $return_response = "";
 $total_switch_point=0;
 $user_devices="";
+
 //=================================================
+$send[]=array();
 
 /*$group_id = "ALL";*/
 
@@ -54,6 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			{
 				while($r = mysqli_fetch_assoc( $result ))
 				{
+					$status=0;
 					$installation_date=$r['installed_date'];
 					$date=date("H:i:s d-m-Y", strtotime($r['date_time']));				
 					$device_id=$r['device_id'];					
@@ -69,8 +72,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					}
 					else
 					{
-						$address='<button class="address_update btn btn-primary pt-0 pb-0" onclick=address_update("'.$device_id.'")>Update</button>';
+						$address='<a href="location-details.php?id='.$device_id.'"  target="blank"><button class="btn btn-primary pt-0 pb-0" >Update</button></a>';
+						//$address='<button class="address_update btn btn-primary pt-0 pb-0" onclick=address_update("'.$device_id.'")>Update</button>';
 					}
+					$device_status="";
 
 					if($r['installed_status']==1)
 					{
@@ -80,18 +85,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						}
 						else if($r['poor_network']==1)
 						{
-							$device_status="<span class='fw-semibold bg-warning py-1 px-2 rounded'> Poor Newtwork</span>";
+							$device_status="<span class='text-white fw-semibold bg-warning py-1 px-2 rounded'> Poor N/W</span>";
 						}
 						else if($r['power_failure']==1)
 						{
 							$device_status="Power Fail";
+							$device_status="<span class='text-white fw-semibold bg-secondary py-1 px-2 rounded'> Power Fail</span>";
 						}
 						else if($r['faulty']==1)
 						{
 							$device_status="Faulty";
+							$device_status="<span class='text-white fw-semibold bg-danger py-1 px-2 rounded'> Faulty</span>";
 						}
 
-						$installation_status="<span class='text-success fw-semibold'> Installed</span>";
+						$installation_status="<span class='text-success-emphasis fw-semibold'> Installed</span>";
 					}
 					else
 					{
@@ -154,25 +161,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					}
 					$installed_lights ='<button class="btn btn-info btn-sm p-0 px-2" onclick=openLightsModal("'.$device_id.'","'.$name.'")>'.$installed_lights.'</button>';
 					
-					/*if($installation_date==""||$installation_date==null)
+					if($installation_date==""||$installation_date==null)
 					{
 						$installation_date='<button class="address_update btn btn-primary pt-0 pb-0" onclick=update_installation_date("'.$device_id.'","'.$name.'")>Update</button>';
 
 					}
-					else
+					/*else
 					{
 						$installation_date=$installation_date.'<a class="edit pl-3 pb-0" title="Edit" data-toggle="tooltip" onclick=update_installation_date("'.$device_id.'","'.$name.'")><i class="fa fa-pencil text-primary mr-2" style="font-size:20px ;cursor: pointer;" aria-hidden="true"></i></a>';
 
-					}*/
-
-					
-					
-
-
-					/*
-					if($unit_capacity==""||$unit_capacity==null||$unit_capacity<=0)
-					{
-						$unit_capacity='<a href="capacity_update.php">Update</a>';
 					}*/
 
 
@@ -181,9 +178,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				}
 			}
 		}
+
+
+
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		$not_available_list = str_replace("'", "", $user_devices);
+		$not_available_list_array = explode(",", $not_available_list);
+
+		$sql = "SELECT * FROM live_data_updates WHERE device_id IN ($user_devices) ORDER BY LENGTH(device_id), device_id";
+		$available_devices = [];
+		if ($result = mysqli_query($conn_db_all, $sql)) {
+			if (mysqli_num_rows($result) > 0) {
+				while ($row = mysqli_fetch_assoc($result)) {
+					$available_devices[] = $row['device_id'];
+				}
+			}
+		}
+		$not_available_devices = array_diff($not_available_list_array, $available_devices);
+
+		$not_available_devices_list= explode(',', implode(',', $not_available_devices));
+
+
+
+		for($i=0; $i<count($not_available_devices_list);$i++)
+		{
+			$device_id=$not_available_devices_list[$i];
+			if($device_id!="")
+			{
+				$name = $device_id;
+
+				foreach ($device_list as $device) {
+
+					$c_id =  $device['D_ID'];
+					if(trim($device_id)===$c_id)
+					{						
+						$name= $device['D_NAME'];						
+					}
+				}
+
+				$send[]=array("D_ID"=> $device_id, "D_NAME"=> $name , "INSTALLED_STATUS"=>"--", "INSTALLED_DATE"=>"--", "KW"=>"--", "ACTIVE_STATUS"=>$status, "DATE_TIME"=>"--", "WORKING_STATUS"=>"--", "ON_OFF_STATUS"=>"--", "OPERATION_MODE"=>"--", "LMARK"=>"--","INSTALLED_LIGHTS"=>"--", "REMOVE"=>$device_id);
+			}
+		}
+
+
+		
+
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		mysqli_close($conn_db_all);
 	}
+	echo json_encode($send);
 	
 }
 else
@@ -191,5 +236,5 @@ else
 	$return_response="Data not Available";
 }
 
-echo json_encode($send);
+
 ?>

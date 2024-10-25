@@ -6,12 +6,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" >
-                <div class="col-12 p-0">
+                <div class="col-12 p-0"  id="installedDevicesModal">
                     <div class="table-responsive-1 rounded mt-2 border ">
                         <table class="table table-striped table-type-1 w-100 text-center"id="installedDeviceTable">
                             <thead>
                                 <tr>
-                                    <th class="bg-primary-subtle" scope="col">Select</th>
+                                    <th class="bg-primary-subtle" scope="col"> <input type="checkbox" id="selectAll-installed" class="select_all" onclick="select_devices('selectAll-installed', 'selected_count-installed')" > Select All</th>
                                     <th class="bg-primary-subtle" scope="col">Device ID</th>
                                     <th class="bg-primary-subtle" scope="col">Device Name</th>
 
@@ -21,18 +21,10 @@
                                 </tr>
                             </thead>
                             <tbody id="installed_device_list_table">
-                                <!-- <tr>
-                                    <td><input type="checkbox" name="installedDevice" value="Device 1"></td>
-                                    <td>Device 1</td>
-                                    <td> CCMS 1</td>
-                                    <td>installed</td>
-                                    <td>2024-06-09</td> 
-                                    <td><a href="https://www.google.com/maps?q=17.467754,%2078.603072" target="_blank">Location</a></td>                                    
-                                </tr> -->
-                                
                             </tbody>
                         </table>
                     </div>
+                    <span>Selected: <span id="selected_count-installed" class="selected_count">0</span></span>
                 </div>
             </div>
             <div class="modal-footer">

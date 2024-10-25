@@ -1,3 +1,12 @@
+let error_message = document.getElementById('error-message');
+let error_message_text = document.getElementById('error-message-text');
+let success_message = document.getElementById('success-message');
+let success_message_text = document.getElementById('success-message-text');
+
+const error_toast= bootstrap.Toast.getOrCreateInstance(error_message);
+const success_toast= bootstrap.Toast.getOrCreateInstance(success_message);
+
+
 let device_id = localStorage.getItem("SELECTED_ID");
 if (!device_id) {
 	device_id = document.getElementById('device_id').value;
@@ -7,7 +16,18 @@ let device_id_list=document.getElementById('device_id');
 device_id_list.addEventListener('change', function() {
 	device_id = document.getElementById('device_id').value;
 	load_threshold_settings(device_id);
+	refresh_data();
 });
+
+setTimeout(refresh_data, 50);
+setInterval(refresh_data, 20000);
+function refresh_data() {
+	if (typeof update_frame_time === "function") {
+		device_id = document.getElementById('device_id').value;
+		update_frame_time(device_id);
+	} 
+}
+
 
 document.addEventListener('DOMContentLoaded', function() {
 	
@@ -81,11 +101,16 @@ document.addEventListener('DOMContentLoaded', function() {
 					dataType: "json",
 					success: function(response) {
 						$("#pre-loader").css('display', 'none');
-						alert(response.message);
+						
+						success_message_text.textContent=response.message;
+						success_toast.show();
 					},
 					error: function(jqXHR, textStatus, errorThrown) {
 						$("#pre-loader").css('display', 'none');
-						alert(`Error: ${textStatus}, ${errorThrown}`);
+						
+						error_message_text.textContent="Error getting the data";
+						error_toast.show();
+						
 					}
 				});
 			}
@@ -163,11 +188,16 @@ document.addEventListener('DOMContentLoaded', function() {
 					dataType: "json",
 					success: function(response) {
 						$("#pre-loader").css('display', 'none');
-						alert(response.message);
+						
+						success_message_text.textContent=response.message;
+						success_toast.show();
 					},
 					error: function(jqXHR, textStatus, errorThrown) {
 						$("#pre-loader").css('display', 'none');
-						alert(`Error: ${textStatus}, ${errorThrown}`);
+						
+						error_message_text.textContent="Error getting the data";
+						error_toast.show();
+						
 					}
 				});
 			}
@@ -269,11 +299,16 @@ function update_settings_value(parameter, update_value)
 			dataType: "json",
 			success: function(response) {
 				$("#pre-loader").css('display', 'none');
-				alert(response.message);
+				
+				success_message_text.textContent=response.message;
+				success_toast.show();
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				$("#pre-loader").css('display', 'none');
-				alert(`Error: ${textStatus}, ${errorThrown}`);
+				
+				error_message_text.textContent="Error getting the data";
+				error_toast.show();
+				
 			}
 		});
 	}
@@ -313,11 +348,14 @@ function load_threshold_settings(device_id)
             		$("#frame_time").val(response.data.frame_time || 20).change() 
             	} else {
             		// Handle error message if success is false
-            		alert(response.message);
+            		
+            		error_message_text.textContent=response.message;
+            		error_toast.show();
             	}	
             },
             error: function(xhr, status, error) {
-            	console.error("AJAX Error:", status, error);
+            	error_message_text.textContent="Error getting the data";
+            	error_toast.show();
             	$("#pre-loader").css('display', 'none');
             }
          });

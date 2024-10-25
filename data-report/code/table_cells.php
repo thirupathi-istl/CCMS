@@ -142,7 +142,7 @@ $data.= "<tr >
 
 if($ff3!='' && $ff3!=',' )
 {					
-	$data.=  '<a href="#" onclick=get_location("' . $ff3 . '") style="color:#0066FF">Track Location</a>';
+	$data.=  '<a href="#" onclick=show_location("' . $ff3 . '") style="color:#0066FF">Track Location</a>';
 }
 else
 {

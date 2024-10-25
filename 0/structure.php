@@ -3,7 +3,7 @@ require_once 'config-path.php';
 require_once '../session/session-manager.php';
 SessionManager::checkSession();
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
   <title>Dashboard</title>  
@@ -28,12 +28,13 @@ SessionManager::checkSession();
 
       </div>
     </div>
+  </div>
 
-    <!-- Modals links -->
-  </main>
-  <script src="<?php echo BASE_PATH;?>assets/js/sidebar-menu.js"></script>
-  <?php
-  include(BASE_PATH."assets/html/body-end.php"); 
-  include(BASE_PATH."assets/html/html-end.php"); 
-  ?>
+  <!-- Modals links -->
+</main>
+<script src="<?php echo BASE_PATH;?>assets/js/sidebar-menu.js"></script>
+<?php
+include(BASE_PATH."assets/html/body-end.php"); 
+include(BASE_PATH."assets/html/html-end.php"); 
+?>
 

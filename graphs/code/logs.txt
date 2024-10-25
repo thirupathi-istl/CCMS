@@ -1,0 +1,64 @@
+SELECT *FROM (SELECT date_time as Date_Time, current_ph1 as v_1, current_ph2 as v_2, current_ph3 as v_3 FROM voltage_current_for_graph order by id Desc limit 60)  as tbl ORDER by date_time ASC 
+
+SELECT *FROM (SELECT date_time as Date_Time, current_ph1 as v_1, current_ph2 as v_2, current_ph3 as v_3 FROM voltage_current_graph order by id Desc limit 60)  as tbl ORDER by date_time ASC 
+
+SELECT current_ph1 as v_1, current_ph2 as v_2, current_ph3 as v_3,`date_time` as Date_Time FROM `voltage_current_graph` WHERE  year='2024' and month='08' and day='17'
+
+SELECT current_ph1 as v_1, current_ph2 as v_2, current_ph3 as v_3,`date_time` as Date_Time FROM `voltage_current_graph` WHERE  year='2023' and month='07' and day='28'
+
+SELECT current_ph1 as v_1, current_ph2 as v_2, current_ph3 as v_3, day as Date_Time  from  (select max(current_ph1) AS `current_ph1`, max(current_ph2) AS `current_ph2`,max(current_ph3) AS `current_ph3`, `day` AS `day`,`month` AS `month`,`year` AS `year` from `voltage_current_graph` group by `day`,`month`,`year`) as TB1 where year=2023 and month=07 ORDER BY day ASC
+
+SELECT current_ph1 as v_1, current_ph2 as v_2, current_ph3 as v_3, month as Date_Time  from  (SELECT max(current_ph1) AS `current_ph1`, max(current_ph2) AS `current_ph2`,max(current_ph3) AS `current_ph3`, `month`, `year` AS `year` from voltage_current_graph group by `year`,`month`) as TB1 where year='2023' ORDER BY month ASC
+
+SELECT max(current_ph1) as v_1,max(current_ph2) as v_2, max(current_ph3) as v_3, year as Date_Time  from  (SELECT max( current_ph1) AS current_ph1,max( current_ph2) AS current_ph2 ,max( current_ph3) AS current_ph3, `month` AS `month`, `year` AS `year` from voltage_current_graph group by  `year`, `month`) as TB1  WHERE year>'2018' GROUP by year ORDER by year ASC
+
+SELECT *FROM (SELECT date_time as Date_Time, current_ph1 as v_1, current_ph2 as v_2, current_ph3 as v_3 FROM voltage_current_graph order by id Desc limit 60)  as tbl ORDER by date_time ASC 
+
+SELECT current_ph1 as v_1, current_ph2 as v_2, current_ph3 as v_3,`date_time` as Date_Time FROM `voltage_current_graph` WHERE  year='2023' and month='07' and day='28'
+
+SELECT current_ph1 as v_1, current_ph2 as v_2, current_ph3 as v_3, day as Date_Time  from  (select max(current_ph1) AS `current_ph1`, max(current_ph2) AS `current_ph2`,max(current_ph3) AS `current_ph3`, `day` AS `day`,`month` AS `month`,`year` AS `year` from `voltage_current_graph` group by `day`,`month`,`year`) as TB1 where year=2023 and month=07 ORDER BY day ASC
+
+SELECT current_ph1 as v_1, current_ph2 as v_2, current_ph3 as v_3, month as Date_Time  from  (SELECT max(current_ph1) AS `current_ph1`, max(current_ph2) AS `current_ph2`,max(current_ph3) AS `current_ph3`, `month`, `year` AS `year` from voltage_current_graph group by `year`,`month`) as TB1 where year='2023' ORDER BY month ASC
+
+SELECT max(current_ph1) as v_1,max(current_ph2) as v_2, max(current_ph3) as v_3, year as Date_Time  from  (SELECT max( current_ph1) AS current_ph1,max( current_ph2) AS current_ph2 ,max( current_ph3) AS current_ph3, `month` AS `month`, `year` AS `year` from voltage_current_graph group by  `year`, `month`) as TB1  WHERE year>'2018' GROUP by year ORDER by year ASC
+
+SELECT max(voltage_ph1) as v_1,max(voltage_ph2) as v_2, max(voltage_ph3) as v_3, year as Date_Time  from  (SELECT max( voltage_ph1) AS voltage_ph1,max( voltage_ph2) AS voltage_ph2 ,max( voltage_ph3) AS voltage_ph3, `month` AS `month`, `year` AS `year` from voltage_current_graph group by  `year`, `month`) as TB1  WHERE year>'2018' GROUP by year ORDER by year ASC
+
+SELECT *FROM( SELECT date_time as Date_Time, voltage_ph1 as v_1, voltage_ph2 as v_2, voltage_ph3 as v_3 FROM voltage_current_graph order by id Desc limit 60)  as tbl ORDER by date_time ASC 
+
+SELECT voltage_ph1 as v_1, voltage_ph2 as v_2, voltage_ph3 as v_3,`date_time` as Date_Time FROM `voltage_current_graph` WHERE  year='2024' and month='08' and day='17' 
+
+SELECT *FROM( SELECT date_time as Date_Time, voltage_ph1 as v_1, voltage_ph2 as v_2, voltage_ph3 as v_3 FROM voltage_current_graph order by id Desc limit 60)  as tbl ORDER by date_time ASC 
+
+SELECT *FROM( SELECT date_time as Date_Time, voltage_ph1 as v_1, voltage_ph2 as v_2, voltage_ph3 as v_3 FROM voltage_current_graph order by id Desc limit 60)  as tbl ORDER by date_time ASC 
+
+SELECT *FROM( SELECT date_time as Date_Time, voltage_ph1 as v_1, voltage_ph2 as v_2, voltage_ph3 as v_3 FROM voltage_current_graph order by id Desc limit 60)  as tbl ORDER by date_time ASC 
+
+SELECT *FROM( SELECT date_time as Date_Time, voltage_ph1 as v_1, voltage_ph2 as v_2, voltage_ph3 as v_3 FROM voltage_current_graph order by id Desc limit 60)  as tbl ORDER by date_time ASC 
+
+SELECT *FROM( SELECT date_time as Date_Time, voltage_ph1 as v_1, voltage_ph2 as v_2, voltage_ph3 as v_3 FROM voltage_current_graph order by id Desc limit 60)  as tbl ORDER by date_time ASC 
+
+SELECT *FROM( SELECT date_time as Date_Time, voltage_ph1 as v_1, voltage_ph2 as v_2, voltage_ph3 as v_3 FROM voltage_current_graph order by id Desc limit 60)  as tbl ORDER by date_time ASC 
+
+SELECT *FROM (SELECT date_time as Date_Time, current_ph1 as v_1, current_ph2 as v_2, current_ph3 as v_3 FROM voltage_current_graph order by id Desc limit 60)  as tbl ORDER by date_time ASC 
+
+SELECT current_ph1 as v_1, current_ph2 as v_2, current_ph3 as v_3,`date_time` as Date_Time FROM `voltage_current_graph` WHERE  year='2024' and month='08' and day='17'
+
+SELECT current_ph1 as v_1, current_ph2 as v_2, current_ph3 as v_3,`date_time` as Date_Time FROM `voltage_current_graph` WHERE  year='2023' and month='07' and day='28'
+
+SELECT current_ph1 as v_1, current_ph2 as v_2, current_ph3 as v_3, day as Date_Time  from  (select max(current_ph1) AS `current_ph1`, max(current_ph2) AS `current_ph2`,max(current_ph3) AS `current_ph3`, `day` AS `day`,`month` AS `month`,`year` AS `year` from `voltage_current_graph` group by `day`,`month`,`year`) as TB1 where year=2023 and month=07 ORDER BY day ASC
+
+SELECT voltage_ph1 as v_1, voltage_ph2 as v_2, voltage_ph3 as v_3, day as Date_Time  from  (select max(voltage_ph1) AS `voltage_ph1`, max(voltage_ph2) AS `voltage_ph2`,max(voltage_ph3) AS `voltage_ph3`, `day` AS `day`,`month` AS `month`,`year` AS `year` from `voltage_current_graph` group by `day`,`month`,`year`) as TB1 where year=2023 and month=07 ORDER BY day ASC
+
+SELECT voltage_ph1 as v_1, voltage_ph2 as v_2, voltage_ph3 as v_3, month as Date_Time  from  (SELECT max(voltage_ph1) AS `voltage_ph1`, max(voltage_ph2) AS `voltage_ph2`,max(voltage_ph3) AS `voltage_ph3`,  month , `year` AS `year` from voltage_current_graph group by `year`,`month`) as  TB1 where year='2023' ORDER BY month ASC
+
+SELECT max(voltage_ph1) as v_1,max(voltage_ph2) as v_2, max(voltage_ph3) as v_3, year as Date_Time  from  (SELECT max( voltage_ph1) AS voltage_ph1,max( voltage_ph2) AS voltage_ph2 ,max( voltage_ph3) AS voltage_ph3, `month` AS `month`, `year` AS `year` from voltage_current_graph group by  `year`, `month`) as TB1  WHERE year>'2018' GROUP by year ORDER by year ASC
+
+SELECT max(current_ph1) as v_1,max(current_ph2) as v_2, max(current_ph3) as v_3, year as Date_Time  from  (SELECT max( current_ph1) AS current_ph1,max( current_ph2) AS current_ph2 ,max( current_ph3) AS current_ph3, `month` AS `month`, `year` AS `year` from voltage_current_graph group by  `year`, `month`) as TB1  WHERE year>'2018' GROUP by year ORDER by year ASC
+
+SELECT *FROM( SELECT date_time as Date_Time, voltage_ph1 as v_1, voltage_ph2 as v_2, voltage_ph3 as v_3 FROM voltage_current_graph order by id Desc limit 60)  as tbl ORDER by date_time ASC 
+
+SELECT *FROM( SELECT date_time as Date_Time, voltage_ph1 as v_1, voltage_ph2 as v_2, voltage_ph3 as v_3 FROM voltage_current_graph order by id Desc limit 60)  as tbl ORDER by date_time ASC 
+
+SELECT *FROM( SELECT date_time as Date_Time, voltage_ph1 as v_1, voltage_ph2 as v_2, voltage_ph3 as v_3 FROM voltage_current_graph order by id Desc limit 60)  as tbl ORDER by date_time ASC 
+

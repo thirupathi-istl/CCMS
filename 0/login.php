@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 }
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
     <title>Login</title>  
@@ -42,16 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
-
-    // JavaScript code to remove specific items from localStorage
         localStorage.removeItem("Devive_ID_Selection");
         localStorage.removeItem("SELECTED_ID");
         localStorage.removeItem("GroupName");
         localStorage.removeItem("GroupNameValue");
-
-        
-       /* localStorage.setItem("SELECTED_ID", 0);*/
-        
     </script>
 
     <?php
@@ -67,4 +61,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 </body>
 <script src="<?php echo BASE_PATH;?>assets/js/project/preloader.js"></script>
+<script src="<?php echo BASE_PATH;?>assets/js/project/password-show-hide.js"></script>
 </html>

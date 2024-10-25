@@ -86,9 +86,9 @@ if ($permission_check == 1)
             }
             $device_id=strtoupper($device_id);
         // Prepare and execute the voltage limits insertion query
-            $sql_mode = "INSERT INTO `limits_voltage` (`device_id`, `l_r`, `l_y`, `l_b`, `u_r`, `u_y`, `u_b`, `date_time`, `user_mobile`, `email`, `name`, `role`) 
+            $sql_limits = "INSERT INTO `limits_voltage` (`device_id`, `l_r`, `l_y`, `l_b`, `u_r`, `u_y`, `u_b`, `date_time`, `user_mobile`, `email`, `name`, `role`) 
             VALUES (?, ?, ?, ?, ?, ?, ?, current_timestamp(), ?, ?, ?, ?)";
-            $stmt = mysqli_prepare($conn_db, $sql_mode);
+            $stmt = mysqli_prepare($conn_db, $sql_limits);
             if ($stmt) {
                 mysqli_stmt_bind_param($stmt, 'sssssssssss', $device_id, $r_lower_volt, $y_lower_volt, $b_lower_volt, $r_upper_volt, $y_upper_volt, $b_upper_volt, $mobile_no, $user_email, $user_name, $role);
                 mysqli_stmt_execute($stmt);

@@ -12,9 +12,10 @@
                         <input type="text" class="form-control" name="userid" id="userid" placeholder="User-ID/Mobile-No/Email ID" required>
                         <label for="userid" >User-ID / Mobile-No</label>
                     </div>
-                    <div class="form-floating mb-3">
+                    <div class="form-floating mb-3 position-relative">
                         <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
                         <label for="password">Password</label>
+                        <button class="position-absolute top-50 end-0 translate-middle-y border-0 z-1 me-1" type="button" id="togglePassword"><i class="bi bi-eye"></i></button>
                     </div>
                     <div class="d-flex justify-content-center">
                         <button class="btn btn-primary w-50" type="submit">Login</button>
@@ -50,3 +51,4 @@
         </div>
     </div>
 </div>
+

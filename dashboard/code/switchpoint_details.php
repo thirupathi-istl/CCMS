@@ -65,7 +65,7 @@ $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DB_ALL);
 if (!$conn) {
 	die("Connection failed: " . mysqli_connect_error());
 } else {
-	$sql_lights = "SELECT SUM(lights_wattage) as total_wattage, SUM(total_lights) as lights, SUM(poor_network) AS poor_network, SUM(power_failure) AS power_failure, SUM(faulty) AS faulty, SUM(energy_kwh_total) AS energy_kwh_total, SUM(installed_status) AS installed_status FROM live_data_updates WHERE device_id IN ($user_devices)";
+	$sql_lights = "SELECT COALESCE(SUM(lights_wattage) , 0) AS total_wattage, COALESCE(SUM(total_lights) , 0) AS lights, COALESCE(SUM(poor_network) , 0) AS poor_network, COALESCE(SUM(power_failure) , 0) AS power_failure, COALESCE(SUM(faulty) , 0) AS faulty, COALESCE(SUM(energy_kwh_total) , 0) AS energy_kwh_total, COALESCE(SUM(installed_status) , 0) AS installed_status FROM live_data_updates WHERE device_id IN ($user_devices)";
 
 	if ($result = mysqli_query($conn, $sql_lights)) {
 		if (mysqli_num_rows($result) > 0) {

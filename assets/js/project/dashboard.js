@@ -21,6 +21,22 @@ group_list.addEventListener('change', function() {
 	}
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    refresh_data(); 
+});
+setInterval(refresh_data, 20000);
+function refresh_data() {
+    /*if (typeof update_frame_time === "function") {
+        device_id = document.getElementById('device_id').value;
+        update_frame_time(device_id);
+    } */
+    let group_name = group_list.value;
+    if (group_name !== "" && group_name !== null) {
+        update_switchPoints_status(group_name);
+        update_alerts(group_name);
+    }
+}
+
 
 function update_switchPoints_status(group_id){
 	$.ajax({
@@ -61,6 +77,7 @@ function update_switchPoints_status(group_id){
                 var installedLoad = response.INSTALLED_LOAD; // Assuming this key exists in your JSON response
 
                 // Calculate the percentage for the active load
+                if(installedLoad>0)
                 var activeLoadPercentage = (activeLoad / installedLoad) * 100;
 
                 // Update progress bar for installed lights ON
@@ -147,27 +164,41 @@ function get_devices_status(group_id, status)
             },
             dataType: "json", // Expected data type from PHP script
             success: function(response) {
-            	$("#not_installed_device_list_table").html(""); 
-            	$("#total_device_table").html("");
-            	$("#installed_device_list_table").html("");  
-            	if(status=="ALL")
-            	{
-            		$("#total_device_table").html(response); 
-            	}
-            	else if(status=="INSTALLED")
-            	{
-            		$("#installed_device_list_table").html(response); 
-            	}
-            	else
-            	{
-            		$("#not_installed_device_list_table").html(response); 
-            	}
-            	$("#pre-loader").css('display', 'none');       	
+                $("#pre-loader").css('display', 'none');   
+                $("#not_installed_device_list_table").html(""); 
+                $("#total_device_table").html("");
+                $("#installed_device_list_table").html(""); 
+                document.querySelectorAll('.select_all').forEach(el => el.checked = false);
+                document.querySelectorAll('.selected_count').forEach(el => el.textContent = 0);
+                if(status=="ALL")
+                {
+                    $("#total_device_table").html(response); 
+                }
+                else if(status=="INSTALLED")
+                {
+                    $("#installed_device_list_table").html(response); 
+                }
+                else
+                {
+                    $("#not_installed_device_list_table").html(response); 
+                }
+
             },
             error: function(xhr, status, error) {
-            	$("#total_device_table").html(""); 
-            	console.error("Error:", status, error);
-            	$("#pre-loader").css('display', 'none');
+                $("#pre-loader").css('display', 'none');
+                if(status=="ALL")
+                {
+                    $("#total_device_table").html(""); 
+                }
+                else if(status=="INSTALLED")
+                {
+                    $("#installed_device_list_table").html(""); 
+                }
+                else
+                {
+                    $("#not_installed_device_list_table").html(""); 
+                }
+
                 // Handle errors here if necessary
             }
         });
@@ -329,28 +360,29 @@ function openOpenviewModal(device_id) {
             },
             dataType: "json", // Expected data type from PHP script
             success: function(data) {
-             $('total_light').text(data.LIGHTS);     
-             $('#on_percentage').text(data.LIGHTS_ON);     
-             $('#off_percentage').text(data.LIGHTS_OFF);     
-             $('#on_off_status').html(data.ON_OFF_STATUS);    
-             $('#v_r').text(data.V_PH1);     
-             $('#v_y').text(data.V_PH2);     
-             $('#v_b').text(data.V_PH3);    
-             $('#i_r').text(data.I_PH1);    
-             $('#i_y').text(data.I_PH2);     
-             $('#i_b').text(data.I_PH3);    
-             $('#watt_r').text(data.KW_R);     
-             $('#watt_y').text(data.KW_Y);    
-             $('#watt_b').text(data.KW_B);     
-             $('#kwh').text(data.KWH);     
-             $('#kvah').text(data.KVAH);    
-             $('#record_date_time').text(data.DATE_TIME);   
-             $("#pre-loader").css('display', 'none');  
-             var openviewModal = document.getElementById('openview');
-             var bootstrapModal = new bootstrap.Modal(openviewModal);
-             bootstrapModal.show();      
-         },
-         error: function(xhr, status, error) {
+               $('total_light').text(data.LIGHTS);     
+               $('#on_percentage').text(data.LIGHTS_ON);     
+               $('#off_percentage').text(data.LIGHTS_OFF);     
+               $('#on_off_status').html(data.ON_OFF_STATUS);    
+               $('#v_r').text(data.V_PH1);     
+               $('#v_y').text(data.V_PH2);     
+               $('#v_b').text(data.V_PH3);    
+               $('#i_r').text(data.I_PH1);    
+               $('#i_y').text(data.I_PH2);     
+               $('#i_b').text(data.I_PH3);    
+               $('#watt_r').text(data.KW_R);     
+               $('#watt_y').text(data.KW_Y);    
+               $('#watt_b').text(data.KW_B);     
+               $('#kwh').text(data.KWH);     
+               $('#kvah').text(data.KVAH);    
+               $('#record_date_time').text(data.DATE_TIME);   
+               $("#pre-loader").css('display', 'none');  
+               var openviewModal = document.getElementById('openview');
+               var bootstrapModal = new bootstrap.Modal(openviewModal);
+               bootstrapModal.show();    
+                
+           },
+           error: function(xhr, status, error) {
             $("#total_device_table").html(""); 
             console.error("Error:", status, error);
             $("#pre-loader").css('display', 'none');
@@ -360,6 +392,144 @@ function openOpenviewModal(device_id) {
 
 
 }
+
+
+function select_devices(select_all_id, count_id) {
+    const isChecked = document.getElementById(select_all_id).checked;
+    document.querySelectorAll('.selectedDevice').forEach(function(checkbox) {
+        checkbox.checked = isChecked;
+    });
+    const allChecked = document.querySelectorAll('.selectedDevice:checked').length;
+    document.getElementById(count_id).textContent = allChecked;
+}
+
+function check_uncheck_fun(element) {
+    const allChecked = document.querySelectorAll('.selectedDevice:checked').length;
+    const nearestCountElement = element.closest('.modal-body').querySelector('.selected_count');
+    if (nearestCountElement) {
+        nearestCountElement.textContent = allChecked;
+    }
+    const checkAll = element.closest('.modal-body').querySelector('.select_all');
+    if (checkAll) {
+        checkAll.checked = false;
+    }
+}
+
+function openBatchConfirmModal(action, tableId) {
+    const table = document.getElementById(tableId);
+
+    if (!table) {
+        alert(`Table with ID "${tableId}" not found.`);
+        return false;
+    }
+
+    const selectedDevices = table.querySelectorAll('input[name$="Device"]:checked');
+
+    if (selectedDevices.length === 0) {
+        alert("Please select at least one device.");
+        return false;
+    }
+
+    const selectedDeviceIds = [];
+    
+    selectedDevices.forEach((checkbox) => {
+        const row = checkbox.closest('tr');
+        const cellText = row.cells[1].textContent.trim(); // Adjust the index (1) based on the column
+        selectedDeviceIds.push(cellText);
+    });
+
+    const actionText = action === 'install' ? 'install' : 'uninstall';
+    document.getElementById('confirmActionText').innerText = `Are you sure you want to ${actionText} the following devices?`;
+    const deviceList = document.getElementById('selectedDevicesList');
+    deviceList.innerHTML = '';
+    selectedDevices.forEach(device => {
+        const li = document.createElement('li');
+        li.textContent = device.parentElement.nextElementSibling.textContent; // Get the device ID from the next table cell
+        deviceList.appendChild(li);
+    });
+
+    document.getElementById('confirmActionButton').onclick = function() {
+        confirmAction(action, selectedDeviceIds, tableId, selectedDevices);
+    };
+
+    const confirmModal = new bootstrap.Modal(document.getElementById('confirmActionModal'));
+    confirmModal.show();
+}
+
+function confirmAction(action, selectedDeviceIds, tableId, selectedDevices) {
+
+    const actionDate = document.getElementById('actionDate').value;
+    if (actionDate === "" || actionDate === null) {
+        alert("Please select the action Date");
+        document.getElementById('actionDate').focus();
+        return false;
+    }
+
+    if (selectedDeviceIds.length <= 0) {
+        alert("Please select Devices");
+        return false;
+    }
+
+    // Convert the array to a JSON string
+    const selectedDevicesJson = JSON.stringify(selectedDeviceIds);
+    if(confirm("Please confirm ?"))
+    {
+        $.ajax({
+            type: "POST",
+            url: "../dashboard/code/update_installation_status.php",
+            data: {
+                DEVICES: selectedDevicesJson,
+                ACTION_DATE: actionDate,
+                STATUS:action
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.success) {
+                    alert("Devices updated successfully!");
+                    update_list(action, selectedDevices, tableId, actionDate);
+                    update_switchPoints_status(group_name);
+                } else {
+                    alert("Error: " + response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("Error:", status, error);
+            }
+        });
+    }
+}
+
+function update_list(action, selectedDevices, tableId, actionDate)
+{
+    selectedDevices.forEach(device => {
+        const row = device.closest('tr');
+        const statusCell = row.querySelector('td:nth-child(4)');
+            let dateCell = row.querySelector('td:nth-child(5)'); // Assuming date cell is the fourth column in Total Modal
+            if (tableId === 'installedDeviceTable'|| tableId === 'notinstalledDeviceTable') {
+              row.remove(); 
+
+          }
+          else
+          {
+            if (action === 'install') {
+                statusCell.textContent = 'Installed';
+                statusCell.classList.remove('text-danger');
+                statusCell.classList.add('text-success');
+                dateCell.textContent = actionDate; 
+            } else if(action === 'uninstall') {
+                statusCell.textContent = 'Not Installed';
+                statusCell.classList.remove('text-success');
+                statusCell.classList.add('text-danger');
+            }
+        }        
+        device.checked = false;
+    });
+
+    /*const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmActionModal'));
+    confirmModal.hide();*/
+}
+
+
 
 
 

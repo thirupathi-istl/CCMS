@@ -14,7 +14,7 @@ $return_response = "";
 $add_confirm = false;
 $code ="";
 
-/*$device_id = "CCMS_2";
+/*$device_id = "CCMS_52";
 $device_name = $device_id;
 $activation_code = "12345678";*/
 
@@ -23,7 +23,7 @@ $activation_code = "12345678";*/
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	// Check if any field is empty
-	$conn = mysqli_connect(HOST, USERNAME, PASSWORD, DB_USER);
+	$conn = mysqli_connect(HOST, USERNAME, PASSWORD);
 	if (!$conn) {
 		die("Connection failed: " . mysqli_connect_error());
 	} else {
@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     	// Check user permissions
-		$sql = "SELECT device_add_remove FROM user_permissions WHERE login_id = ?";
+		$sql = "SELECT device_add_remove FROM `$users_db`.user_permissions WHERE login_id = ?";
 		$stmt = mysqli_prepare($conn, $sql);
 		mysqli_stmt_bind_param($stmt, "s", $user_login_id);
 		mysqli_stmt_execute($stmt);
@@ -60,10 +60,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				mysqli_close($conn);
 				exit();
 			}
+
+			if( empty($device_name))
+			{
+				$device_name=$device_id;
+
+			}
 		}
 
     	// Check if deviceID already exists
-		$sql = "SELECT id FROM user_device_list WHERE device_id = ? AND login_id = ?";
+		$sql = "SELECT id FROM `$users_db`.user_device_list WHERE device_id = ? AND login_id = ?";
 		$stmt = mysqli_prepare($conn, $sql);
 		mysqli_stmt_bind_param($stmt, "ss", $device_id, $user_login_id);
 		mysqli_stmt_execute($stmt);
@@ -76,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		{
 			mysqli_stmt_close($stmt);
 			
-			$sql = "SELECT code FROM activation_codes WHERE device_id = ?";
+			$sql = "SELECT code FROM `$users_db`.activation_codes WHERE device_id = ?";
 			$stmt = mysqli_prepare($conn, $sql);
 			mysqli_stmt_bind_param($stmt, "s", $device_id);
 			if (mysqli_stmt_execute($stmt)) 
@@ -99,18 +105,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				}
 				else
 				{
-					$return_response="Device ID / Activation code is not Available in the database";
+					$return_response="Device ID / Activation code is not Available in the list";
 				}
 			}
 			mysqli_stmt_close($stmt);
 			
 
 			if ($add_confirm) {
-				$sql = "INSERT INTO user_device_list (device_id, c_device_name, s_device_name, role, login_id) VALUES (?, ?, ?, ?, ?)";
+
+				if($role!="SUPERADMIN")
+				{
+					try {
+						
+						$device_db=strtolower(trim($device_id));
+						$sql = "SELECT user_alternative_name FROM `$device_db`.device_name_update_log ORDER BY id DESC LIMIT 1";
+						$stmt_1 = mysqli_prepare($conn, $sql);
+						mysqli_stmt_execute($stmt_1);
+						mysqli_stmt_bind_result($stmt_1, $user_alternative_name);
+						if (mysqli_stmt_fetch($stmt_1)) {
+							$device_name = $user_alternative_name;
+						} 
+						mysqli_stmt_close($stmt_1);
+					} catch (Exception $e) {
+						
+					}
+
+				}
+				$sql = "INSERT INTO `$users_db`.user_device_list (device_id, c_device_name, s_device_name, role, login_id) VALUES (?, ?, ?, ?, ?)";
 				$stmt = mysqli_prepare($conn, $sql);
 				mysqli_stmt_bind_param($stmt, "ssssi", $device_id, $device_name, $device_name, $role, $user_login_id);
 
 				if (mysqli_stmt_execute($stmt)) {
+
+					try {
+						$status_update_sql = "INSERT INTO `$central_db`.`live_data_updates` (`device_id`, `installed_status`) VALUES ('$device_id', '0')  ON DUPLICATE KEY UPDATE installed_status='0'";
+						mysqli_query($conn, $status_update_sql);
+					} catch (Exception $e) {
+
+					}
+
+
 					$return_response = "New device added successfully.";
 				} else {
 					$return_response = "Error: " . mysqli_stmt_error($stmt);

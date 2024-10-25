@@ -8,13 +8,26 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   if (deviceIdDropdown) {
-    setDeviceId();
-    deviceIdDropdown.addEventListener('change', handleDeviceIdChange);
-    const deviceListid = localStorage.getItem("SELECTED_ID");
-    if(deviceListid==null||deviceListid=="")
-    {
-      handleDeviceIdChange()
+    /////////////////////////////////////////////////////////////////////////
+    const urlParams = new URLSearchParams(window.location.search);
+    const deviceId = urlParams.get('id');
+    const selectElement = document.getElementById('device_id');
+    if (deviceId) {
+      selectElement.value = deviceId;
+      selectElement.addEventListener('change', handleDeviceIdChange);
+      handleDeviceIdChange();
     }
+    else
+    {
+      setDeviceId();
+      deviceIdDropdown.addEventListener('change', handleDeviceIdChange);
+      const deviceListid = localStorage.getItem("SELECTED_ID");
+      if(deviceListid==null||deviceListid=="")
+      {
+        handleDeviceIdChange();
+      }
+    }
+    
   }
 
   if (groupListElement) {

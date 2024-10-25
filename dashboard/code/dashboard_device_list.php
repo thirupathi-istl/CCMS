@@ -14,9 +14,9 @@ $user_login_id = $sessionVars['user_login_id'];
 // Initialize variables
 $return_response = "";
 $user_devices = "";
-
-/*$group_id = "ALL";
-$device_status = "ALL";*/
+$add_response="";
+$group_id = "ALL";
+$device_status = "ALL";
 
 // Handle POST request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -48,19 +48,82 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		die("Connection failed: " . mysqli_connect_error());
 	} else {
         // Prepare SQL statement based on the device status
+
+		/////////////////////////////////////////////////////////////////
+		if ($device_status != "INSTALLED") {
+			$not_available_list = str_replace("'", "", $user_devices);
+			$not_available_list_array = explode(",", $not_available_list);
+
+			$sql = "SELECT * FROM live_data_updates WHERE device_id IN ($user_devices) ORDER BY LENGTH(device_id), device_id";
+			$available_devices = [];
+			if ($result = mysqli_query($conn_db_all, $sql)) {
+				if (mysqli_num_rows($result) > 0) {
+					while ($row = mysqli_fetch_assoc($result)) {
+						$available_devices[] = $row['device_id'];
+					}
+				}
+			}
+			$not_available_devices = array_diff($not_available_list_array, $available_devices);
+
+			$not_available_devices_list= explode(',', implode(',', $not_available_devices));
+
+
+
+			for($i=0; $i<count($not_available_devices_list);$i++)
+			{
+				$device_id=$not_available_devices_list[$i];
+				if($device_id!="")
+				{
+
+					$name = $device_id;
+
+					foreach ($device_list as $device) {
+
+						$c_id =  $device['D_ID'];
+						if(trim($device_id)===$c_id)
+						{						
+							$name= $device['D_NAME'];						
+						}
+					}
+
+					if ($device_status == "ALL") {
+
+						$add_response.= '<tr>
+						<td ><input type="checkbox" name="selectedDevice" value="'.$device_id.'"></td>
+						<td>'.$device_id.'</td>
+						<td>'.$name.'</td>
+						<td class="text-danger fw-semibold">Not Installed.</td>
+						<td>---</td> 
+						<td>--</td> 
+						</tr>';
+					}
+					else
+					{
+						$add_response.= '<tr>
+						<td ><input type="checkbox" name="selectedDevice" value="'.$device_id.'"></td>
+						<td>'.$device_id.'</td>
+						<td>'.$name.'</td>
+						</tr>';
+					}
+				}
+			}
+
+
+		}
+
+
+       ////////////////////////////////////////////////////////////////// 
 		$sql = "";
 		if ($device_status == "ALL") {
 			$sql = "SELECT active_device, device_id, date_time, installed_date, installed_status, location 
-			FROM live_data_updates 
-			WHERE device_id IN ($placeholders)";
+			FROM live_data_updates  WHERE device_id IN ($placeholders)";
+
 		} elseif ($device_status == "INSTALLED") {
 			$sql = "SELECT active_device, device_id, date_time, installed_date, installed_status, location 
-			FROM live_data_updates 
-			WHERE installed_status = '1' AND device_id IN ($placeholders)";
+			FROM live_data_updates  WHERE installed_status = '1' AND device_id IN ($placeholders)";
 		} else {
 			$sql = "SELECT active_device, device_id, date_time, installed_date, installed_status, location 
-			FROM live_data_updates 
-			WHERE installed_status = '0' AND device_id IN ($placeholders)";
+			FROM live_data_updates  WHERE installed_status = '0' AND device_id IN ($placeholders)";
 		}
 
         // Use prepared statement to execute the query
@@ -145,9 +208,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             			}
             		}
             	}
-            } else {
-                // No devices found
-            	$return_response .= '<tr><td colspan="6" class="text-danger">Devices Not Found</td></tr>';
+            	$return_response=$return_response.$add_response;
+            }
+            else {
+            	if($add_response!="")
+            	{
+            		$return_response=$add_response;
+            	}
+            	else{
+
+
+            		$return_response .= '<tr><td colspan="6" class="text-danger">Devices Not Found</td></tr>';
+            	}
             }
 
             // Close statement

@@ -1,10 +1,9 @@
-
 <?php
 require_once 'config-path.php';
 require_once '../session/session-manager.php';
 SessionManager::checkSession();
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
   <title>Dashboard</title>    
@@ -30,7 +29,7 @@ SessionManager::checkSession();
                   <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#TotalModal" id="total_device">
                     <div class="card-body m-0 p-0">
                       <p class="card-text fw-semibold text-info-emphasis m-0 py-1"><i class="bi bi-bar-chart-fill h4"></i> Total</p>
-                      <h3 class="card-title py-2 text-primary" id="total_devices">0</h3>
+                      <h3 class="card-title py-2 text-primary-emphasis" id="total_devices">0</h3>
                     </div>
                   </div>
                 </div>
@@ -39,7 +38,7 @@ SessionManager::checkSession();
                   <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#installedModal" id="installed_devices_list">
                     <div class="card-body m-0 p-0">
                       <p class="card-text fw-semibold text-info-emphasis m-0 py-1"><i class="bi bi-check-circle-fill h4"></i> Installed</p>
-                      <h3 class="card-title py-2 text-primary" id="installed_devices">0</h3>
+                      <h3 class="card-title py-2 text-primary-emphasis" id="installed_devices">0</h3>
                     </div>
                   </div>
                 </div>
@@ -47,7 +46,7 @@ SessionManager::checkSession();
                   <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#notinstalledModal"  id="not_installed_devices_list">
                     <div class="card-body m-0 p-0">
                       <p class="card-text fw-semibold text-info-emphasis m-0 py-1"><i class="bi bi-x-circle-fill h4"></i> Not-installed</p>
-                      <h3 class="card-title py-2 text-primary" id="not_installed_devices">0</h3>
+                      <h3 class="card-title py-2 text-primary-emphasis" id="not_installed_devices">0</h3>
                     </div>
                   </div>
                 </div>
@@ -59,9 +58,9 @@ SessionManager::checkSession();
                 <div class="col-xl-3 col-6 pointer">
                   <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#activeModal" id="active_device_list">
                     <div class="card-body m-0 p-0">
-                      <p class="card-text fw-semibold m-0 py-1 text-success "><i class="bi bi-lightbulb-fill h4"></i> Active</p>
+                      <p class="card-text fw-semibold m-0 py-1 text-success-emphasis "><i class="bi bi-lightbulb-fill h4"></i> Active</p>
                       <!-- <hr class="mt-0"> -->
-                      <h3 class="card-title py-2 text-success" id="active_devices">0</h3>
+                      <h3 class="card-title py-2 text-success-emphasis" id="active_devices">0</h3>
                     </div>
                   </div>
                 </div>
@@ -77,18 +76,18 @@ SessionManager::checkSession();
                 <div class="col-xl-3 col-6 pointer mt-3 mt-xl-0" >
                   <div class="card text-center shadow"data-bs-toggle="modal" data-bs-target="#powerfailureModal" id="power_failure_device_list">
                     <div class="card-body m-0 p-0">
-                      <p class="card-text fw-semibold m-0 py-1 text-body-tertiary"><i class="bi bi-power h4"></i> Input Power Fail</p>
+                      <p class="card-text fw-semibold m-0 py-1 text-secondary-emphasis"><i class="bi bi-power h4"></i> Input Power Fail</p>
                       <!-- <hr class="mt-0"> -->
-                      <h3 class="card-title py-2 text-body-tertiary" id="input_power_fail">0</h3>
+                      <h3 class="card-title py-2 text-secondary-emphasis" id="input_power_fail">0</h3>
                     </div>
                   </div>
                 </div>
                 <div class="col-xl-3 col-6 pointer mt-3 mt-xl-0">
                   <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#faultModal" id="faulty_device_list">
                     <div class="card-body m-0 p-0">
-                      <p class="card-text fw-semibold m-0 py-1 text-danger"><i class="bi bi-bug-fill h4"></i> Faulty</p>
+                      <p class="card-text fw-semibold m-0 py-1 text-danger-emphasis"><i class="bi bi-bug-fill h4"></i> Faulty</p>
                       <!-- <hr class="mt-0"> -->
-                      <h3 class="card-title py-2 text-danger" id="faulty">0</h3>
+                      <h3 class="card-title py-2 text-danger-emphasis" id="faulty">0</h3>
                     </div>
                   </div>
                 </div>
@@ -99,7 +98,7 @@ SessionManager::checkSession();
               <div class="row">
                 <div class="col-4 pointer">
                   <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#AutoOnModal" id="auto_on_devices_list">
-                    <div class="card-body m-0 p-0 text-success">
+                    <div class="card-body m-0 p-0 text-success-emphasis">
                       <p class="card-text fw-semibold m-0 py-1"> <i class="bi bi-clock-fill h4"></i> Auto/System On</p>
                       <!-- <hr class="mt-0"> -->
                       <h3 class="card-title py-2" id="auto_on">0</h3>
@@ -117,7 +116,7 @@ SessionManager::checkSession();
                 </div>
                 <div class="col-4 pointer">
                   <div class="card text-center shadow" data-bs-toggle="modal" data-bs-target="#offModal" id="off_devices_list">
-                    <div class="card-body m-0 p-0 text-danger">
+                    <div class="card-body m-0 p-0 text-danger-emphasis">
                       <p class="card-text fw-semibold m-0 py-1"> <i class="bi bi-toggle-off h4"></i> OFF</p>
                       <!-- <hr class="mt-0"> -->
                       <h3 class="card-title py-2" id="off">0</h3>
@@ -149,7 +148,7 @@ SessionManager::checkSession();
                     </div>
 
                     <div class="progress mt-2" role="progressbar" aria-label="Animated striped example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                      <div class="progress-bar progress-bar-striped bg-info progress-bar-animated overflow-visible text-light-emphasis" style="width: 80%" id="active_load">Active - 0</div>
+                      <div class="progress-bar progress-bar-striped bg-info progress-bar-animated overflow-visible text-light-emphasis" style="width: 0%" id="active_load">Active - 0</div>
                     </div>
                   </div>
                 </div>
@@ -211,8 +210,6 @@ SessionManager::checkSession();
                 <div class="card-body">
                   <div id="alerts_list" class="list-group overflow-y-auto" style=" height:600px;">
 
-
-
                   </div>
                 </div>
               </div>
@@ -230,8 +227,8 @@ include(BASE_PATH."dashboard/dashboard_modals.php");
 
 </main>
 <script src="<?php echo BASE_PATH;?>assets/js/sidebar-menu.js"></script>
-<script src="<?php echo BASE_PATH;?>js_modal_scripts/dashboard_modals_script.js"></script>
 <script src="<?php echo BASE_PATH;?>assets/js/project/dashboard.js"></script>
+
 
 <?php
 include(BASE_PATH."assets/html/body-end.php"); 

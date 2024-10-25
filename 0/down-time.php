@@ -3,11 +3,9 @@ require_once 'config-path.php';
 require_once '../session/session-manager.php';
 SessionManager::checkSession();
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
-
 <head>
-
     <title>Down Time</title>
     <?php
     include (BASE_PATH . "assets/html/start-page.php");
@@ -33,73 +31,73 @@ SessionManager::checkSession();
                                 <div>
                                     <span class="me-2">Downtime</span>
                                     <a tabindex="0" role="button" data-bs-toggle="popover" data-bs-trigger="focus"
-                                        data-bs-title="Info"
-                                        data-bs-content="The table shows the health parameters like rtc, gps, gprs,....etc of the selected devices">
-                                        <i class="bi bi-info-circle"></i>
-                                    </a>
-                                </div>
+                                    data-bs-title="Info"
+                                    data-bs-content="The table shows the health parameters like rtc, gps, gprs,....etc of the selected devices">
+                                    <i class="bi bi-info-circle"></i>
+                                </a>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <div class="container">
-                                <!-- Button Container -->
-                                <div class="d-flex justify-content-end mb-2">
-                                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="showTodayData()">Today</button>
-                                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="showAllData()">Total</button>
-                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#dateRangeModal">Search</button>
-                                </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="container">
+                            <!-- Button Container -->
+                            <div class="d-flex justify-content-end mb-2">
+                                <button type="button" class="btn btn-primary btn-sm me-2" onclick="showTodayData()">Today</button>
+                                <button type="button" class="btn btn-primary btn-sm me-2" onclick="showAllData()">Total</button>
+                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#dateRangeModal">Search</button>
+                            </div>
 
-                                <!-- Table -->
-                                <div class="table-responsive rounded border" style="overflow-y: auto;">
-                                    <table class="table table-striped table-bordered table-hover table-type-1 table-sticky-header w-100 text-center" id="dataTable">
-                                        <thead>
-                                            <tr>
-                                                <th class="bg-logo-color text-white" scope="col">Device Id</th>
-                                                <th class="bg-logo-color text-white" scope="col">Date</th>
-                                                <th class="bg-logo-color text-white" scope="col">Down Time(min)</th>
-                                                <th class="bg-logo-color text-white" scope="col"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>CCMS_1</td>
-                                                <td>2024-07-07</td>
-                                                <td>710</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-primary btn-sm" onclick="downTimeView('CCMS_1')">View</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>CCMS_2</td>
-                                                <td>2024-07-08</td>
-                                                <td>520</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-primary btn-sm" onclick="downTimeView('CCMS_2')">View</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>CCMS_3</td>
-                                                <td>2024-07-09</td>
-                                                <td>330</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-primary btn-sm" onclick="downTimeView('CCMS_3')">View</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <!-- Table -->
+                            <div class="table-responsive rounded border" style="overflow-y: auto;">
+                                <table class="table table-striped table-bordered table-hover table-type-1 table-sticky-header w-100 text-center" id="dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th class="bg-logo-color text-white" scope="col">Device Id</th>
+                                            <th class="bg-logo-color text-white" scope="col">Date</th>
+                                            <th class="bg-logo-color text-white" scope="col">Down Time(min)</th>
+                                            <th class="bg-logo-color text-white" scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CCMS_1</td>
+                                            <td>2024-07-07</td>
+                                            <td>710</td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary btn-sm" onclick="downTimeView('CCMS_1')">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>CCMS_2</td>
+                                            <td>2024-07-08</td>
+                                            <td>520</td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary btn-sm" onclick="downTimeView('CCMS_2')">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>CCMS_3</td>
+                                            <td>2024-07-09</td>
+                                            <td>330</td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary btn-sm" onclick="downTimeView('CCMS_3')">View</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
-                </div>
-                </div>
-
             </div>
         </div>
     </div>
-    
-   
+
+</div>
+</div>
+</div>
+
+
 
 
 </main>

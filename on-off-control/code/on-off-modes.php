@@ -86,6 +86,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['D_ID']) && isset($_PO
 			$sql_mode = "INSERT INTO `on_off_modes` (`on_off_mode`, `status`, `date_time`, `user_mobile`, `email`, `name`, `role`) VALUES ('$mode', 'Initiated',  current_timestamp(), '$mobile_no', '$user_email', '$user_name', '$role');";
 			mysqli_query($conn_db, $sql_mode);
 
+			$cancel_sql = "INSERT INTO device_settings (`setting_type`, `setting_flag`) VALUES ('SCHEDULE_TIME', '0') ON DUPLICATE KEY UPDATE setting_flag='0'";
+			mysqli_query($conn_db, $cancel_sql);
 			$setting_sql = "INSERT INTO device_settings (`setting_type`, `setting_flag`) VALUES ('ON_OFF_MODE', '1') ON DUPLICATE KEY UPDATE setting_flag='1'";
 			mysqli_query($conn_db, $setting_sql);
 			$read_sql = "INSERT INTO device_settings (`setting_type`, `setting_flag`) VALUES ('READ_SETTINGS', '1') ON DUPLICATE KEY UPDATE setting_flag='1'";

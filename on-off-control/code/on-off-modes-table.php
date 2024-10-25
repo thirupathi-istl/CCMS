@@ -45,8 +45,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (!$conn_db_all) {
 		die("Connection failed: " . mysqli_connect_error());
 	} else {
+
+		$limit=200;
+		$offset=0;
+
+		if(isset($_POST['FETCH_MORE'])&&$_POST['FETCH_MORE']==="MORE")
+		{
+			if($_SESSION['FETCH_DEVICES_LIST']==0)
+			{
+				echo json_encode("");
+				exit();
+			}
+			$page= $_SESSION['FETCH_DEVICES_LIST'];
+
+			$page = $page ? intval($page) : 1;
+			$limit = $limit ? intval($limit) : 1;
+			$offset = ($page - 1) * $limit;
+
+			$_SESSION['FETCH_DEVICES_LIST']=$_SESSION['FETCH_DEVICES_LIST']+1;
+		}
+		else
+		{
+			$_SESSION['FETCH_DEVICES_LIST']=2;
+
+		}
+
+
         // Prepare SQL statement based on the device status
-		$sql = "SELECT device_id, date_time, on_off_status, operation_mode  FROM live_data_updates  WHERE device_id IN ($placeholders)";
+		$sql = "SELECT device_id, date_time, on_off_status, operation_mode  FROM live_data_updates  WHERE device_id IN ($placeholders) ORDER BY LENGTH(device_id), device_id ASC LIMIT $limit OFFSET $offset";
+        // Prepare SQL statement based on the device status
+		//$sql = "SELECT device_id, date_time, on_off_status, operation_mode  FROM live_data_updates  WHERE device_id IN ($placeholders) LIMIT $limit OFFSET $offset";
 		
 
         // Use prepared statement to execute the query
@@ -94,13 +122,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     // Placeholder for $device_list (assuming it's properly populated elsewhere)
             		$name = $device_id;
-            		foreach ($device_list as $device) {
+            		/*foreach ($device_list as $device) {
 
             			$c_id =  $device['D_ID'];
             			if(trim($device_id)===$c_id)
             			{						
             				$name= $device['D_NAME'];						
             			}
+            		}
+*/
+
+
+            		$device_ids = array_column($device_list, 'D_ID');
+            		$index = array_search($device_id, $device_ids);
+
+            		if ($index !== false) {
+            			$name = $device_list[$index]['D_NAME'];
+            			//$name = $device_list[$index]['D_ID'];
+
             		}
 
                     // Output HTML table rows based on installation status and device_status
@@ -116,6 +155,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             		
             	}
             } else {
+            	$_SESSION['FETCH_DEVICES_LIST']=0;
                 // No devices found
             	$return_response .= '<tr><td colspan="6" class="text-danger">Devices Not Found</td></tr>';
             }

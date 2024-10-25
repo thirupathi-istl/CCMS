@@ -5,13 +5,13 @@
                 <h5 class="modal-title text-primary" id="TotalModalLabel">Total Devices</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" >
-                <div class="col-12 p-0">
+            <div class="modal-body installUninstall" >
+                <div class="col-12 p-0" id="totalDevicesModal">
                     <div class="table-responsive-1 rounded mt-2 border ">
-                        <table class="table table-striped table-type-1 w-100 text-center"id="totalDeviceTable">
+                        <table class="table table-striped table-type-1 w-100 text-center" id="totalDeviceTable">
                             <thead>
                                 <tr>
-                                    <th class="bg-primary-subtle" scope="col">Select</th>
+                                    <th class="bg-primary-subtle" scope="col"><input type="checkbox" id="selectAll-total" class="select_all" onclick="select_devices('selectAll-total', 'selected_count-total')" > Select All</th>
                                     <th class="bg-primary-subtle" scope="col">Device ID</th>
                                     <th class="bg-primary-subtle" scope="col">Device Name</th>
                                     <th class="bg-primary-subtle" scope="col">Installation Status</th>
@@ -23,6 +23,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <span>Selected: <span id="selected_count-total" class="selected_count">0</span></span>
                 </div>
             </div>
             <div class="modal-footer">
