@@ -74,7 +74,7 @@ function list_objects_in_bucket($minioEndpoint, $minioAccessKey, $minioSecretKey
 
     curl_close($curl);
 }
-//list_objects_in_bucket($minioEndpoint, $minioAccessKey, $minioSecretKey, $bucketName);
+list_objects_in_bucket($minioEndpoint, $minioAccessKey, $minioSecretKey, $bucketName);
 
 // Function to download a specific object from the bucket
 function download_object_from_bucket($minioEndpoint, $minioAccessKey, $minioSecretKey, $bucketName, $objectKey) {
@@ -111,7 +111,7 @@ function download_object_from_bucket($minioEndpoint, $minioAccessKey, $minioSecr
 
 // Usage example
 $objectKey = "CCMS_MKM_V0.0.srec"; // Specify the object key (file name) you want to download
-download_object_from_bucket($minioEndpoint, $minioAccessKey, $minioSecretKey, $bucketName, $objectKey);
+//download_object_from_bucket($minioEndpoint, $minioAccessKey, $minioSecretKey, $bucketName, $objectKey);
 
 ?>
 

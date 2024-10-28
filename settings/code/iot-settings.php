@@ -296,8 +296,8 @@ if ($permission_check == 1)
                 $stmt = mysqli_prepare($conn_db, $sql_mode);
                 if ($stmt) {
                     // Bind parameters: d (double) for float values, s (string) for other parameters
-                    /*$parameter_value = strtoupper(trim($parameter_value));
-                    $parameter_values = explode(',', $parameter_value);*/
+                    /*$parameter_value = strtoupper(trim($parameter_value));*/
+                    $parameter_values = explode(',', $parameter_value);
 
                     mysqli_stmt_bind_param($stmt, 'sssssss', $device_id, $parameter_values[0], $parameter_values[1], $mobile_no, $user_email, $user_name, $role);
 

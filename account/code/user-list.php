@@ -245,6 +245,9 @@ else if($role=="SUPERADMIN")
         <button type='button' class='list-group-item list-group-item-action text-info' onclick='device_group(\"{$row['id']}\", \"{$row['mobile_no']}\", \"{$row['name']}\")'>
         <i class='bi bi-person-lines-fill'></i><strong>Group/Area View</strong>
         </button>
+        <button type='button' class='list-group-item list-group-item-action text-warning' onclick='menu_permission(\"{$row['id']}\", \"{$row['mobile_no']}\", \"{$row['name']}\")'>
+        <i class='bi bi-list pe-1'></i><strong>Menu Permissions</strong>
+        </button>
         </div>
         </ul>
         </div>

@@ -96,6 +96,9 @@ $permission_check = 0;
                         </div>
                     </div>
                 </div>
+
+                <?php if($role=="SUPERADMIN"){?>
+
                 <div class="col-xl-6 p-0 ps-xl-3">
                     <div class="card mt-3 ">
                         <div class="card-header bg-primary bg-opacity-25 fw-bold">
@@ -168,22 +171,23 @@ $permission_check = 0;
                         </div>
                     </div>
                 </div>
-            </div>
+            <?php } ?>
         </div>
-    </main>
+    </div>
+</main>
 
-    <?php
-    include(BASE_PATH."/devices/html/group-creation.php");
-    ?>
-
-
-
-    <script src="<?php echo BASE_PATH; ?>assets/js/sidebar-menu.js"></script>
-    <script src="<?php echo BASE_PATH; ?>assets/js/project/group_creation.js"></script>
-    <script src="<?php echo BASE_PATH; ?>json-data/json-data.js"></script>
+<?php
+include(BASE_PATH."/devices/html/group-creation.php");
+?>
 
 
-    <?php
-    include (BASE_PATH . "assets/html/body-end.php");
-    include (BASE_PATH . "assets/html/html-end.php");
+
+<script src="<?php echo BASE_PATH; ?>assets/js/sidebar-menu.js"></script>
+<script src="<?php echo BASE_PATH; ?>assets/js/project/group_creation.js"></script>
+<script src="<?php echo BASE_PATH; ?>json-data/json-data.js"></script>
+
+
+<?php
+include (BASE_PATH . "assets/html/body-end.php");
+include (BASE_PATH . "assets/html/html-end.php");
 ?>

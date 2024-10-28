@@ -5,7 +5,7 @@ SessionManager::checkSession();
 
 $send =["status" => "", "message" => ""];
 
-
+date_default_timezone_set('Asia/Kolkata');
 $offset_address = 0;
 $size=128*1024;
 $byte_arr = [$size];
@@ -144,7 +144,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
                             $date=date("Y-m-d H:i:s");
                             
                             
-                            $sql="INSERT INTO `$db`.`software_update`(`software`,`date_time`) VALUES ('$final_hex_file','$dates' )";
+                            $sql="INSERT INTO `$db`.`software_update`(`software`,`date_time`) VALUES ('$final_hex_file', current_timestamp() )";
                             if (mysqli_query($conn, $sql))
                             {
                                 try {
@@ -179,6 +179,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
                             else
                             {
                                 $send =["status" => "error", "message" => "Please Try Again..!"];
+                                
 
                             }
                             mysqli_close($conn);

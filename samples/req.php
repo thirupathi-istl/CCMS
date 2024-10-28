@@ -1,1208 +1,1175 @@
 <?php
 date_default_timezone_set('Asia/Kolkata');
 $live=0;
+$data="";
+$central_db="";
+$conn;
 $response="";
-
+$device_db;
+$device_id="";
+$msgSentConfirm=false;
+$data="CCMS_N1";
 $ip_address = $_SERVER['REMOTE_ADDR'];
-if($ip_address=="::1")
+/*if($ip_address=="::1")
 {
 	define('HOST','localhost');
 	define('USERNAME', 'root');
 	define('PASSWORD','123456');
-	define('DB1', 'ccms_userdb');
-
+	define('USER_DB', 'new_ccms_user_db');
+	define('DB_ALL', 'new_ccms_all');
 	//$data="CCMS_41;ALERT;SUPPLY;3;234;235;236;23;24;25;23/07/29 12:23:34";
 	//$data="CCMS_3;SUPDATE;";
 	
-	$data="CCMS_41;ACK;ON_OFF_MODE";   //ON_OFF_MODE, UPDATETIME, LOADCLEAR, MINMAXSET,ONOFFLIGHT ,HYSTVAL, CALIB, SCHEDULE_TIME, LOOP_ON_OFF UPDATETIME ECLR WIFI SERIALNO
-	$data="SPMS_108;REPORT;ON EVENT;240:5;2024/10/24 17:08:00;"; 
+	//$data="CCMS_1;ACK;LOADCLEAR";   //UPDATETIME, LOADCLEAR, MINMAXSET,ONOFFLIGHT ,HYSTVAL, CALIB, SCHEDULE_TIME, LOOP_ON_OFF UPDATETIME ECLR WIFI SERIALNO
+
+	$data="CCMS_1;ACK;UPDATE_TIME";  /////VOLTAGE_LIMIT , CURRENT_LIMIT , UPDATE_TIME
+	//$data="CCMS_1;REPORT;SYSTEMSTATUS;1,1,1,1,1,1,0,0,0,0;2024/10/07 17:42:45;";  
+	//$data="CCMS_1;ALERT;VOLTAGE;000;258;265;245;25;35;51;2024-10-09 15:45:02";
+	$data="CCMS_1;ALERT;CURRENT;010;258;265;245;25;35;51;2024-10-09 15:45:02";
+	$data="CCMS_1;ALERT;CONTACTOR;011;258;265;245;25;35;51;2024-10-09 15:45:02";
+	$data="CCMS_1;EVENTS;IP_POWER_SMPS;1;4358;2024-10-09 15:45:02";
 }
 else
-{
+{*/
 	define('HOST','95.111.238.141');
 	define('USERNAME', 'istlabsonline_db_user');
 	define('PASSWORD','istlabsonline_db_pass');
-	define('DB1', 'spms_user_php');
-	define('DB2','notifications_db');
+	define('USER_DB', 'ccms_user_details');
+	define('DB_ALL', 'ccms_all_devices');	
 	$live=1;
-
-}
-$data="SPMS_108;REPORT;ON EVENT;240:5;2024/10/24 17:08:00;"; 
-/*if(isset($_POST['CCMS']))
-{
-	$data= $_POST['CCMS'];*/
-
-	if($data!="")
+	if(isset($_POST['REQ']))
 	{
-		$array_data = explode(';', $data);
-		if($live==1)
+		$data= $_POST['REQ'];
+	}
+//}
+$user_db=USER_DB;
+$central_db=DB_ALL;
+
+if($data!="")
+{
+	$array_data = explode(';', $data);
+	$device_id=trim(strtoupper($array_data[0]));
+	$device_db=strtolower($device_id);
+	
+	$conn =  mysqli_connect(HOST,USERNAME,PASSWORD);
+	if (!$conn) 
+	{
+		die("DB Connection failed");
+	}
+	else
+	{
+		if (trim($array_data[1]) =='ACK')
 		{
-			update($array_data[0]);
-		}
-		$db=strtolower($array_data[0]);
-		define('DB',$db);
-		$conn =  mysqli_connect(HOST,USERNAME,PASSWORD,DB);
-		if (!$conn) 
-		{
-			die("Connection failed");
-		}
-		else
-		{
-			/*if($array_data[0]=="CCMS_97"||$array_data[0]=="CCMS_79")
+			$condtion = trim($array_data[2]);
+
+			switch ($condtion)
 			{
-				store_data($data, $conn);
-			}*/
-			update_ping($array_data[0],$conn);
-			if(count($array_data)<3)
-			{
-				$response= mainfunction($data, $conn);
+				case "ONOFFLIGHT":
+				clear_ack("ONOFF", "on_off_activities");
+				break;
+
+				case "SCHEDULE_TIME" :
+				clear_ack("SCHEDULE_TIME", "on_off_modes");
+				break;
+
+				case "ON_OFF_MODE" :
+				clear_ack("ON_OFF_MODE", "on_off_modes");
+				break;
+
+				case "VOLTAGE_LIMIT" :
+				clear_ack("VOLTAGE", "limits_voltage");
+				break;
+
+				case "CURRENT_LIMIT" :
+				clear_ack("CURRENT", "limits_current");
+				break;
+
+				case "UPDATE_TIME" :
+				clear_ack("FRAME_TIME", "frame_time");
+				break;
+
+				case "HYSTVAL" :
+				clear_ack("HYSTERESIS", "iot_hysteresis");
+				break;
+
+				case "CALIB" :					
+				clear_ack("CALIB_VALUES", "iot_calibration_values");
+				break;
+
+				case "LOOP_ON_OFF" :					
+				clear_ack("LOOP_ON_OFF", "iot_on_off_interval");
+				break;
+
+				case "ECLR" :					
+				clear_ack("ENERGY_RESET", "iot_reset_energy");
+				break;
+
+				case "WIFI" :					
+				clear_ack("WIFI_CREDENTIALS", "iot_wifi_credentials");
+				break;
+
+				case "SERIALNO" :					
+				clear_ack("SERIAL_ID", 'iot_serial_id_change');
+				break;
+
+				case "SUPDATE" :						
+				clear_ack("SOFTWARE", "");						
+				$date=date("Y-m-d H:i:s");
+				mysqli_query($conn, "INSERT INTO `$device_db`.`software_update_status` (`status`, `status_code`, `date_time`) VALUES ('$array_data[3]', '0', '$date')");
+				break;
+
+				default:
+
 			}
-			else
+
+		}
+		else if ($array_data[1] =='ALERT')
+		{
+			//ALERT;VOLTAGE;012;v1;v2;v3;i1;i2;i3;date_time;
+
+
+			if($array_data[2]=="VOLTAGE")
 			{
-				if (trim($array_data[1]) =='ACK')
+				interpretPhaseAlertCode($array_data[3],"VOLTAGE", $array_data[4], $array_data[5], $array_data[6], $array_data[7], $array_data[8], $array_data[9], $array_data[10]);
+			}
+			elseif($array_data[2]=="CURRENT")
+			{
+
+				interpretPhaseAlertCode($array_data[3],"CURRENT",$array_data[4], $array_data[5], $array_data[6], $array_data[7], $array_data[8], $array_data[9], $array_data[10]);
+			}
+
+			elseif($array_data[2]=="CONTACTOR")
+			{
+
+				interpretPhaseAlertCode($array_data[3],"CONTACTOR",$array_data[4], $array_data[5], $array_data[6], $array_data[7], $array_data[8], $array_data[9], $array_data[10]);
+			}
+
+		}
+		else if ($array_data[1] =='EVENTS')
+		{
+			$command = $array_data[2];
+			switch ($command)
+			{
+				case "ONOFF":
+				onoff_update($conn, $array_data[0], $array_data[3], $array_data[4]);
+				break;
+
+				case "IP_POWER_SMPS":
+				//EVENTS;IP_POWER_SMPS;1-8;4358;date_time
+				ip_power_smps_status_update($conn, $array_data[0], $array_data[3], $array_data[4], $array_data[5]);
+				break;
+
+				case "DO":
+				$sql_q = "INSERT INTO `$device_db`.`alert_door` (`alert`, `date_time`) VALUES ('Door Open', '$array_data[3]')";
+				mysqli_query($conn, $sql_q);
+				$device_name = get_name();
+				$deviceid_for_msg = check_name($device_name);
+				$date_time=$array_data[3];
+				$msg = "ID:$deviceid_for_msg, Door Opened, Time :".$date_time;
+				sendMessage($msg, "door_alert");
+				messageSaveInCentralTable("PANEL DOOR", $deviceid_for_msg, $msg, $date_time);
+				messageSaveInDeviceTable("PANEL DOOR", $deviceid_for_msg, $msg, $date_time);
+				break;
+
+				case "DC":
+				$sql_q = "INSERT INTO `$device_db`.`alert_door` (`alert`, `date_time`) VALUES ('Door Closed', '$array_data[3]')";
+				mysqli_query($conn, $sql_q);
+				$device_name = get_name();
+				$deviceid_for_msg = check_name($device_name);
+				$date_time=$array_data[3];
+				$msg = "ID:$deviceid_for_msg, Door Closed, Time :".$date_time;
+				sendMessage($msg, "door_alert");
+				messageSaveInCentralTable("PANEL DOOR", $deviceid_for_msg, $msg, $date_time);
+				messageSaveInDeviceTable("PANEL DOOR", $deviceid_for_msg, $msg, $date_time);
+				break;
+
+				default:
+				$response = "ERROR EVENT";
+			}
+
+		}
+		else if ($array_data[1] =='SUPDATE')
+		{
+			$sql="SELECT software FROM `$device_db`.`software_update` ORDER BY id DESC LIMIT 1" ;
+			if (mysqli_query($conn, $sql)) 
+			{
+				$result = mysqli_query( $conn, $sql);
+				if(mysqli_num_rows($result)>0)
 				{
-
-					$condtion = $array_data[2];
-
-					switch ($condtion)
+					while ($r=  mysqli_fetch_assoc( $result )) 
 					{
-						case "ONOFFLIGHT":
-						clear_ack("ONOFF", $conn);
-						break;
-
-						case "SCHEDULE_TIME" :
-						$update_id=0;
-
-						$sql_1 ="SELECT MAX(id) AS u_id FROM on_off_modes WHERE EXISTS (SELECT 1 FROM device_settings WHERE setting_type = 'SCHEDULE_TIME' AND setting_flag = '2')";
-						if (mysqli_query($conn, $sql_1)) 
-						{
-							$result = mysqli_query( $conn, $sql_1);
-							if(mysqli_num_rows($result)>0)
-							{
-								$r=  mysqli_fetch_assoc( $result ) ;
-								$update_id=$r['u_id'];
-								
-							}
-						}
-
-						$sql ="UPDATE on_off_modes SET status = 'Updated' WHERE id = '$update_id'";
-						//$sql ="UPDATE on_off_modes SET status = 'Updated' WHERE on_off_modes.id = (SELECT MAX(id)FROM on_off_modes WHERE EXISTS (SELECT 1 FROM device_settings WHERE setting_type = 'ON_OFF_MODE' AND setting_flag = '2'))";
-						mysqli_query($conn, $sql);
-						clear_ack("SCHEDULE_TIME", $conn);
-						break;
-
-						case "ON_OFF_MODE" :
-
-						$update_id=0;
-
-						$sql_1 ="SELECT MAX(id) AS u_id FROM on_off_modes WHERE EXISTS (SELECT 1 FROM device_settings WHERE setting_type = 'ON_OFF_MODE' AND setting_flag = '2')";
-						if (mysqli_query($conn, $sql_1)) 
-						{
-							$result = mysqli_query( $conn, $sql_1);
-							if(mysqli_num_rows($result)>0)
-							{
-								$r=  mysqli_fetch_assoc( $result ) ;
-								$update_id=$r['u_id'];
-								
-							}
-						}
-
-						$sql ="UPDATE on_off_modes SET status = 'Updated' WHERE id = '$update_id'";
-
-						//$sql ="UPDATE on_off_modes SET status = 'Updated' WHERE on_off_modes.id = (SELECT MAX(id)FROM on_off_modes WHERE EXISTS (SELECT 1 FROM device_settings WHERE setting_type = 'ON_OFF_MODE' AND setting_flag = '2'))";
-						mysqli_query($conn, $sql);
-						clear_ack("ON_OFF_MODE", $conn);
-						break;
-
-						case "MINMAXSET" :
-						clear_ack("VOLTAGE", $conn);
-						break;
-
-						case "LOADCLEAR" :
-						clear_ack("CURRENT", $conn);
-						break;
-
-						case "SUPDATE" :						
-						clear_ack("SOFTWARE", $conn);						
-						$date=date("Y-m-d H:i:s");
-						mysqli_query($conn, "INSERT INTO `software_update_status` ( `status_1`, `status_2`, `date_time`) VALUES ('$array_data[3]', '0', '$date')");
-						break;
-
-						case "UPDATETIME" :
-						clear_ack("FRAME_TIME", $conn);
-						break;
-
-						case "HYSTVAL" :
-						clear_ack("HYSTERESIS", $conn);
-						break;
-
-						case "CALIB" :					
-						clear_ack("CALIB_VALUES", $conn);
-						break;
-
-						case "LOOP_ON_OFF" :					
-						clear_ack("LOOP_ON_OFF", $conn);
-						break;
-
-						case "ECLR" :					
-						clear_ack("ENERGY_RESET", $conn);
-						break;
-
-						case "WIFI" :					
-						clear_ack("WIFI_CREDENTIALS", $conn);
-						break;
-
-						case "SERIALNO" :					
-						clear_ack("SERIAL_ID", $conn);
-
-						default:
-						$response= mainfunction($data, $conn);
-					}
-
-				}
-				else if ($array_data[1] =='ALERT')
-				{
-					$phase = $array_data[3];
-					switch ($phase) {
-						case "000":
-						alert_fun($array_data[0],$array_data[2],"Resumed", "1", $conn, "0",$array_data[4],$array_data[5],$array_data[6],$array_data[7],$array_data[8],$array_data[9],$array_data[10]);
-						break;
-						case "001":
-						alert_fun($array_data[0],$array_data[2],"B", "R & Y", $conn, "1",$array_data[4],$array_data[5],$array_data[6],$array_data[7],$array_data[8],$array_data[9],$array_data[10]);
-						break;
-						case "010":
-						alert_fun($array_data[0],$array_data[2],"Y" ,"R & B", $conn , "1",$array_data[4],$array_data[5],$array_data[6],$array_data[7],$array_data[8],$array_data[9],$array_data[10]);
-						break;
-						case "011":
-						alert_fun($array_data[0],$array_data[2],"Y & B", "R", $conn, "1",$array_data[4],$array_data[5],$array_data[6],$array_data[7],$array_data[8],$array_data[9],$array_data[10]);
-						break;
-						case "100":
-						alert_fun($array_data[0],$array_data[2],"R","Y & B", $conn, "1",$array_data[4],$array_data[5],$array_data[6],$array_data[7],$array_data[8],$array_data[9],$array_data[10]);
-						break;
-						case "101":
-						alert_fun($array_data[0],$array_data[2],"R & B", "Y", $conn, "1",$array_data[4],$array_data[5],$array_data[6],$array_data[7],$array_data[8],$array_data[9],$array_data[10]);
-						break;
-						case "110":
-						alert_fun($array_data[0],$array_data[2],"R & Y", "B", $conn, "1",$array_data[4],$array_data[5],$array_data[6],$array_data[7],$array_data[8],$array_data[9],$array_data[10]);
-						break;
-						case "111":
-						alert_fun($array_data[0],$array_data[2],"R, Y & B", "0", $conn, "1",$array_data[4],$array_data[5],$array_data[6],$array_data[7],$array_data[8],$array_data[9],$array_data[10]);
-						break;
-						case "2":
-						supply_alert($array_data[0],$array_data[2],"", $conn, "1",$array_data[4],$array_data[5],$array_data[6],$array_data[7],$array_data[8],$array_data[9],$array_data[10]);
-						break;
-						case "3":
-						supply_alert($array_data[0],$array_data[2],"", $conn, "0",$array_data[4],$array_data[5],$array_data[6],$array_data[7],$array_data[8],$array_data[9],$array_data[10]);
-						break;
-						case "4":							
-						power_supply_alert($array_data[0], $conn, $array_data[4],$array_data[5], $array_data[6]);
-						break;
-						default:
-						$response="ERROR";
+						$response=$r['software']; 
 					}
 				}
-				else if ($array_data[1] =='EVENTS')
+				else
 				{
-					if ($array_data[2] == "DO")
-					{
-						$sql_q = "INSERT INTO `alert_door` (`alert`, `date_time`) VALUES ('Door Open', '$array_data[3]')";
-						mysqli_query($conn, $sql_q);
-
-					}
-					else if ($array_data[2] == "DC")
-					{
-						$sql_q = "INSERT INTO `alert_door` (`alert`, `date_time`) VALUES ('Door Closed', '$array_data[3]')";
-						mysqli_query($conn, $sql_q);
-					}
-
+					$response ="Firmware Not Found";
 				}
-				else if ($array_data[1] =='SUPDATE')
+			} 
+		}
+		else if ($array_data[1] =='OFFLINE'||$array_data[1] =='DEFAULT')
+		{
+			$sql="INSERT INTO `saved_settings_on_device` (`frame`) VALUES ( '$data')" ;
+			mysqli_query($conn, $sql);
+		}
+		else if($array_data[1]=='REPORT')
+		{
+			try 
+			{	
+				$date_time=date("Y-m-d H:i:s");	
+				if($array_data[2]=="SIMCOM_OFF")
 				{
-					$response="";
-					$sql="SELECT software FROM software_update ORDER BY id DESC LIMIT 1" ;
+					mysqli_query($conn, "INSERT INTO `$device_db`.`sim_module_communication` ( `date_time`, `server_time`) VALUES ( '$array_data[3]', '$date_time');");
+				}
+				if($array_data[2]=="SYSTEM INFO")
+				{
+
+					mysqli_query($conn, "INSERT INTO `$device_db`.system_info ( `info`, `date_time`) VALUES('$array_data[3]', '$date_time') ON DUPLICATE KEY UPDATE info='$array_data[3]', date_time='$date_time'");
+				}
+				if($array_data[2]=="SIMCOMSTATUS")
+				{
+					mysqli_query($conn, "INSERT INTO `$device_db`.`simcom_status` (`status`, `status_code`, `date_time`,`server_date_time`) VALUES ('$array_data[3]', '$array_data[4]', '$array_data[5]','$date_time');");
+				}
+				if($array_data[2]=="SYSTEMSTATUS")
+				{
+					$array_data[3]=trim($array_data[3]);
+					$s_status="";
+					$s_id=0;
+					$sql="SELECT * FROM `$device_db`.`system_status` ORDER BY id DESC LIMIT 1" ;
 					if (mysqli_query($conn, $sql)) 
 					{
 						$result = mysqli_query( $conn, $sql);
 						if(mysqli_num_rows($result)>0)
 						{
-							while ($r=  mysqli_fetch_assoc( $result )) 
-							{
-								$response=$r['software']; 
-							}
+							$r=  mysqli_fetch_assoc( $result );								
+							$s_status=trim($r['status']); 
+							$s_id=trim($r['id']); 
 						}
-						else
-						{
-							$response ="000;No data";
-						}
-					} 
-				}
-				else if ($array_data[1] == 'GET_TIME?')
-				{
-					date_default_timezone_set('Asia/Kolkata');
-					$date = date("Y-m-d H:i:s");
-					$response = "SYNC_TIME=" . date("Y-m-d") . ";" . date("H:i:s") . ";";
-				}
-				else if ($array_data[1] =='OFFLINE'||$array_data[1] =='DEFAULT')
-				{
-					$sql="INSERT INTO `loaded_settings` ( `frame`) VALUES ( '$data')" ;
-					mysqli_query($conn, $sql);				
+					}
+					$upd_status_flag=0;
+					if($s_status== trim($array_data[3]))
+					{
+						mysqli_query($conn, "UPDATE `$device_db`.`system_status`  SET `date_time`='$array_data[4]' WHERE id='$s_id'");
+					}
+					else{
+						mysqli_query($conn, "INSERT INTO `$device_db`.`system_status` ( `status`, `date_time`, `prev_date_time` , `server_date_time`) VALUES ( '$array_data[3]', '$array_data[4]', '$array_data[4]', '$date_time');");
+						$upd_status_flag=1;
+					}
+					if($upd_status_flag)
+					{
+						$old_on_off_status=explode(",", $s_status);
+						$new_on_off_status=explode(",", trim($array_data[3]));
+						if($old_on_off_status[6]!=$new_on_off_status[6])
+						{	
+							$deviceid=$array_data[0];
+							$device_name=$deviceid;
+							$device_name = get_name($deviceid, $conn);
 
-				}
-				else if($array_data[1]=='REPORT')
-				{
-					try 
-					{	
-
-						$date_time=date("Y-m-d H:i:s");					
-						$command=$array_data[2];
-						if(mysqli_query( $conn, "SELECT * FROM device_check_report WHERE field ='$command'"))
-						{
-							$exist_row = mysqli_query( $conn, "SELECT * FROM device_check_report WHERE field ='$command'");
-							if( mysqli_num_rows($exist_row) > 0) 
+							$deviceid_for_msg="";
+							if($deviceid!=$device_name)
 							{
-								mysqli_query( $conn,"UPDATE device_check_report SET status='$array_data[3]', date_time = '$date_time' WHERE field = '$command' ");
+								$deviceid_for_msg=$deviceid."(". $device_name.")";
 							}
 							else
 							{
-								mysqli_query( $conn, "INSERT INTO `device_check_report` ( `field`, `status`, `date_time`) VALUES ( '$array_data[2]', '$array_data[3]', '$date_time')");
+								$deviceid_for_msg=$deviceid;
 							}
-							if($array_data[2]=="SIMCOM_OFF")
+							if($new_on_off_status[6]==1||$new_on_off_status[6]==3||$new_on_off_status[6]==4||$new_on_off_status[6]==5)
 							{
-								mysqli_query($conn, "INSERT INTO `sim_module_communication` ( `date_time`, `server_time`) VALUES ( '$array_data[3]', '$date_time');");
+								$on_command="";
+								if($new_on_off_status[6]==1)
+								{
+									$on_command="AUTO";
+								}
+								else if($new_on_off_status[6]==3)
+								{
+									$on_command="SERVER";
+								}
+								else if($new_on_off_status[6]==4)
+								{
+									$on_command="APP";
+								}
+								else if($new_on_off_status[6]==5)
+								{
+									$on_command="MANUAL";
+								}
+								$msg="ID:$deviceid_for_msg Switched ON($on_command) Lights";
 							}
-							if($array_data[2]=="SYSTEM INFO")
+							else
 							{
-
-								mysqli_query($conn, "INSERT INTO system_info ( `info`, `date_time`) VALUES('$array_data[3]', '$date_time') ON DUPLICATE KEY UPDATE info='$array_data[3]', date_time='$date_time'");
+								$msg="ID:$deviceid_for_msg Switched OFF Lights";
 							}
-							if($array_data[2]=="SIMCOMSTATUS")
-							{
-								mysqli_query($conn, "INSERT INTO `simcom_status` (`status`, `status_code`, `date_time`,`server_date_time`) VALUES ('$array_data[3]', '$array_data[4]', '$array_data[5]','$date_time');");
-							}
-
-							if($array_data[2]=="ON EVENT"||$array_data[2]=="OFF EVENT")
-							{
-								$msg="";
-								echo $array_data[4];
-								echo "<br>";
-								/*echo $array_data[5];
-								echo "<br>";*/
-
-								$deviceid =$array_data[0];
-								$device_name = get_name($deviceid, $conn);
-
-								$date_arr=explode(',', $array_data[3]);
-
-
-								$deviceid_for_msg="";
-								if($deviceid!=$device_name)
-								{
-									$deviceid_for_msg=$deviceid."(". $device_name.")";
-								}
-								else
-								{
-									$deviceid_for_msg=$deviceid;
-								}
-								if($array_data[2]=="ON EVENT")
-								{
-									$msg="ID: $deviceid_for_msg , Light switched ON, Time: $date_arr[3]";
-								}
-								else if($array_data[2]=="OFF EVENT")
-								{
-									$msg="ID: $deviceid_for_msg , Light switched OFF, Time: $date_arr[3]";
-								}
-								sendsms($msg, $conn, $deviceid);
-							}
-
-							if($array_data[2]=="SYSTEMSTATUS")
-							{
-								$array_data[3]=trim($array_data[3]);
-								$s_status="";
-								$s_id=0;
-								$sql="SELECT * FROM system_status ORDER BY id DESC LIMIT 1" ;
-								if (mysqli_query($conn, $sql)) 
-								{
-									$result = mysqli_query( $conn, $sql);
-									if(mysqli_num_rows($result)>0)
-									{
-										$r=  mysqli_fetch_assoc( $result );								
-										$s_status=trim($r['status']); 
-										$s_id=trim($r['id']); 
-									}
-								}
-								$upd_status_flag=0;
-								if($s_status== trim($array_data[3]))
-								{
-									mysqli_query($conn, "UPDATE `system_status`  SET `date_time`='$array_data[4]' WHERE id='$s_id'");
-								}
-								else{
-									mysqli_query($conn, "INSERT INTO `system_status` ( `status`, `date_time`, `prev_date_time` , `server_date_time`) VALUES ( '$array_data[3]', '$array_data[4]', '$array_data[4]', '$date_time');");
-									$upd_status_flag=1;
-								}
-								if($upd_status_flag)
-								{
-									$old_on_off_status=explode(",", $s_status);
-									$new_on_off_status=explode(",", trim($array_data[3]));
-									if($old_on_off_status[6]!=$new_on_off_status[6])
-									{	
-										$deviceid=$array_data[0];
-										$device_name=$deviceid;
-										$device_name = get_name($deviceid, $conn);
-
-										$deviceid_for_msg="";
-										if($deviceid!=$device_name)
-										{
-											$deviceid_for_msg=$deviceid."(". $device_name.")";
-										}
-										else
-										{
-											$deviceid_for_msg=$deviceid;
-										}
-										if($new_on_off_status[6]==1||$new_on_off_status[6]==3||$new_on_off_status[6]==4||$new_on_off_status[6]==5)
-										{
-											$on_command="";
-											if($new_on_off_status[6]==1)
-											{
-												$on_command="AUTO";
-											}
-											else if($new_on_off_status[6]==3)
-											{
-												$on_command="SERVER";
-											}
-											else if($new_on_off_status[6]==4)
-											{
-												$on_command="APP";
-											}
-											else if($new_on_off_status[6]==5)
-											{
-												$on_command="MANUAL";
-											}
-											$msg="ID:$deviceid_for_msg Switched ON($on_command) Lights";
-										}
-										else
-										{
-											$msg="ID:$deviceid_for_msg Switched OFF Lights";
-										}
-										sendsms($msg, $conn, $array_data[0]);
-									}
-								}
-							}
+							//sendsms($msg, $conn, $array_data[0]);
 						}
-						else
-						{
-							$result = mysqli_query($conn, "SHOW TABLES LIKE 'device_check_report'");
-							if(mysqli_num_rows($result)<=0) 						
-							{
-								$sql = "CREATE TABLE `device_check_report` (`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, `field` varchar(255) NOT NULL, `status` varchar(255) NOT NULL, `date_time` datetime NOT NULL ) ENGINE=MyISAM DEFAULT CHARSET=latin1";
-								mysqli_query($conn, $sql);
-								mysqli_query( $conn, "INSERT INTO `device_check_report` ( `field`, `status`, `date_time`) VALUES ( '$array_data[2]', '$array_data[3]', '$date_time')");
-							}
-						}
-					} 
-					catch (Exception $e) 
-					{
 					}
-
 				}
 				else
 				{
-					$response= '000;No data';
-				}
-			}
-			http_response_code(201);
+					$update_command = $array_data[2]; 
+					$status = $array_data[3];
+					$date_time = $date_time; 
+					$query = " INSERT INTO `$device_db`.`device_check_report` (parameter, status, date_time)  VALUES ('$update_command', '$status', '$date_time') ON DUPLICATE KEY UPDATE status = VALUES(status), date_time = VALUES(date_time)";
 
-			if($response==null||$response=="")
+					mysqli_query($conn, $query);
+				}
+			} 
+			catch (Exception $e) 
 			{
-				$response= mainfunction($data, $conn);
 			}
-			mysqli_close($conn);
-			echo $response;
+
 		}
+
+		ping_update();
+
+		if($response==null||$response=="")
+		{
+			$response= device_setting();
+		}
+		http_response_code(201);
+		mysqli_close($conn);
+		echo $response;
+	}
+}
+else
+{
+	echo "000;Posting Error";
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////// ping statu Update   /////////////////////////////////////////////////////////
+
+function ping_update()
+{
+	global $device_id;
+	global $conn;
+	global $device_db;
+	global $central_db;
+	$ping_date_time = date("Y-m-d H:i:s");
+
+	try {
+		$ping_sql = "INSERT INTO `$central_db`.`live_data_updates` (`device_id`, `ping_time`) VALUES ('$device_id', '$ping_date_time')  ON DUPLICATE KEY UPDATE ping_time='$ping_date_time'";
+		mysqli_query($conn, $ping_sql);
+	} catch (Exception $e) {
+
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////  Phases Alerts   /////////////////////////////////////////////////////////
+
+function interpretPhaseAlertCode($phase_status, $parmater, $vr, $vy, $vb, $ir, $iy, $ib, $date_time) {
+	global $device_id;
+	global $conn;
+	global $device_db;
+
+	$statusMap = [ '0' => 'normal', '1' => 'high', '2' => 'low' ];
+	$statusMapContactor = [ '0' => 'Turned ON', '1' => 'Tripped' ];
+
+	$phase_status_msg="";
+	if($parmater=="VOLTAGE")
+	{
+		$r = isset($statusMap[$phase_status[0]]) ? $statusMap[$phase_status[0]] : 'undefined';
+		$y = isset($statusMap[$phase_status[1]]) ? $statusMap[$phase_status[1]] : 'undefined';
+		$b = isset($statusMap[$phase_status[2]]) ? $statusMap[$phase_status[2]] : 'undefined';
+		if($phase_status==="000")
+		{
+			$return_msg= "Phase voltages are Normal.";
+		}
+		else
+		{
+			$phase_status_msg ="Phase voltages: R-phase is $r, Y-phase $y, and B-phase is $b.";
+		}
+
+		$r=strtoupper($r);
+		$y=strtoupper($y);
+		$b=strtoupper($b);
+		$sql_store_alert="INSERT INTO `$device_db`.`alert_phases` (`device_id`, `alert_name`, `ph_r`, `ph_y`, `ph_b`, `v_r`, `v_y`, `v_b`, `i_r`, `i_y`, `i_b`, `date_time`) VALUES ('$device_id', '$parmater', '$r', '$y', '$b', '$vr', '$vy', '$vb', '$ir', '$iy', '$ib', '$date_time')";
+		if (mysqli_query($conn, $sql_store_alert));
+
+		$phase_status_msg= $phase_status_msg." R=$vr, Y=$vy, Y=$vb, Time: $date_time.";
+		$device_name = get_name();
+		$deviceid_for_msg = check_name($device_name);		
+		$msg = "ID:$deviceid_for_msg, $phase_status_msg";
+		sendMessage($msg, "voltage");
+		messageSaveInCentralTable($parmater, $deviceid_for_msg, $msg, $date_time);
+		messageSaveInDeviceTable($parmater, $deviceid_for_msg, $msg, $date_time);
+		
+	}
+	else if($parmater=="CURRENT")
+	{
+		$r = isset($statusMap[$phase_status[0]]) ? $statusMap[$phase_status[0]] : 'undefined';
+		$y = isset($statusMap[$phase_status[1]]) ? $statusMap[$phase_status[1]] : 'undefined';
+		$b = isset($statusMap[$phase_status[2]]) ? $statusMap[$phase_status[2]] : 'undefined';
+
+		if($phase_status==="000")
+		{
+			$return_msg= "Phase currents are Normal.";
+		}
+		else
+		{
+			$phase_status_msg ="Phase currents: R-phase is $r, Y-phase $y, and B-phase is $b.";
+		}
+
+		$r=strtoupper($r);
+		$y=strtoupper($y);
+		$b=strtoupper($b);
+		$sql_store_alert="INSERT INTO `$device_db`.`alert_phases` (`device_id`, `alert_name`, `ph_r`, `ph_y`, `ph_b`, `v_r`, `v_y`, `v_b`, `i_r`, `i_y`, `i_b`, `date_time`) VALUES ('$device_id', '$parmater', '$r', '$y', '$b', '$vr', '$vy', '$vb', '$ir', '$iy', '$ib', '$date_time')";
+		if (mysqli_query($conn, $sql_store_alert));
+
+		$phase_status_msg= $phase_status_msg." R=$ir, Y=$iy, Y=$ib, Time: $date_time.";
+		$device_name = get_name();
+		$deviceid_for_msg = check_name($device_name);		
+		$msg = "ID:$deviceid_for_msg, $phase_status_msg";
+		sendMessage($msg, "overload");
+		messageSaveInCentralTable($parmater, $deviceid_for_msg, $msg, $date_time);
+		messageSaveInDeviceTable($parmater, $deviceid_for_msg, $msg, $date_time);
+	}
+	else if($parmater=="CONTACTOR")
+	{
+		
+		$r = isset($statusMapContactor[$phase_status[0]]) ? $statusMapContactor[$phase_status[0]] : 'undefined';
+		$y = isset($statusMapContactor[$phase_status[1]]) ? $statusMapContactor[$phase_status[1]] : 'undefined';
+		$b = isset($statusMapContactor[$phase_status[2]]) ? $statusMapContactor[$phase_status[2]] : 'undefined';
+		if($phase_status==="000")
+		{
+			$return_msg= "Phase contactors/MCBs are turned ON.";
+		}
+		else
+		{
+			$phase_status_msg ="Phase Contactors/MCBs: R-phase is $r, Y-phase $y, and B-phase is $b.";
+		}
+
+		$r=strtoupper($r);
+		$y=strtoupper($y);
+		$b=strtoupper($b);
+		$sql_store_alert="INSERT INTO `$device_db`.`alert_phases` (`device_id`, `alert_name`, `ph_r`, `ph_y`, `ph_b`, `v_r`, `v_y`, `v_b`, `i_r`, `i_y`, `i_b`, `date_time`) VALUES ('$device_id', 'CONTACTOR/MCB', '$r', '$y', '$b', '$vr', '$vy', '$vb', '$ir', '$iy', '$ib', '$date_time')";
+		if (mysqli_query($conn, $sql_store_alert));
+
+		$phase_status_msg= $phase_status_msg." Time: $date_time.";
+		$device_name = get_name();
+		$deviceid_for_msg = check_name($device_name);		
+		$msg = "ID:$deviceid_for_msg, $phase_status_msg";
+		sendMessage($msg, "mcb_contactor_trip");
+		messageSaveInCentralTable("CONTACTOR/MCB", $deviceid_for_msg, $msg, $date_time);
+		messageSaveInDeviceTable("CONTACTOR/MCB", $deviceid_for_msg, $msg, $date_time);
+	}
+	
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////    Get the device name    /////////////////////////////////
+function get_name()
+{
+	global $device_db;
+	global $conn;
+	$device_name=strtoupper($device_db);
+	try {
+		$sql = "SELECT user_alternative_name FROM `$device_db`.device_name_update_log ORDER BY id DESC LIMIT 1";
+		$stmt_1 = mysqli_prepare($conn, $sql);
+		mysqli_stmt_execute($stmt_1);
+		mysqli_stmt_bind_result($stmt_1, $user_alternative_name);
+		if (mysqli_stmt_fetch($stmt_1)) {
+			$device_name = $user_alternative_name;
+		} 
+		mysqli_stmt_close($stmt_1);
+	} catch (Exception $e) {
+
+	}
+	return $device_name;
+
+}
+function check_name($device_name)
+{
+	global $device_id;
+	$deviceid_for_msg = "";
+	if ($device_id!= $device_name && $device_name!="")
+	{
+		$deviceid_for_msg = $device_name."(".$device_id.")";
 	}
 	else
 	{
-		echo "000;No data ";
+		$deviceid_for_msg = $device_id;
 	}
-//}
-
-////////////////////////////////////    main Function   //////////////////////////////////////////
+	return $deviceid_for_msg ;
+}
 /////////////////////////////////////////////////////////////////////////////////////////////////
-	function mainfunction($data, $conn)
+////////////////////////////////////    Clear the Settings  //////////////////////////////////////////
+function clear_ack($key, $table)
+{
+	global $conn;
+	global $device_db;
+	$date_time=date("Y-m-d H:i:s");
+	$sql="SELECT * FROM `$device_db`.device_settings WHERE setting_type='$key'" ;
+	if (mysqli_query($conn, $sql)) 
 	{
-
-		$array_data = explode(';', $data); 
-		$response="";
-		$length=0;
-		$sql="";
-		$condtion="NA";
-		$device_id=$array_data[0];
-
-		$sql="SELECT *from (SELECT * FROM device_settings WHERE setting_type IN ('ONOFF', 'SCHEDULE_TIME', 'ON_OFF_MODE', 'VOLTAGE','CURRENT','FRAME_TIME','HYSTERESIS', 'CALIB_VALUES', 'LOOP_ON_OFF', 'SOFTWARE',  'ID_CHANGE', 'ENERGY_RESET', 'WIFI_CREDENTIALS', 'SERIAL_ID', 'RESET') ORDER BY setting_type DESC) a UNION ALL (SELECT * FROM device_settings WHERE setting_type='DEFAULT' LIMIT 1)";
-
-		$check=array();
-		if (mysqli_query($conn, $sql)) 
+		$result = mysqli_query( $conn, $sql);
+		if(mysqli_num_rows($result)>0)
 		{
-			$result = mysqli_query( $conn, $sql);
-			if(mysqli_num_rows($result)>0)
+			$r= mysqli_fetch_assoc( $result );
+			$status =$r['setting_flag'];
+		}
+	} 
+	if($status==2)
+	{
+		$sql="UPDATE `$device_db`.device_settings SET setting_flag='0' WHERE setting_type='$key'" ;
+		mysqli_query($conn, $sql);
+		if($table!=""&& $table!=null)
+		{
+			if($table==="on_off_modes")
 			{
-				while ($r=  mysqli_fetch_assoc( $result )) 
+				if($key==="SCHEDULE_TIME")
 				{
-					$check[]=array('type' => $r['setting_type'],'flag' => $r['setting_flag'] );
-
+					mysqli_query($conn, "UPDATE `$device_db`.`$table` SET status='Updated', update_data_time='$date_time' WHERE on_off_mode = 'SCHEDULE_TIME' ORDER BY date_time DESC LIMIT 1");
+				}
+				else
+				{
+					mysqli_query($conn, "UPDATE `$device_db`.`$table` SET status='Updated', update_data_time='$date_time' WHERE on_off_mode != 'SCHEDULE_TIME' ORDER BY date_time DESC LIMIT 1");
 				}
 			}
 			else
 			{
-				$response ="No data";
+
+				mysqli_query($conn, "UPDATE `$device_db`.`$table` SET status='Updated', update_data_time='$date_time' ORDER BY date_time DESC LIMIT 1");
 			}
-		} 
-		$values = json_encode($check);
-		$set_list= json_decode($values);
-		foreach($set_list as $key => $value) {
-			$condtion= $value->type;
-			$set_flag=  $value->flag;
-			if($set_flag==1||$set_flag==2)
-			{
-				break;
-			}
-			else
-			{
-				$condtion="NA";
-			}	
 		}
-		switch ($condtion) 
-		{
-			case "VOLTAGE":
-			$sql="UPDATE device_settings SET setting_flag='2' WHERE setting_type='$condtion'" ;
-			if (mysqli_query($conn, $sql)) 
-			{
-				$set_sql="SELECT * FROM limit_voltage ORDER BY id DESC LIMIT 1";
-				if (mysqli_query($conn, $set_sql)) 
-				{
-					$result = mysqli_query( $conn, $set_sql);
-					if(mysqli_num_rows($result)>0)
-					{
-						$r=  mysqli_fetch_assoc( $result );
-						$min_1=(int)$r['min_1'];
-						$min_2=(int)$r['min_2'];
-						$min_3=(int)$r['min_3'];
-						$max_1=(int)$r['max_1'];
-						$max_2=(int)$r['max_2'];
-						$max_3=(int)$r['max_3'];
-						$MIN=$min_1.";".$min_1.";".$min_1;
-						$MAX=$max_1.";".$max_1.";".$max_1;
-						$data="MIN=".$MIN.";MAX=".$MAX.";";
-						$len =strlen($data);
-						$length = str_pad($len, 3, '0', STR_PAD_LEFT);
-						$data=$length.";".$data;
-						$response= "CCMS=".$device_id.";".$data;
-					}
-				}
-			}
-			break;
-			case "CURRENT":
-			$sql="UPDATE device_settings SET setting_flag='2' WHERE setting_type='$condtion'" ;
-			if (mysqli_query($conn, $sql)) 
-			{
-				$set_sql="SELECT * FROM limit_current ORDER BY id DESC LIMIT 1";
-				if (mysqli_query($conn, $set_sql)) 
-				{
-					$result = mysqli_query( $conn, $set_sql);
-					if(mysqli_num_rows($result)>0)
-					{
-						$r=  mysqli_fetch_assoc( $result );
-						$max_1=(int)$r['max_1'];				
-						$MAX=$max_1.";".$max_1.";".$max_1;
-						$data="LMA=".$MAX.";";
-						$len =strlen($data);
-						$length = str_pad($len, 3, '0', STR_PAD_LEFT);
-						$data=$length.";".$data;
-						$response= "CCMS=".$device_id.";".$data;
-					}
-				}
-			}
-			break;
-			case "ONOFF":
-			$sql="UPDATE device_settings SET setting_flag='2' WHERE setting_type='$condtion'" ;
-			if (mysqli_query($conn, $sql)) 
-			{
-				$set_sql="SELECT * FROM on_off_activity ORDER BY id DESC LIMIT 1";
-				if (mysqli_query($conn, $set_sql)) 
-				{
-					$result = mysqli_query( $conn, $set_sql);
-					if(mysqli_num_rows($result)>0)
-					{
-						$r=  mysqli_fetch_assoc( $result );
-						$switch=$r['on_off'];
-						$data=$switch.";";
-						$len =strlen($data);
-						$length = str_pad($len, 3, '0', STR_PAD_LEFT);
-						$data=$length.";".$data;
-						$response= "CCMS=".$device_id.";".$data;
-					}
-				}
-			}
-			break;
-			case "FRAME_TIME":
-			$sql="UPDATE device_settings SET setting_flag='2' WHERE setting_type='$condtion'" ;
-			if (mysqli_query($conn, $sql)) 
-			{
-				$set_sql="SELECT * FROM update_time_interval ORDER BY id DESC LIMIT 1";
-				if (mysqli_query($conn, $set_sql)) 
-				{
-					$result = mysqli_query( $conn, $set_sql);
-					if(mysqli_num_rows($result)>0)
-					{
-						$r=  mysqli_fetch_assoc( $result );
-						$update_interval=(int)$r['time'];
-						$data="SETTIME=".$update_interval.";";
-						$len =strlen($data);
-						$length = str_pad($len, 3, '0', STR_PAD_LEFT);
-						$data=$length.";".$data;
-						$response= "CCMS=".$device_id.";".$data;
-					}
-				}
-			}
-			break;
-			case "HYSTERESIS":
-			$sql="UPDATE device_settings SET setting_flag='2' WHERE setting_type='$condtion'" ;
-			if (mysqli_query($conn, $sql)) 
-			{
-				$set_sql="SELECT * FROM hysteresis_history ORDER BY id DESC LIMIT 1";
-				if (mysqli_query($conn, $set_sql)) 
-				{
-					$result = mysqli_query( $conn, $set_sql);
-					if(mysqli_num_rows($result)>0)
-					{
-						$r=  mysqli_fetch_assoc( $result );
-						$hysteresis=(int)$r['set_value'];
-						$data="HYST=".$hysteresis.";";
-						$len =strlen($data);
-						$length = str_pad($len, 3, '0', STR_PAD_LEFT);
-						$data=$length.";".$data;
-						$response= "CCMS=".$device_id.";".$data;
-					}
-				}
-			}
-			break;
-
-			case "LOOP_ON_OFF":
-			$sql="UPDATE device_settings SET setting_flag='2' WHERE setting_type='$condtion'" ;
-			if (mysqli_query($conn, $sql)) 
-			{
-				$set_sql="SELECT * FROM on_off_interval_history ORDER BY id DESC LIMIT 1";
-				if (mysqli_query($conn, $set_sql)) 
-				{
-					$result = mysqli_query( $conn, $set_sql);
-					if(mysqli_num_rows($result)>0)
-					{
-						$r=  mysqli_fetch_assoc( $result );
-						$val=(int)$r['set_value'];
-						if($val>0)
-						{
-							$val="1;".$val;
-						}
-						else
-						{
-							$val="0;0";
-						}
-
-						$data="LOOP_ON_OFF=".$val.";";
-						$len =strlen($data);
-						$length = str_pad($len, 3, '0', STR_PAD_LEFT);
-						$data=$length.";".$data;
-						$response= "CCMS=".$device_id.";".$data;
-					}
-				}
-			}
-			break;
-			case "CALIB_VALUES":
-			$sql="UPDATE device_settings SET setting_flag='2' WHERE setting_type='$condtion'" ;
-			if (mysqli_query($conn, $sql)) 
-			{
-				$set_sql="SELECT * FROM calib_settings ORDER BY id DESC LIMIT 1";
-				if (mysqli_query($conn, $set_sql)) 
-				{
-					$result = mysqli_query( $conn, $set_sql);
-					if(mysqli_num_rows($result)>0)
-					{
-						$r=  mysqli_fetch_assoc( $result );
-						$calib_val=$r['frame'];
-						$data="CALIB:".$calib_val;
-						$len =strlen($data);
-						$length = str_pad($len, 3, '0', STR_PAD_LEFT);
-						$data=$length.";".$data;
-						$response= "CCMS=".$device_id.";".$data;
-					}
-				}
-			}
-			break;
-			case "SCHEDULE_TIME":
-			$sql="UPDATE device_settings SET setting_flag='2' WHERE setting_type='$condtion'" ;
-			if (mysqli_query($conn, $sql)) 
-			{
-				$set_sql="SELECT * FROM schedule_time ORDER BY id DESC LIMIT 1";
-				if (mysqli_query($conn, $set_sql)) 
-				{
-					$result = mysqli_query( $conn, $set_sql);
-					if(mysqli_num_rows($result)>0)
-					{
-						$r=  mysqli_fetch_assoc( $result );
-						$check_status=strtoupper($r['status']);
-						$scdl_time="";
-						if($check_status=="ENABLED")
-						{
-							$ontime=$r['on_time'];
-							$offtime=$r['off_time'];
-							$ontime=str_replace(":00","", $ontime);
-							$ontime=str_replace(":","","$ontime");
-							$offtime=str_replace(":00","", $offtime);
-							$offtime=str_replace(":","","$offtime");
-
-							$ontime = str_pad($ontime, 4, '0', STR_PAD_RIGHT);
-							$offtime = str_pad($offtime, 4, '0', STR_PAD_RIGHT);
-
-							$scdl_time="SCHDON=".$ontime.";".$offtime.";";
-						}
-						else
-						{
-							$scdl_time="SCHDOFF;";
-						}
-						$data=$scdl_time;
-						$len =strlen($data);
-						$length = str_pad($len, 3, '0', STR_PAD_LEFT);
-						$data=$length.";".$data;
-						$response= "CCMS=".$device_id.";".$data;
-						mysqli_query($conn,"UPDATE on_off_modes SET status = 'In-Progress' WHERE id=(SELECT id FROM on_off_modes WHERE on_off_mode='SCHEDULE_TIME' ORDER BY id DESC LIMIT 1)");
-					}
-				}
-			}
-			break;
-
-			case "ON_OFF_MODE":
-			$sql="UPDATE device_settings SET setting_flag='2' WHERE setting_type='$condtion'" ;
-			if (mysqli_query($conn, $sql)) 
-			{
-				$set_sql="SELECT * FROM on_off_modes ORDER BY id DESC LIMIT 1";
-				if (mysqli_query($conn, $set_sql)) 
-				{
-					$result = mysqli_query( $conn, $set_sql);
-					if(mysqli_num_rows($result)>0)
-					{
-						$r=  mysqli_fetch_assoc( $result );
-						$on_off_mode="";
-						$on_off_mode=strtoupper($r['on_off_mode']);
-						if($on_off_mode=="AMBIENT_ASTRO")
-						{
-							$on_off_mode="ON_OFF_MODE=".$on_off_mode;
-						}
-						else
-						{
-							$on_off_mode="ON_OFF_MODE=".$on_off_mode."MODE";
-						}
-
-						$data=$on_off_mode;
-						$len =strlen($data);
-						$length = str_pad($len, 3, '0', STR_PAD_LEFT);
-						$data=$length.";".$data;
-						$response= "CCMS=".$device_id.";".$data;
-						$s_id=$r['id'];
-						mysqli_query($conn,"UPDATE on_off_modes SET status = 'In-Progress' WHERE id='$s_id'");
-
-					}
-				}
-			}
-			break;
-			case "SOFTWARE":
-			$sql="UPDATE device_settings SET setting_flag='2' WHERE setting_type='$condtion'" ;
-			if (mysqli_query($conn, $sql)) 
-			{
-				$data="S_UPDATE;";
-				$len =strlen($data);
-				$length = str_pad($len, 3, '0', STR_PAD_LEFT);
-				$data=$length.";".$data;
-				$response= "CCMS=".$device_id.";".$data;					
-			}
-			break;
-			case "RESET":
-			$sql="UPDATE device_settings SET setting_flag='0' WHERE setting_type='$condtion'" ;
-			if (mysqli_query($conn, $sql)) 
-			{
-				$data="RESET=0;";
-				$len =strlen($data);
-				$length = str_pad($len, 3, '0', STR_PAD_LEFT);
-				$data=$length.";".$data;
-				$response= "CCMS=".$device_id.";".$data;					
-			}
-			break;
-			case "DEFAULT":
-				//$sql="UPDATE device_settings SET setting_flag='2' WHERE setting_type='$condtion'" ;
-			$sql="UPDATE device_settings SET setting_flag='0' WHERE setting_type='$condtion'" ;
-			if (mysqli_query($conn, $sql)) 
-			{
-				$data="DEFAULT;";
-				$len =strlen($data);
-				$length = str_pad($len, 3, '0', STR_PAD_LEFT);
-				$data=$length.";".$data;
-				$response= "CCMS=".$device_id.";".$data;
-			}
-			break;
-
-			case "ID_CHANGE":
-			$sql = "UPDATE device_settings SET setting_flag='0' WHERE setting_type='$condtion'";
-			if (mysqli_query($conn, $sql))
-			{
-				$set_sql = "SELECT * FROM history_device_id_change ORDER BY id DESC LIMIT 1";
-				if (mysqli_query($conn, $set_sql))
-				{
-					$result = mysqli_query($conn, $set_sql);
-					if (mysqli_num_rows($result) > 0)
-					{
-						$r = mysqli_fetch_assoc($result);
-						$send_data = $r['new_id'];
-						$data = "DEVID=" . $send_data.";";
-						$len =strlen($data);
-						$length = str_pad($len, 3, '0', STR_PAD_LEFT);
-						$data=$length.";".$data;
-						$response = "CCMS=" . $device_id . ";" . $data;
-					}
-				}
-			}
-			break;
-
-
-			case "SERIAL_ID":
-			$sql = "UPDATE device_settings SET setting_flag='2' WHERE setting_type='$condtion'";
-			if (mysqli_query($conn, $sql))
-			{
-				$set_sql = "SELECT * FROM history_serial_id_change ORDER BY id DESC LIMIT 1";
-				if (mysqli_query($conn, $set_sql))
-				{
-					$result = mysqli_query($conn, $set_sql);
-					if (mysqli_num_rows($result) > 0)
-					{
-						$r = mysqli_fetch_assoc($result);
-						$send_data = $r['serial_id'];
-						$data = "SNO=" . $send_data.";";
-						$len =strlen($data);
-						$length = str_pad($len, 3, '0', STR_PAD_LEFT);
-						$data=$length.";".$data;
-						$response = "CCMS=" . $device_id . ";" . $data;
-					}
-				}
-			}
-			break;
-
-			case "ENERGY_RESET":
-			$sql = "UPDATE device_settings SET setting_flag='2' WHERE setting_type='$condtion'";
-			if (mysqli_query($conn, $sql))
-			{
-				$set_sql = "SELECT * FROM history_energy_reset ORDER BY id DESC LIMIT 1";
-				if (mysqli_query($conn, $set_sql))
-				{
-					$result = mysqli_query($conn, $set_sql);
-					if (mysqli_num_rows($result) > 0)
-					{
-						$r = mysqli_fetch_assoc($result);
-						$kwh = $r['kwh'];  
-						$kvah = $r['kvah'];
-						$data = "ECLR=" . $kwh.";". $kvah.";";
-						$len =strlen($data);
-						$length = str_pad($len, 3, '0', STR_PAD_LEFT);
-						$data=$length.";".$data;
-						$response = "CCMS=" . $device_id . ";" . $data;
-					}
-				}
-			}
-			break;
-
-
-			case "WIFI_CREDENTIALS":
-			$sql = "UPDATE device_settings SET setting_flag='2' WHERE setting_type='$condtion'";
-			if (mysqli_query($conn, $sql))
-			{
-				$set_sql = "SELECT * FROM history_wifi_credentials ORDER BY id DESC LIMIT 1";
-				if (mysqli_query($conn, $set_sql))
-				{
-					$result = mysqli_query($conn, $set_sql);
-					if (mysqli_num_rows($result) > 0)
-					{
-						$r = mysqli_fetch_assoc($result);
-						$access_point_name = $r['access_point_name'];  
-						$pwd = $r['password'];
-						$data = "WIFI=" . $access_point_name.";PWD=". $pwd.";";
-						$len =strlen($data);
-						$length = str_pad($len, 3, '0', STR_PAD_LEFT);
-						$data=$length.";".$data;
-						$response = "CCMS=" . $device_id . ";" . $data;
-					}
-				}
-			}
-			break;
-			case "NA":
-			$response = "No Data";
-			break;
-			default:
-			$response= "No Data";
-
-		}
-
-		return $response;
 	}
-	function clear_ack($key, $conn)
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////    On-Off update  //////////////////////////////////////////
+
+function onoff_update($conn, $deviceid, $status, $date_time)
+{
+
+	$device_name = $deviceid;
+
+	$device_name = get_name();
+	$deviceid_for_msg = check_name($device_name);
+	
+	$on_command = "";
+	if ($status == 1 || $status == 3 || $status == 4 || $status == 5)
 	{
 
-		mysqli_query($conn, "UPDATE device_settings SET setting_flag='0' WHERE setting_type='$key' AND setting_flag = '2'");
-
-		/*$sql="SELECT * FROM device_settings WHERE setting_type='$key' ORDER BY id ASC LIMIT 1" ;
-		if (mysqli_query($conn, $sql)) 
+		if ($status == 1)
 		{
-			$result = mysqli_query( $conn, $sql);
-			if(mysqli_num_rows($result)>0)
-			{
-				$r= mysqli_fetch_assoc( $result );
-				$status =$r['setting_flag'];
-			}
-		} 
-		if($status==2)
-		{
-			$sql="UPDATE device_settings SET setting_flag='0' WHERE setting_type='$key'" ;
-			mysqli_query($conn, $sql);
-
-		}*/
-
-	}
-	function alert_fun($deviceid, $type, $phase, $normal_phases, $conn, $status,$v1,$v2,$v3,$c1,$c2,$c3,$date)
-	{
-		$string = str_replace('/', '-', $date);
-		$date_new=date_create($string);
-		$date =@date_format($date_new,"Y/m/d H:i:s");
-		if( !strlen($date))
-		{
-
-			$date=date("Y-m-d H:i:s");
+			$on_command = "ON (Auto)";
 		}
-		$date_sms =date_format(date_create($date),"H:i:s d/m/Y ");
-		$response="";
-		$device_name = $deviceid;
-		$device_name = get_name($deviceid, $conn);
-
-		$deviceid_for_msg="";
-		if($deviceid!=$device_name)
+		else if ($status == 3)
 		{
-			$deviceid_for_msg=$deviceid."(". $device_name.")";
+			$on_command = "ON from SERVER";
+		}
+		else if ($status == 4)
+		{
+			$on_command = "ON from WIFI APP";
+		}
+		else if ($status == 5)
+		{
+			$on_command = "ON MANUALLY";
+		}
+
+		$msg = "ID:$deviceid_for_msg Lights Switched $on_command ";
+	}
+	else
+	{
+		$on_command = "OFF";
+		$msg = "ID:$deviceid_for_msg Lights Switched OFF";
+	}
+	/*mysqli
+	_query($conn, "INSERT INTO $device_db.`on_off_events_log` (`device_id`, `event`, `date_time`) VALUES ( '$deviceid', '$on_command', '$date_time');");*/
+	$msg=$msg.", Time: ". $date_time;
+
+	sendMessage($msg, "on_off");
+	messageSaveInCentralTable('ON-OFF', $deviceid_for_msg, $msg, $date_time);
+	messageSaveInDeviceTable('ON-OFF', $deviceid_for_msg, $msg, $date_time);
+	
+}
+
+function messageSaveInCentralTable($paramter, $deviceid_for_msg, $msg, $date_time)
+{
+	global $device_id;
+	global $conn;
+	global $central_db;
+	try {
+		mysqli_query($conn, "INSERT INTO `$central_db`.`alerts_and_updates` (`device_id`, `device_id_name`, `alert_update_name`, `update`, `date_time`) VALUES ( '$device_id', '$deviceid_for_msg', '$paramter', '$msg', '$date_time')");
+	} catch (Exception $e) {
+		
+	}
+}
+function messageSaveInDeviceTable($paramter, $deviceid_for_msg, $msg, $date_time)
+{
+	global $device_id;
+	global $device_db;
+	global $conn;
+	global $msgSentConfirm;
+	$msg_sent="Not Sent";
+	echo $msgSentConfirm;
+	if($msgSentConfirm == true)
+	{
+		$msg_sent="Sent";
+	}	
+	try {
+		mysqli_query($conn, "INSERT INTO `$device_db`.`messges_frame` (`device_id`, `alert_type`, `frame`, `sent_status`, `date_time`) VALUES ( '$device_id', '$paramter', '$msg', '$msg_sent', '$date_time')");
+	} catch (Exception $e) {
+		
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////    main Function   //////////////////////////////////////////
+
+function device_setting()
+{
+	global $device_db;
+	global $conn;
+	global $device_id;
+	$response="";
+	$length=0;
+	$sql="";
+	$condtion="NA";
+	$date_time=date("Y-m-d H:i:s");	
+
+	$sql="SELECT * FROM (SELECT * FROM `$device_db`.device_settings WHERE setting_type IN ('ONOFF', 'SCHEDULE_TIME', 'ON_OFF_MODE', 'VOLTAGE','CURRENT','FRAME_TIME','HYSTERESIS', 'CALIB_VALUES', 'LOOP_ON_OFF', 'SOFTWARE',  'ID_CHANGE', 'ENERGY_RESET', 'WIFI_CREDENTIALS', 'SERIAL_ID', 'RESET') ORDER BY setting_type DESC) a UNION ALL (SELECT * FROM `$device_db`.device_settings WHERE setting_type='READ_SETTINGS' LIMIT 1)";
+
+	$check=array();
+	if (mysqli_query($conn, $sql)) 
+	{
+		$result = mysqli_query( $conn, $sql);
+		if(mysqli_num_rows($result)>0)
+		{
+			while ($r=  mysqli_fetch_assoc( $result )) 
+			{
+				$check[]=array('type' => $r['setting_type'],'flag' => $r['setting_flag'] );
+
+			}
 		}
 		else
 		{
-			$deviceid_for_msg=$deviceid;
+			$response ="No data";
 		}
+	} 
+	$values = json_encode($check);
+	$set_list= json_decode($values);
+	foreach($set_list as $key => $value) {
+		$condtion= $value->type;
+		$set_flag=  $value->flag;
+		if($set_flag==1||$set_flag==2)
+		{
+			break;
+		}
+		else
+		{
+			$condtion="NA";
+		}	
+	}
+	switch ($condtion) 
+	{
+		case "VOLTAGE":
+		$sql="UPDATE `$device_db`.device_settings SET setting_flag='2' WHERE setting_type='$condtion'" ;
+		if (mysqli_query($conn, $sql)) 
+		{
+			$set_sql="SELECT * FROM `$device_db`.limits_voltage ORDER BY id DESC LIMIT 1";
+			if (mysqli_query($conn, $set_sql)) 
+			{
+				$result = mysqli_query( $conn, $set_sql);
+				if(mysqli_num_rows($result)>0)
+				{
+					$r=  mysqli_fetch_assoc( $result );
+					$l_r=(int)$r['l_r'];
+					$l_y=(int)$r['l_y'];
+					$l_b=(int)$r['l_b'];
+					$u_r=(int)$r['u_r'];
+					$u_y=(int)$r['u_y'];
+					$u_b=(int)$r['u_b'];
+					$Lower_limit=$l_r.";".$l_y.";".$l_b;
+					$upper_limit=$u_r.";".$u_y.";".$u_b;
+					$data="V_LOWER=".$Lower_limit.";V_UPPER=".$upper_limit.";";
+					$len =strlen($data);
+					$length = str_pad($len, 3, '0', STR_PAD_LEFT);
+					$data=$length.";".$data;
+					$response= "CCMS=".$device_id.";".$data;
+				}
+			}
+		}
+		break;
+		case "CURRENT":
+		$sql="UPDATE `$device_db`.device_settings SET setting_flag='2' WHERE setting_type='$condtion'" ;
+		if (mysqli_query($conn, $sql)) 
+		{
+			$set_sql="SELECT * FROM `$device_db`.limits_current ORDER BY id DESC LIMIT 1";
+			if (mysqli_query($conn, $set_sql)) 
+			{
+				$result = mysqli_query( $conn, $set_sql);
+				if(mysqli_num_rows($result)>0)
+				{
+					$r=  mysqli_fetch_assoc( $result );
+					$i_r=(int)$r['i_r'];
+					$i_y=(int)$r['i_y'];
+					$i_b=(int)$r['i_b'];
+					$upper_limit=$i_r.";".$i_y.";".$i_b;
+					$data="I_UPPER=".$upper_limit.";";
+					$len =strlen($data);
+					$length = str_pad($len, 3, '0', STR_PAD_LEFT);
+					$data=$length.";".$data;
+					$response= "CCMS=".$device_id.";".$data;
+				}
+			}
+		}
+		break;
+		case "ONOFF":
+		$sql="UPDATE `$device_db`.device_settings SET setting_flag='2' WHERE setting_type='$condtion'" ;
+		if (mysqli_query($conn, $sql)) 
+		{
+			$set_sql="SELECT * FROM `$device_db`.on_off_activities ORDER BY id DESC LIMIT 1";
+			if (mysqli_query($conn, $set_sql)) 
+			{
+				$result = mysqli_query( $conn, $set_sql);
+				if(mysqli_num_rows($result)>0)
+				{
+					mysqli_query($conn, "UPDATE `$device_db`.on_off_activities SET status='In-Progress..' , update_data_time='$date_time' ORDER BY date_time DESC LIMIT 1");
+					$r=  mysqli_fetch_assoc( $result );
+					$switch=$r['on_off'].":".$r['time'];
+					$data=$switch.";";
+					$len =strlen($data);
+					$length = str_pad($len, 3, '0', STR_PAD_LEFT);
+					$data=$length.";".$data;
+					$response= "CCMS=".$device_id.";".$data;
+				}
+			}
+		}
+		break;
 
-		$enable_disable = 0;
+		case "ON_OFF_MODE":
+		$sql="UPDATE `$device_db`.device_settings SET setting_flag='2' WHERE setting_type='$condtion'" ;
+		if (mysqli_query($conn, $sql)) 
+		{
+			$set_sql="SELECT * FROM `$device_db`.on_off_modes WHERE on_off_mode != 'SCHEDULE_TIME' ORDER BY id DESC LIMIT 1";
+			if (mysqli_query($conn, $set_sql)) 
+			{
+				$result = mysqli_query( $conn, $set_sql);
+				if(mysqli_num_rows($result)>0)
+				{
+					mysqli_query($conn, "UPDATE `$device_db`.on_off_modes SET status='In-Progress..' , update_data_time='$date_time' WHERE on_off_mode != 'SCHEDULE_TIME' ORDER BY date_time DESC LIMIT 1");
+					$r=  mysqli_fetch_assoc( $result );
+					$data="ON_OFF_MODE:".$r['on_off_mode'].";";
+					$len =strlen($data);
+					$length = str_pad($len, 3, '0', STR_PAD_LEFT);
+					$data=$length.";".$data;
+					$response= "CCMS=".$device_id.";".$data;
+				}
+			}
+		}
+		break;
+		case "SCHEDULE_TIME":
+		$sql="UPDATE `$device_db`.device_settings SET setting_flag='2' WHERE setting_type='$condtion'" ;
+		if (mysqli_query($conn, $sql)) 
+		{
+			$set_sql="SELECT * FROM `$device_db`.on_off_schedule_time ORDER BY id DESC LIMIT 1";
+			if (mysqli_query($conn, $set_sql)) 
+			{
+				$result = mysqli_query( $conn, $set_sql);
+				if(mysqli_num_rows($result)>0)
+				{
+					mysqli_query($conn, "UPDATE `$device_db`.on_off_modes SET status='In-Progress..' , update_data_time='$date_time' WHERE on_off_mode='SCHEDULE_TIME' ORDER BY date_time DESC LIMIT 1");
+					$r=  mysqli_fetch_assoc( $result );
+					$check_status=strtoupper($r['status']);
+					$scdl_time="";
+					$ontime=$r['on_time'];
+					$offtime=$r['off_time'];
+					$ontime=str_replace(":00","", $ontime);
+					$ontime=str_replace(":","","$ontime");
+					$offtime=str_replace(":00","", $offtime);
+					$offtime=str_replace(":","","$offtime");
 
-		$sql = "SELECT * FROM `user_notification_settings` WHERE alert_type='VOLTAGE' ORDER BY id DESC LIMIT 1";
+					$ontime = str_pad($ontime, 4, '0', STR_PAD_RIGHT);
+					$offtime = str_pad($offtime, 4, '0', STR_PAD_RIGHT);
 
+					$scdl_time="SCHDON=".$ontime.";".$offtime.";";
+
+					$data=$scdl_time;
+					$len =strlen($data);
+					$length = str_pad($len, 3, '0', STR_PAD_LEFT);
+					$data=$length.";".$data;
+					$response= "CCMS=".$device_id.";".$data;
+				}
+			}
+		}
+		break;
+		case "FRAME_TIME":
+		$sql="UPDATE `$device_db`.device_settings SET setting_flag='2' WHERE setting_type='$condtion'" ;
+		if (mysqli_query($conn, $sql)) 
+		{
+			$set_sql="SELECT * FROM `$device_db`.frame_time ORDER BY id DESC LIMIT 1";
+			if (mysqli_query($conn, $set_sql)) 
+			{
+				$result = mysqli_query( $conn, $set_sql);
+				if(mysqli_num_rows($result)>0)
+				{
+					mysqli_query($conn, "UPDATE `$device_db`.frame_time SET status='In-Progress..' , update_data_time='$date_time' ORDER BY date_time DESC LIMIT 1");
+					$r=  mysqli_fetch_assoc( $result );
+					$update_interval=(int)$r['frame_time'];
+					$data="FRAMETIME=".$update_interval.";";
+					$len =strlen($data);
+					$length = str_pad($len, 3, '0', STR_PAD_LEFT);
+					$data=$length.";".$data;
+					$response= "CCMS=".$device_id.";".$data;
+				}
+			}
+		}
+		break;
+		case "HYSTERESIS":
+		$sql="UPDATE `$device_db`.device_settings SET setting_flag='2' WHERE setting_type='$condtion'" ;
+		if (mysqli_query($conn, $sql)) 
+		{
+			$set_sql="SELECT * FROM `$device_db`.iot_hysteresis ORDER BY id DESC LIMIT 1";
+			if (mysqli_query($conn, $set_sql)) 
+			{
+				$result = mysqli_query( $conn, $set_sql);
+				if(mysqli_num_rows($result)>0)
+				{
+					mysqli_query($conn, "UPDATE `$device_db`.iot_hysteresis SET status='In-Progress..' , update_data_time='$date_time' ORDER BY date_time DESC LIMIT 1");
+					$r=  mysqli_fetch_assoc( $result );
+					$hysteresis=(int)$r['value'];
+					$data="HYST=".$hysteresis.";";
+					$len =strlen($data);
+					$length = str_pad($len, 3, '0', STR_PAD_LEFT);
+					$data=$length.";".$data;
+					$response= "CCMS=".$device_id.";".$data;
+				}
+			}
+		}
+		break;
+
+		case "LOOP_ON_OFF":
+		$sql="UPDATE `$device_db`.device_settings SET setting_flag='2' WHERE setting_type='$condtion'" ;
+		if (mysqli_query($conn, $sql)) 
+		{
+			$set_sql="SELECT * FROM `$device_db`.iot_on_off_interval ORDER BY id DESC LIMIT 1";
+			if (mysqli_query($conn, $set_sql)) 
+			{
+				$result = mysqli_query( $conn, $set_sql);
+				if(mysqli_num_rows($result)>0)
+				{
+					mysqli_query($conn, "UPDATE `$device_db`.iot_on_off_interval SET status='In-Progress..' , update_data_time='$date_time' ORDER BY date_time DESC LIMIT 1");
+					$r=  mysqli_fetch_assoc( $result );
+					$val=(int)$r['value'];
+					if($val>0)
+					{
+						$val="1;".$val;
+					}
+					else
+					{
+						$val="0;0";
+					}
+
+					$data="LOOP_ON_OFF=".$val.";";
+					$len =strlen($data);
+					$length = str_pad($len, 3, '0', STR_PAD_LEFT);
+					$data=$length.";".$data;
+					$response= "CCMS=".$device_id.";".$data;
+				}
+			}
+		}
+		break;
+		case "CALIB_VALUES":
+		$sql="UPDATE `$device_db`.device_settings SET setting_flag='2' WHERE setting_type='$condtion'" ;
+		if (mysqli_query($conn, $sql)) 
+		{
+			$set_sql="SELECT * FROM `$device_db`.iot_calibration_values ORDER BY id DESC LIMIT 1";
+			if (mysqli_query($conn, $set_sql)) 
+			{
+				$result = mysqli_query( $conn, $set_sql);
+				if(mysqli_num_rows($result)>0)
+				{
+					mysqli_query($conn, "UPDATE `$device_db`.iot_calibration_values SET status='In-Progress..' , update_data_time='$date_time' ORDER BY date_time DESC LIMIT 1");
+					$r=  mysqli_fetch_assoc( $result );
+					$calib_val=$r['frame'];
+					$data="CALIB:".$calib_val;
+					$len =strlen($data);
+					$length = str_pad($len, 3, '0', STR_PAD_LEFT);
+					$data=$length.";".$data;
+					$response= "CCMS=".$device_id.";".$data;
+				}
+			}
+		}
+		break;
+
+		case "SOFTWARE":
+		$sql="UPDATE `$device_db`.device_settings SET setting_flag='2' WHERE setting_type='$condtion'" ;
+		if (mysqli_query($conn, $sql)) 
+		{
+			$data="S_UPDATE;";
+			$len =strlen($data);
+			$length = str_pad($len, 3, '0', STR_PAD_LEFT);
+			$data=$length.";".$data;
+			$response= "CCMS=".$device_id.";".$data;					
+		}
+		break;
+		case "RESET":
+		$sql="UPDATE `$device_db`.device_settings SET setting_flag='0' WHERE setting_type='$condtion'" ;
+		if (mysqli_query($conn, $sql)) 
+		{
+			mysqli_query($conn, "UPDATE `$device_db`.iot_device_reset SET status='Updated' , update_data_time='$date_time' ORDER BY date_time DESC LIMIT 1");
+			$data="RESET=0;";
+			$len =strlen($data);
+			$length = str_pad($len, 3, '0', STR_PAD_LEFT);
+			$data=$length.";".$data;
+			$response= "CCMS=".$device_id.";".$data;					
+		}
+		break;
+		case "READ_SETTINGS":
+		$sql="UPDATE `$device_db`.device_settings SET setting_flag='0' WHERE setting_type='$condtion'" ;
+		if (mysqli_query($conn, $sql)) 
+		{
+			$data="READ_SETTINGS;";
+			$len =strlen($data);
+			$length = str_pad($len, 3, '0', STR_PAD_LEFT);
+			$data=$length.";".$data;
+			$response= "CCMS=".$device_id.";".$data;
+		}
+		break;
+
+		case "ID_CHANGE":
+		$sql = "UPDATE `$device_db`.device_settings SET setting_flag='0' WHERE setting_type='$condtion'";
 		if (mysqli_query($conn, $sql))
 		{
-
-			$result = mysqli_query($conn, $sql);
-			if (mysqli_num_rows($result) > 0)
+			$set_sql = "SELECT * FROM `$device_db`.iot_device_id_change ORDER BY id DESC LIMIT 1";
+			if (mysqli_query($conn, $set_sql))
 			{
-				$r = mysqli_fetch_assoc($result);
-				$enable_disable = $r['alert_en_dis'];
-
-			}
-		}
-		switch ($type) 
-		{
-			case "PHASEFAIL":
-			if($normal_phases=="1")
-			{
-				$phase="All Phases Normal";
-			}
-			else if($normal_phases=="0")
-			{
-				$phase="Phase Fail";
-			}
-			else
-			{
-				$phase="Phase Fail";
-			}
-
-			$sql="INSERT INTO `phase_alerts` (`device_id`, `status`, `phases`, `v_ph1`, `v_ph2`, `v_ph3`, `i_ph1`, `i_ph2`, `i_ph3`, `date_time`) VALUES ( '$deviceid', '$type', '$phase', '$v1', '$v2', '$v3', '$c1', '$c2', '$c3', '$date')" ;
-			mysqli_query($conn, $sql);
-			if($status==1)
-			{
-				$msg = "ID:".$deviceid_for_msg.", Power failure, Voltages(V): ".$v1.", TIME:".$date_sms.""; 
-				if($enable_disable==1)
-				{
-					sendsms($msg, $conn, $deviceid);  
-				}
-			}
-			else
-			{
-				$msg = "ID:".$deviceid_for_msg.", Power Resumed, Voltages(V): ".$v1.", TIME:".$date_sms.""; 
-				if($enable_disable==1)
-				{
-					sendsms($msg, $conn, $deviceid); 
-				}
-			}
-			break;
-			case "OVERLOAD":
-			if($normal_phases=="1")
-			{
-
-				$phase="Normal load on the Phase";
-			}
-			else if($normal_phases=="0")
-			{
-				$phase="Overload on the Phase";
-			}
-			else
-			{
-				$phase="Overload on the Phase";
-			}
-
-
-			$enable_disable = 0;
-
-			$sql = "SELECT * FROM `user_notification_settings` WHERE alert_type='OVERLOAD' ORDER BY id DESC LIMIT 1";
-
-			if (mysqli_query($conn, $sql))
-			{
-
-				$result = mysqli_query($conn, $sql);
+				$result = mysqli_query($conn, $set_sql);
 				if (mysqli_num_rows($result) > 0)
 				{
+					mysqli_query($conn, "UPDATE `$device_db`.iot_device_id_change SET status='Updated' , update_data_time='$date_time' ORDER BY date_time DESC LIMIT 1");
 					$r = mysqli_fetch_assoc($result);
-					$enable_disable = $r['alert_en_dis'];
-
+					$send_data = $r['new_device_id'];
+					$data = "DEVID=" . $send_data.";";
+					$len =strlen($data);
+					$length = str_pad($len, 3, '0', STR_PAD_LEFT);
+					$data=$length.";".$data;
+					$response = "CCMS=" . $device_id . ";" . $data;
 				}
 			}
-
-			$sql="INSERT INTO `phase_alerts` (`device_id`, `status`, `phases`, `v_ph1`, `v_ph2`, `v_ph3`, `i_ph1`, `i_ph2`, `i_ph3`, `date_time`) VALUES ( '$deviceid', '$type', '$phase', '$v1', '$v2', '$v3', '$c1', '$c2', '$c3', '$date')" ;
-			mysqli_query($conn, $sql); 
-			if($status==1)
-			{
-				$msg = "ID:".$deviceid_for_msg.",  Overload on the Phase, Current(A): ".$c1.", TIME:".$date_sms.""; 
-				if($enable_disable==1)
-				{
-					sendsms($msg, $conn, $deviceid); 
-				}
-			}
-			else
-			{
-				$msg = "ID:".$deviceid_for_msg.", Normal load on the Phase, Current(A): ".$c1.", TIME:".$date_sms."";   
-				if($enable_disable==1)
-				{
-					sendsms($msg, $conn, $deviceid);
-				}
-			}
-			break;
-
-			case "HIGH":
-			if($normal_phases=="1")
-			{
-				$phase="High Voltage is Resumed on the Phase";
-			}
-			else if($normal_phases=="0")
-			{
-				$phase="High Voltage on the Phase";
-			}
-			else
-			{
-				$phase="High Voltage on the Phase";
-			}
-			$sql="INSERT INTO `phase_alerts` (`device_id`, `status`, `phases`, `v_ph1`, `v_ph2`, `v_ph3`, `i_ph1`, `i_ph2`, `i_ph3`, `date_time`) VALUES ( '$deviceid', '$type Voltage', '$phase', '$v1', '$v2', '$v3', '$c1', '$c2', '$c3', '$date')" ;
-			mysqli_query($conn, $sql);
-			if($status==1)
-			{
-				$msg = "ID:".$deviceid_for_msg.", ".$phase.", Voltages(V): ".$v1.", TIME:".$date_sms."";   
-				if($enable_disable==1)
-				{
-					sendsms($msg, $conn, $deviceid);
-				}
-			}
-			else
-			{
-				$msg = "ID:".$deviceid_for_msg.", ".$phase.", Voltages(V): ".$v1.", TIME:".$date_sms."";   
-				if($enable_disable==1)
-				{
-					sendsms($msg, $conn, $deviceid);
-				}
-			}
-			break;
-
-			case "LOW":
-			if($normal_phases=="1")
-			{
-				$phase="Low Voltage is Resumed on the Phase";
-			}
-			else if($normal_phases=="0")
-			{
-				$phase="Low Voltage on the Phase";
-			}
-			else
-			{
-				$phase="Low Voltage on the Phase";
-			}
-			$sql="INSERT INTO `phase_alerts` (`device_id`, `status`, `phases`, `v_ph1`, `v_ph2`, `v_ph3`, `i_ph1`, `i_ph2`, `i_ph3`, `date_time`) VALUES ( '$deviceid', '$type Voltage', '$phase', '$v1', '$v2', '$v3', '$c1', '$c2', '$c3', '$date')" ;
-			mysqli_query($conn, $sql);
-			if($status==1)
-			{
-				$msg = "ID:".$deviceid_for_msg.", ".$phase.", Voltages(V): ".$v1.", TIME:".$date_sms."";   
-				if($enable_disable==1)
-				{
-					sendsms($msg, $conn, $deviceid);
-				}
-			}
-			else
-			{
-				$msg = "ID:".$deviceid_for_msg.", ".$phase.", Voltages(V): ".$v1.", TIME:".$date_sms."";   
-				if($enable_disable==1)
-				{
-					sendsms($msg, $conn, $deviceid);
-				}
-			}
-			break;
-
-			case "MCB":
-
-			if($status==1)
-			{
-				$sql="INSERT INTO `phase_alerts` (`device_id`, `status`, `phases`, `v_ph1`, `v_ph2`, `v_ph3`, `i_ph1`, `i_ph2`, `i_ph3`, `date_time`) VALUES ( '$deviceid', 'MCB/Contactor', 'OFF', '$v1', '$v2', '$v3', '$c1', '$c2', '$c3', '$date')" ;
-				mysqli_query($conn, $sql); 
-				$msg = "ID:".$deviceid_for_msg.", MCB/Contactor is turned OFF, TIME:".$date_sms."";   
-				if($enable_disable==1)
-				{
-					sendsms($msg, $conn, $deviceid);
-				}
-			}
-			else
-			{
-				$sql="INSERT INTO `phase_alerts` (`device_id`, `status`, `phases`, `v_ph1`, `v_ph2`, `v_ph3`, `i_ph1`, `i_ph2`, `i_ph3`, `date_time`) VALUES ( '$deviceid', 'MCB/Contactor', 'ON', '$v1', '$v2', '$v3', '$c1', '$c2', '$c3', '$date')" ;
-				mysqli_query($conn, $sql);
-				$msg = "ID:".$deviceid_for_msg.", MCB/Contactor is turned ON, TIME:".$date_sms."";   
-				if($enable_disable==1)
-				{
-					sendsms($msg, $conn, $deviceid);
-				}
-			}
-			break;
-			default:
-			return "ERROR";
 		}
+		break;
+
+		case "SERIAL_ID":
+		$sql = "UPDATE `$device_db`.device_settings SET setting_flag='2' WHERE setting_type='$condtion'";
+		if (mysqli_query($conn, $sql))
+		{
+			$set_sql = "SELECT * FROM `$device_db`.iot_serial_id_change ORDER BY id DESC LIMIT 1";
+			if (mysqli_query($conn, $set_sql))
+			{
+				$result = mysqli_query($conn, $set_sql);
+				if (mysqli_num_rows($result) > 0)
+				{
+					mysqli_query($conn, "UPDATE `$device_db`.iot_serial_id_change SET status='In-Progress..' , update_data_time='$date_time' ORDER BY date_time DESC LIMIT 1");
+					$r = mysqli_fetch_assoc($result);
+					$send_data = $r['serial_id'];
+					$data = "SNO=" . $send_data.";";
+					$len =strlen($data);
+					$length = str_pad($len, 3, '0', STR_PAD_LEFT);
+					$data=$length.";".$data;
+					$response = "CCMS=" . $device_id . ";" . $data;
+				}
+			}
+		}
+		break;
+
+		case "ENERGY_RESET":
+		$sql = "UPDATE `$device_db`.device_settings SET setting_flag='2' WHERE setting_type='$condtion'";
+		if (mysqli_query($conn, $sql))
+		{
+			$set_sql = "SELECT * FROM `$device_db`.iot_reset_energy ORDER BY id DESC LIMIT 1";
+			if (mysqli_query($conn, $set_sql))
+			{
+				$result = mysqli_query($conn, $set_sql);
+				if (mysqli_num_rows($result) > 0)
+				{
+					mysqli_query($conn, "UPDATE `$device_db`.iot_reset_energy SET status='In-Progress..' , update_data_time='$date_time' ORDER BY date_time DESC LIMIT 1");
+					$r = mysqli_fetch_assoc($result);
+					$kwh = $r['kwh'];  
+					$kvah = $r['kvah'];
+					$data = "ECLR=" . $kwh.";". $kvah.";";
+					$len =strlen($data);
+					$length = str_pad($len, 3, '0', STR_PAD_LEFT);
+					$data=$length.";".$data;
+					$response = "CCMS=" . $device_id . ";" . $data;
+				}
+			}
+		}
+		break;
+
+
+		case "WIFI_CREDENTIALS":
+		$sql = "UPDATE `$device_db`.device_settings SET setting_flag='2' WHERE setting_type='$condtion'";
+		if (mysqli_query($conn, $sql))
+		{
+			$set_sql = "SELECT * FROM `$device_db`.iot_wifi_credentials ORDER BY id DESC LIMIT 1";
+			if (mysqli_query($conn, $set_sql))
+			{
+				$result = mysqli_query($conn, $set_sql);
+				if (mysqli_num_rows($result) > 0)
+				{
+					mysqli_query($conn, "UPDATE `$device_db`.iot_wifi_credentials SET status='In-Progress..' , update_data_time='$date_time' ORDER BY date_time DESC LIMIT 1");
+					$r = mysqli_fetch_assoc($result);
+					$access_point_name = $r['ssid'];  
+					$pwd = $r['password'];
+					$data = "WIFI=" . $access_point_name.";PWD=". $pwd.";";
+					$len =strlen($data);
+					$length = str_pad($len, 3, '0', STR_PAD_LEFT);
+					$data=$length.";".$data;
+					$response = "CCMS=" . $device_id . ";" . $data;
+				}
+			}
+		}
+		break;
+		case "NA":
+		$response = "No Data";
+		break;
+		default:
+		$response= "No Data";
+
 	}
-	/////////////////////////////////////Input Supply(Modules) Alert Failure Alert ////////////////////////////
-	function supply_alert($deviceid, $type, $phase, $conn, $status,$v1,$v2,$v3,$c1,$c2,$c3,$date)
+
+	return $response;
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////// INPUT POWER FAIL/ RESUME Alert   //////////////////////////////
+function ip_power_smps_status_update($conn, $deviceid, $status, $voltage, $date)
+{
+	global $device_id;
+	global $device_db;
+	global $conn;
+
+	date_default_timezone_set('Asia/Kolkata');
+	$string = str_replace('/', '-', $date);
+	$date_new = date_create($string);
+	$date = @date_format($date_new, "Y/m/d H:i:s");
+
+	$BSF_alert = "";
+
+	$device_name = $deviceid;
+	$device_name = get_name();
+	$deviceid_for_msg = check_name($device_name);
+
+	$send_msg = false;
+	$msg = "";
+	
+
+	if ($status == "1")
 	{
-		$string = str_replace('/', '-', $date);
-		$date_new=date_create($string);
-		$date =@date_format($date_new,"Y/m/d H:i:s");
-		if( !strlen($date))
-		{
+		$send_msg = true;
+		$update_sql = "INSERT INTO `$device_db`.`alert_power_supply_check` (`ps_status`, `battery_voltage`, `date_time`) VALUES ('Power Disconnected', '$voltage', '$date');";
+		mysqli_query($conn, $update_sql);
 
-			$date=date("Y-m-d H:i:s");
-		}
-		$msg="";
-		$store_msg="";
-		$date_sms =date_format(date_create($date),"H:i:s d/m/Y ");
-		if($status==1)
-		{
-			$msg="ID:".$deviceid." Input Power Supply OFF TIME:".$date_sms;
-			$store_msg="POWER SUPPLY OFF";
-		}
-		else if($status==0)
-		{
-			$msg="ID:".$deviceid." Input Power Supply ON TIME:".$date_sms;
-			$store_msg="POWER SUPPLY ON";
-		}
+		$update_sql = "INSERT INTO `$device_db`.`alert_power_failure` (`device_id`, `status`, `battery_voltage`, `date_time`) VALUES ('$device_id', 'Power Disconnected', '$voltage', '$date');";
+		mysqli_query($conn, $update_sql);
 
-		$date=date("Y-m-d H:i:s");
-		$sql="INSERT INTO `power_supply_alert` (`device_id`, `mobile_number`, `message`, `date_time`) VALUES ( '$deviceid','NA','$store_msg','$date')";
 
-		mysqli_query($conn, $sql);
-
-		sendsms($msg, $conn, $deviceid );
+		$msg = "ID:" . $deviceid_for_msg . " - Power Failure detected at: " . $date;
 	}
-
-///////////////////////////////////// Electric Power Alert  ////////////////////////////
-
-	function power_supply_alert($deviceid, $conn, $status, $volts , $date)
+	else if ($status == "2")
 	{
+		$send_msg = true;
+		$update_sql = "INSERT INTO `$device_db`.`alert_power_supply_check` (`ps_status`, `battery_voltage`, `date_time`) VALUES ('Power Restored', '$voltage', '$date');";
 
-		$string = str_replace('/', '-', $date);
-		$date_new=date_create($string);
-		$date =@date_format($date_new,"Y/m/d H:i:s");
-		$BSF_alert="";
-		$pf_status="";
-		$ps_query = mysqli_query( $conn, "SELECT * FROM `alert_power_supply_check` ORDER BY id DESC lIMIT 1");
-		if( mysqli_num_rows($ps_query) > 0) 
-		{
-			$r=  mysqli_fetch_assoc( $ps_query );
-			$pf_status=$r['ps_status']; 
-		}
-		$device_name=$deviceid;
-		$device_name = get_name($deviceid, $conn);
-		$deviceid_for_msg="";
-		if($deviceid!=$device_name)
-		{
-			$deviceid_for_msg=$deviceid."(". $device_name.")";
-		}
-		else
-		{
-			$deviceid_for_msg=$deviceid;
-		}
-		if($status=="2")
-		{ 
-			$BSF_alert="Power Supply ON (".$volts." mV)";
-			if($pf_status==="OFF")
-			{
-				mysqli_query($conn, "INSERT INTO `alert_power_supply` (`device_id`, `mobile_number`, `message`, `date_time`) VALUES ('$deviceid', '', '".$BSF_alert."', '".$date."')");
-			}
+		$update_sql = "INSERT INTO `$device_db`.`alert_power_failure` (`device_id`, `status`, `battery_voltage`, `date_time`) VALUES ('$device_id', 'Power Restored', '$voltage', '$date');";
 
-			$update_sql=	"INSERT INTO `alert_power_supply_check` ( `ps_status`, `battery_voltage`, `date_time`) VALUES ( 'ON', '$volts', '$date');";
-
-			$date_msg=date("H:i:s d-m-Y", strtotime($date));
-			$msg = "ID:".$deviceid_for_msg." Power Resumed TIME:".$date_msg."";   
-			sendsms($msg, $conn, $deviceid);
-		}
-		else if($status=="3")
-		{
-			$BSF_alert="Power Supply OFF(".$volts." mV)";
-			$SUBJECT="Power Supply Alert of ".$deviceid;
-			$emial_send= "swamy@istlabs.in,sampath@istlabs.in";
-			//$emial_send= "thirupathi818@gmail.com";
-			$msg="The 12V Power Supply has been failed in the Device ID = ".$deviceid;
-			//send_email_alert($emial_send, $msg, $SUBJECT);
-			if($pf_status==="ON")
-			{
-				mysqli_query($conn, "INSERT INTO `alert_power_supply` (`device_id`, `mobile_number`, `message`, `date_time`) VALUES ('$deviceid', '', '".$BSF_alert."', '".$date."')");
-			}
-			$update_sql=	"INSERT INTO `alert_power_supply_check` ( `ps_status`, `battery_voltage`, `date_time`) VALUES ( 'OFF', '$volts', '$date');";
-			$date_msg=date("H:i:s d-m-Y", strtotime($date));
-			$msg = "ID:".$deviceid_for_msg." Power Failure TIME:".$date_msg."";   
-			sendsms($msg, $conn, $deviceid);
-		}
-		mysqli_query($conn,$update_sql);
+		mysqli_query($conn, $update_sql);
+		$msg = "ID:" . $deviceid_for_msg . " - Power Restored at: " . $date;
 	}
+
+	else if ($status == "3")
+	{
+		$send_alert_msg = " SMPS-1 Failure (" . $voltage . " mV)";
+		$msg = "SMPS-1 Failure detected in Device :" . $deviceid;
+
+		mysqli_query($conn, "INSERT INTO `$device_db`.`smps_status`(`device_id`, `smps`, `smps_status`, `date_time`) VALUES ('$deviceid', 'SMPS_1', 'FAIL', '$date')");
+	}
+	else if ($status == "4")
+	{
+		$send_alert_msg = " SMPS-1 Restored (" . $voltage . " mV)";
+		$msg = "SMPS-1 Power restored in Device :" . $deviceid;
+
+		mysqli_query($conn, "INSERT INTO `$device_db`.`smps_status`(`device_id`, `smps`, `smps_status`, `date_time`) VALUES ('$deviceid', 'SMPS_1', 'RESTORED', '$date')");
+	}
+	else if ($status == "5")
+	{
+		$send_alert_msg = " SMPS-2 Failure (" . $voltage . " mV)";
+		$msg = "SMPS-2 Failure detected in Device :" . $deviceid;
+
+		mysqli_query($conn, "INSERT INTO `$device_db`.`smps_status`(`device_id`, `smps`, `smps_status`, `date_time`) VALUES ('$deviceid', 'SMPS_2', 'FAIL', '$date')");
+	}
+	else if ($status == "6")
+	{
+		$send_alert_msg = " SMPS-2 Restored (" . $voltage . " mV)";
+		$msg = "SMPS-2 Power restored in Device :" . $deviceid;
+
+		mysqli_query($conn, "INSERT INTO `$device_db`.`smps_status`(`device_id`, `smps`, `smps_status`, `date_time`) VALUES ('$deviceid', 'SMPS_2', 'RESTORED', '$date')");
+	}
+	else if ($status == "7")
+	{
+		$send_alert_msg = " SMPS-1 & SMPS-2 Failure (" . $voltage . " mV)";
+		$msg = "SMPS-1 & SMPS-2 Failure detected in Device :" . $deviceid;
+
+		mysqli_query($conn, "INSERT INTO `$device_db`.`smps_status`(`device_id`, `smps`, `smps_status`, `date_time`) VALUES ('$deviceid', 'SMPS_1', 'FAIL', '$date')");
+		mysqli_query($conn, "INSERT INTO `$device_db`.`smps_status`(`device_id`, `smps`, `smps_status`, `date_time`) VALUES ('$deviceid', 'SMPS_2', 'FAIL', '$date')");
+	}
+	else if ($status == "8")
+	{
+		$send_alert_msg = " SMPS-1 & SMPS-2 Restored (" . $voltage . " mV)";
+		$msg = "SMPS-1 & SMPS-2 Power restored in Device :" . $deviceid;
+
+		mysqli_query($conn, "INSERT INTO `$device_db`.`smps_status`(`device_id`, `smps`, `smps_status`, `date_time`) VALUES ('$deviceid', 'SMPS_1', 'RESTORED', '$date')");
+		mysqli_query($conn, "INSERT INTO `$device_db`.`smps_status`(`device_id`, `smps`, `smps_status`, `date_time`) VALUES ('$deviceid', 'SMPS_2', 'RESTORED', '$date')");
+	}
+
+	
+	if($send_msg == true)
+	{ 
+		sendMessage($msg, "power_fail");
+	}
+	messageSaveInCentralTable("SMPS", $deviceid_for_msg, $msg, $date);
+	messageSaveInDeviceTable("SMPS", $deviceid_for_msg, $msg, $date);
+
+}
 
 //////////////////////////////////// SMS Sending  message      ///////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 
-	function sendsms($msg, $conn, $device_id)
-	{
+function sendMessage($msg, $check_alert_status)
+{
+	global $device_id;
+	global $device_db;
+	global $conn;
+	global $user_db;
+	global $msgSentConfirm;
+	$msgSentConfirm=false;
+	try {
+		$check_status=0;
+		$sql ="";
+		
+		$sql = "SELECT $check_alert_status  FROM `$device_db`.notification_updates ORDER BY id DESC LIMIT 1";
+		
+		$stmt = mysqli_prepare($conn, $sql);
+		if ($stmt) {
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_bind_result($stmt, $check_status);
+			mysqli_stmt_fetch($stmt);
+			mysqli_stmt_close($stmt);
+		} 
 
+	} catch (Exception $e) {
+
+	}
+	if($check_status)
+	{
 		date_default_timezone_set('Asia/Kolkata');
 		$date = date("Y-m-d H:i:s");
-
-        /////////////////////////////////////////////////////////////
 		try
 		{
-
 			$d_location = "";
 			$update_link = "";
-
-			$sql_loc = "SELECT  location FROM frame_data where location !='000000000,0000000000' AND location !=',' ORDER BY id DESC LIMIT 1";
+			$sql_loc = "SELECT location FROM `$device_db`.`live_data` WHERE location !='000000000,0000000000' AND location !=',' ORDER BY id DESC LIMIT 1";
 			if (mysqli_query($conn, $sql_loc))
 			{
 				$result_loc = mysqli_query($conn, $sql_loc);
@@ -1222,9 +1189,7 @@ $data="SPMS_108;REPORT;ON EVENT;240:5;2024/10/24 17:08:00;";
 				{
 					try
 					{
-
 						$coordinate = $co_array[0];
-
 						$array_split = explode('.', $coordinate);
 						$deg = (int)($array_split[0] / 100);
 						$time = ((float)$coordinate - $deg * 100) / 60;
@@ -1255,7 +1220,6 @@ $data="SPMS_108;REPORT;ON EVENT;240:5;2024/10/24 17:08:00;";
 				else
 				{
 					$update_link = "http://maps.google.com/?q=" . $coordinates;
-
 				}
 
 				if ($update_link != "")
@@ -1268,122 +1232,40 @@ $data="SPMS_108;REPORT;ON EVENT;240:5;2024/10/24 17:08:00;";
 				}
 			}
 
-		}
-		catch(Exception $e)
-		{
-
-		}
-
-        /////////////////////////////////////////////////////
-		$sql = "INSERT INTO `message` (`device_id`, `mobile_number`, `message`, `date_time`) VALUES ( '$device_id','--','$msg','$date')";
-		if (mysqli_query($conn, $sql))
-		{
 			$msg = str_replace("&", "and", $msg);
 			$msg = str_replace("High", "high", $msg);
 			$msg = str_replace("HIGH", "high", $msg);
 			$msg = str_replace("Voltage", "voltage", $msg);
 
 			$chat_id = "";
-			$conn1 = mysqli_connect(HOST, USERNAME, PASSWORD, DB1);
-			if (!$conn1)
+			$sql = "SELECT * FROM `$user_db`.`telegram_groups_new` WHERE id in (SELECT group_id FROM `$user_db`.`telegram_groups_devices` WHERE device_id='$device_id')";
+			if (mysqli_query($conn, $sql))
 			{
-				die("Connection failed");
-			}
-			else
-			{
-				$sql = "SELECT * FROM `telegram_groups_new` WHERE id in (SELECT group_id FROM `telegram_groups_devices` WHERE device_id='$device_id')";
-				if (mysqli_query($conn1, $sql))
+				$result = mysqli_query($conn, $sql);
+				if (mysqli_num_rows($result) > 0)
 				{
-
-					$result = mysqli_query($conn1, $sql);
-					if (mysqli_num_rows($result) > 0)
+					while ($r = mysqli_fetch_assoc($result))
 					{
-						while ($r = mysqli_fetch_assoc($result))
+						$chat_id = $r['chat_id'];
+						$token = $r['token'];
+						if ($chat_id != "" && $token != "")
 						{
-							$chat_id = $r['chat_id'];
-							$token = $r['token'];
-							if ($chat_id != "" && $token != "")
-							{
-								$TG_ALERT_URL = 'https://api.telegram.org/' . $token . '/sendMessage?chat_id=' . $chat_id . '&text=' . $msg;
-								file_get_contents($TG_ALERT_URL);
-							}
+							$TG_ALERT_URL = 'https://api.telegram.org/' . $token . '/sendMessage?chat_id=' . $chat_id . '&text=' . $msg;
+							file_get_contents($TG_ALERT_URL);
+							$msgSentConfirm=true;
+
 						}
 					}
 				}
-
-				mysqli_close($conn1);
 			}
 		}
-	}
-
-
-	function update_ping($deviceid, $conn)
-	{
-		try{
-
-			$date_time=date("Y-m-d H:i:s");
-
-			mysqli_query($conn,"INSERT INTO communication_check ( `device_id`, `date_time`) VALUES('$deviceid', '$date_time') ON DUPLICATE KEY UPDATE device_id='$deviceid', date_time='$date_time'");
-
-		}catch(exeption $e)
-		{
-		}
-
-	}
-
-	function update($deviceid){
-
-		$date_time=date("Y-m-d H:i:s");
-		$time=date("H:i:s");
-		$date= date("Y-m-d ");
-		try{
-			$log_conn =  mysqli_connect(HOST,USERNAME,PASSWORD,DB2);
-			if (!$log_conn) 
-			{
-				die("Connection failed: ");
-			}
-			else
-			{
-				mysqli_query($log_conn,"INSERT INTO devices ( `device`, `status`) VALUES('$deviceid', '1') ON DUPLICATE KEY UPDATE device='$deviceid', status='1'");
-
-				$sql="INSERT INTO device_logs ( `device_id`, `time`, `date`, `date_time`, `notification_flag`) VALUES('$deviceid', '$time', '$date', '$date_time', '0') ON DUPLICATE KEY UPDATE device_id='$deviceid', `time`='$time', `date`='$date', `date_time` = '$date_time', `notification_flag`='0'";
-				mysqli_query($log_conn, $sql);
-
-				mysqli_close($log_conn);
-			}
-		}
-		catch(exeption $e)
-		{
-		}
-	}
-	function store_data($data, $conn)
-	{
-		try {
-
-			$date=date("Y-m-d H:i:s");
-			mysqli_query( $conn, "INSERT INTO `check_main_frame` ( `frame_type`,`frame`, `date_time`) VALUES ('REQUEST','".$data."', '".$date."')");
-		} catch (Exception $e) {
-		}
-	}
-
-	function get_name($device_name, $conn)
-	{
-
-		$sql = "SELECT * FROM `device_name` ORDER BY id DESC lIMIT 1";
-		if (mysqli_query($conn, $sql))
+		catch(Exception $e)
 		{
 
-			$result = mysqli_query($conn, $sql);
-			if (mysqli_num_rows($result) > 0)
-			{
-				while ($r = mysqli_fetch_assoc($result))
-				{
-					$device_name = $r['device_name'];
-				}
-			}
 		}
-		return $device_name;
-
 	}
+}
 
-	?>
+
+?>
+

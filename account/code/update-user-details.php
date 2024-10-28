@@ -462,7 +462,7 @@ else if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['UPDATE'] === "NEW_USER"
 
                     if (mysqli_stmt_execute($stmt)) {
                         
-                        mysqli_query($conn, "INSERT INTO `menu_permissions_list` (`login_id`) VALUES (SELECT id FROM login_details order by id limit 1)");
+                        mysqli_query($conn, "mysqli_query($conn, "INSERT INTO `menu_permissions_list` (`login_id`) VALUES ((SELECT id FROM login_details ORDER BY id DESC LIMIT 1))");");
                         $response['status'] = 'success';
                         $response['message'] = "Account created successfully.";
                     } else {

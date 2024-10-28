@@ -20,7 +20,7 @@ class SessionManager {
             $login_path = $_SESSION['client'];
             $login_path_vrsn = $_SESSION['client_login'];
             $path="";
-            if($login_path!="ISTL")
+            if(strtolower($login_path)!=strtolower("ISTL"))
             {
                 $path=BASE_PATH.$login_path."/"; 
             }      

@@ -16,6 +16,7 @@
                         <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
                         <label for="password">Password</label>
                         <button class="position-absolute top-50 end-0 translate-middle-y border-0 z-1 me-1" type="button" id="togglePassword"><i class="bi bi-eye"></i></button>
+                        
                     </div>
                     <div class="d-flex justify-content-center">
                         <button class="btn btn-primary w-50" type="submit">Login</button>
@@ -24,7 +25,7 @@
 
             </form>
             <div class="d-flex justify-content-center col-12 mt-2 ">
-                <span class="text-danger font-small"><?php echo $login_error;   ?></span>
+                <span class="text-danger"><?php echo $login_error;   ?></span>
             </div>
             <div class="d-flex justify-content-center mt-1">
                 <a href="#" id="open_fp_model" class="nav-link text-primary ">Forgot your password?</a>

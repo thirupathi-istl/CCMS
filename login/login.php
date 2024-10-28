@@ -105,6 +105,7 @@ if($credentials_check)
 					}
 				} else {
 					if ($role == "SUPERADMIN" || $role == "ADMIN") {
+                    	fetch_menu_permissions($login_id, $conn);
 						header("location:device-list.php");
 						exit();
 					} else {
@@ -126,8 +127,8 @@ if($credentials_check)
 			mysqli_stmt_close($stmt);
 
 			//$sql_group_list = "SELECT `device_group_or_area` AS `group_list` FROM device_list_by_group WHERE login_id = ? GROUP BY device_group_or_area ORDER BY device_group_or_area";
-		echo 	$sql_group_list = "SELECT `$group_by_column` AS `group_list`  FROM device_list_by_group  WHERE login_id = ?  GROUP BY `$group_by_column` ORDER BY `$group_by_column`";
-		echo "\n";
+		$sql_group_list = "SELECT `$group_by_column` AS `group_list`  FROM device_list_by_group  WHERE login_id = ?  GROUP BY `$group_by_column` ORDER BY `$group_by_column`";
+		
 
 			$stmt = mysqli_prepare($conn, $sql_group_list);
 			mysqli_stmt_bind_param($stmt, "i", $login_id);
@@ -148,7 +149,7 @@ if($credentials_check)
 				$_SESSION["login_time_stamp"] = time();
 
 				
-				fetch_menu_permissions($user_id, $conn);
+				fetch_menu_permissions($login_id, $conn);
 				mysqli_close($conn);
 				if($login_path=="0")
 				{
@@ -171,9 +172,9 @@ if($credentials_check)
 mysqli_close($conn);
 
 
-function fetch_menu_permissions($user_id, $conn)
+function fetch_menu_permissions($login_id, $conn)
 {
-	$sql = "SELECT * FROM `menu_permissions_list` WHERE login_id='$user_id'";
+	$sql = "SELECT * FROM `menu_permissions_list` WHERE login_id='$login_id'";
 	$result = mysqli_query($conn, $sql);
 	$permissions = "";
 	if ($result) {
